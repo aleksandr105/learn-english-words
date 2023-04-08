@@ -1,7 +1,16 @@
 import { Wrapper } from "./App.styled";
+import Button from "@mui/material/Button";
+import { Header } from "../Header/Header";
 
 const App = () => {
-  return <Wrapper className="App">hello world</Wrapper>;
+  return (
+    <>
+      <Header />
+      <Wrapper className="App">
+        <Button variant="contained">Hello World</Button>
+      </Wrapper>
+    </>
+  );
 };
 
 export default App;
