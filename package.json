@@ -2,7 +2,6 @@
   "name": "learn-english-words",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://aleksandr105.github.io/learn-english-words/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

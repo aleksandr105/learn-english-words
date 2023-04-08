@@ -13,4 +13,6 @@ const App = () => {
   );
 };
 
+// "homepage": "https://aleksandr105.github.io/learn-english-words/",
+
 export default App;
