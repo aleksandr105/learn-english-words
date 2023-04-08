@@ -5,5 +5,9 @@ export const Wrapper = styled.div`
   width: 250px;
   text-align: center;
   margin: 50px auto 0px auto;
+<<<<<<< HEAD
   background-color: red;
+=======
+  background-color: blue;
+>>>>>>> parent of 208f0a7 (test)
 `;
