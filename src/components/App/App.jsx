@@ -1,18 +1,18 @@
-import { Wrapper } from "./App.styled";
-import Button from "@mui/material/Button";
+import { Title } from "./App.styled";
 import { Header } from "../Header/Header";
+import { List } from "../List/List";
+import { Container } from "@mui/material";
 
 const App = () => {
   return (
     <>
       <Header />
-      <Wrapper className="App">
-        <Button variant="contained">Hello World</Button>
-      </Wrapper>
+      <Container>
+        <Title>Learn english words</Title>
+      </Container>
+      <List />
     </>
   );
 };
-
-// "homepage": "https://aleksandr105.github.io/learn-english-words/",
 
 export default App;

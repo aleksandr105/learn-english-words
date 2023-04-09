@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.div`
-  font-size: 40px;
-  width: 250px;
+export const Title = styled.h1`
   text-align: center;
-  margin: 50px auto 0px auto;
-<<<<<<< HEAD
-  background-color: red;
-=======
-  background-color: blue;
->>>>>>> parent of 208f0a7 (test)
+  color: #00f;
+  text-transform: uppercase;
+  background-color: #5f5;
+  padding: 6px 6px 0 6px;
+  max-width: 380px;
+  border-radius: 30px;
+  margin: 30px auto 40px auto;
+  font-family: "Alkatra";
 `;
