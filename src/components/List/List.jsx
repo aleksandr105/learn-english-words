@@ -11,7 +11,7 @@ import {
   SelectWrapper,
 } from "./List.styled";
 
-// import { useSpeechSynthesis } from "react-speech-kit";
+import useTextToSpeech from "react-hook-text-to-speech";
 
 export const List = () => {
   const [speedVoce, setSpeedVoce] = useState(1);
@@ -33,13 +33,12 @@ export const List = () => {
     };
   }, []);
 
-  // const { speak, voices } = useSpeechSynthesis();
+  const convert = useTextToSpeech();
 
   const clickButton = (e) => {
     const wordValue = e.target.textContent;
 
-    // if (wordsEn.includes(wordValue))
-    //   speak({ text: wordValue, voice: voices[5], rate: speedVoce });
+    if (wordsEn.includes(wordValue)) convert(wordValue, speedVoce);
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
@@ -49,11 +48,23 @@ export const List = () => {
     setWordClick(wordValue);
 
     if (wordValue === db[wordClick] || db[wordValue] === wordClick) {
-      setWordesEn(wordsEn.filter((el) => el !== wordClick && el !== wordValue));
-      setWordsTranslation(
-        wordsTranslation.filter((el) => el !== wordClick && el !== wordValue)
+      const wordsEnFiltered = wordsEn.filter(
+        (el) => el !== wordClick && el !== wordValue
       );
+      const wordsTranslationFiltered = wordsTranslation.filter(
+        (el) => el !== wordClick && el !== wordValue
+      );
+      setWordesEn(wordsEnFiltered);
+      setWordsTranslation(wordsTranslationFiltered);
+
       setWordClick("");
+
+      if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
+        alert("Ты красава все сделал правильно, я горжусь тобой!!!");
+        setWordesEn(Object.keys(db).sort(() => Math.random() - 0.5));
+
+        setWordsTranslation(Object.values(db).sort(() => Math.random() - 0.5));
+      }
       return;
     } else if (wordClick !== "" && !withList) {
       alert(

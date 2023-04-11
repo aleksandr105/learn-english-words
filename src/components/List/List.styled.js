@@ -50,5 +50,4 @@ export const SelectTitle = styled.span`
   font-weight: 500;
   color: #00f;
   margin-right: 5px;
-  margin-left: auto;
 `;
