@@ -6,9 +6,15 @@ import {
   FlexContainer,
   ListButton,
   ListButtomItem,
+  Select,
+  SelectTitle,
+  SelectWrapper,
 } from "./List.styled";
 
+import { useSpeechSynthesis } from "react-speech-kit";
+
 export const List = () => {
+  const [speedVoce, setSpeedVoce] = useState(1);
   const [wordClick, setWordClick] = useState("");
   const [wordsEn, setWordesEn] = useState(
     Object.keys(db).sort(() => Math.random() - 0.5)
@@ -27,8 +33,13 @@ export const List = () => {
     };
   }, []);
 
+  const { speak, voices } = useSpeechSynthesis();
+
   const clickButton = (e) => {
     const wordValue = e.target.textContent;
+
+    if (wordsEn.includes(wordValue))
+      speak({ text: wordValue, voice: voices[5], rate: speedVoce });
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
@@ -46,7 +57,11 @@ export const List = () => {
       return;
     } else if (wordClick !== "" && !withList) {
       alert(
-        "Ты ошибся и за это будешь наказан :-)). Тебе придеться начать заново"
+        `Ты ошибся слово "${
+          wordsEn.includes(wordClick) ? wordClick : wordValue
+        }" переводиться как "${
+          db[wordsEn.includes(wordClick) ? wordClick : wordValue]
+        }" за ошибку будешь наказан :-)). Тебе придеться начать заново`
       );
       setWordesEn(Object.keys(db).sort(() => Math.random() - 0.5));
 
@@ -57,6 +72,14 @@ export const List = () => {
 
   return (
     <Container>
+      <SelectWrapper>
+        <SelectTitle>Скорость речи</SelectTitle>
+        <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
+          <option value="1">Быстро</option>
+          <option value="0.5">Средне</option>
+          <option value="0.2">Медленно</option>
+        </Select>
+      </SelectWrapper>
       <FlexContainer>
         <ListButton>
           {wordsEn.map((el) => {

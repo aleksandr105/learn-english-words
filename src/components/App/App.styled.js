@@ -8,6 +8,6 @@ export const Title = styled.h1`
   padding: 6px 6px 0 6px;
   max-width: 380px;
   border-radius: 30px;
-  margin: 30px auto 40px auto;
+  margin: 30px auto 30px auto;
   font-family: "Alkatra";
 `;

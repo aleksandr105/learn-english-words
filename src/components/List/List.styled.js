@@ -30,3 +30,25 @@ export const EnButton = styled(Button)`
   width: 100%;
   font-weight: 700;
 `;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const Select = styled.select`
+  border-radius: 5px;
+  background-color: #5f5;
+  color: #00f;
+  font-weight: 500;
+  border: none;
+`;
+
+export const SelectTitle = styled.span`
+  font-weight: 500;
+  color: #00f;
+  margin-right: 5px;
+  margin-left: auto;
+`;
