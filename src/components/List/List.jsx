@@ -61,7 +61,7 @@ export const List = () => {
           wordsEn.includes(wordClick) ? wordClick : wordValue
         }" переводиться как "${
           db[wordsEn.includes(wordClick) ? wordClick : wordValue]
-        }" за ошибку будешь наказан :-)). Тебе придеться начать заново`
+        }" за ошибку будешь наказан :-)). Тебе придеться начать заново!!!`
       );
       setWordesEn(Object.keys(db).sort(() => Math.random() - 0.5));
 
