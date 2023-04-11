@@ -11,7 +11,7 @@ import {
   SelectWrapper,
 } from "./List.styled";
 
-import { useSpeechSynthesis } from "react-speech-kit";
+// import { useSpeechSynthesis } from "react-speech-kit";
 
 export const List = () => {
   const [speedVoce, setSpeedVoce] = useState(1);
@@ -33,13 +33,13 @@ export const List = () => {
     };
   }, []);
 
-  const { speak, voices } = useSpeechSynthesis();
+  // const { speak, voices } = useSpeechSynthesis();
 
   const clickButton = (e) => {
     const wordValue = e.target.textContent;
 
-    if (wordsEn.includes(wordValue))
-      speak({ text: wordValue, voice: voices[5], rate: speedVoce });
+    // if (wordsEn.includes(wordValue))
+    //   speak({ text: wordValue, voice: voices[5], rate: speedVoce });
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
