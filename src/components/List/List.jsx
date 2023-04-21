@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Container } from "@mui/material";
 import db from "../../db.json";
 import {
   EnButton,
@@ -70,9 +69,9 @@ export const List = () => {
       alert(
         `Ты ошибся слово "${
           wordsEn.includes(wordClick) ? wordClick : wordValue
-        }" переводиться как "${
+        }" переводится как "${
           db[wordsEn.includes(wordClick) ? wordClick : wordValue]
-        }" за ошибку будешь наказан :-)). Тебе придеться начать заново!!!`
+        }" за ошибку будешь наказан :-)). Тебе придется начать заново!!!`
       );
       setWordesEn(Object.keys(db).sort(() => Math.random() - 0.5));
 
@@ -82,7 +81,7 @@ export const List = () => {
   };
 
   return (
-    <Container>
+    <>
       <SelectWrapper>
         <SelectTitle>Скорость речи</SelectTitle>
         <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
@@ -123,6 +122,6 @@ export const List = () => {
           })}
         </ListButton>
       </FlexContainer>
-    </Container>
+    </>
   );
 };
