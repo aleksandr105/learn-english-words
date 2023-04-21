@@ -72,7 +72,7 @@ export const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} sx={{ p: 0 }} onClick={handleCloseNavMenu}>
-                  <NavMobile to={page.toLowerCase()}>
+                  <NavMobile to={page === "Home" ? "/" : page.toLowerCase()}>
                     <Typography textAlign="center" sx={{ fontWeight: 500 }}>
                       {page}
                     </Typography>
@@ -88,7 +88,10 @@ export const Header = () => {
             <NavList>
               {pages.map((page) => (
                 <li key={page}>
-                  <Nav to={page.toLowerCase()} onClick={handleCloseNavMenu}>
+                  <Nav
+                    to={page === "Home" ? "/" : page.toLowerCase()}
+                    onClick={handleCloseNavMenu}
+                  >
                     {page}
                   </Nav>
                 </li>
