@@ -31,7 +31,7 @@ export const Header = () => {
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to="home">
+          <Link to="/">
             <Logo>
               <use href={`${logo}#icon-logo`}></use>
             </Logo>
@@ -83,7 +83,7 @@ export const Header = () => {
           </Box>
           <Box
             component="nav"
-            sx={{ display: { xs: "none", md: "flex" }, ml: 3 }}
+            sx={{ display: { xs: "none", md: "flex" }, ml: 5 }}
           >
             <NavList>
               {pages.map((page) => (
