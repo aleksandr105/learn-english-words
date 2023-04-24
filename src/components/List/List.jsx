@@ -8,31 +8,22 @@ import {
   SelectTitle,
   SelectWrapper,
 } from "./List.styled";
+import { useSelector } from "react-redux";
+import { words } from "../../redux/selectors";
+import { useDispatch } from "react-redux";
+import { getWords } from "../../redux/words/operationsWords";
 
 import useTextToSpeech from "react-hook-text-to-speech";
 
 export const List = () => {
+  const dispatch = useDispatch();
+  const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const [speedVoce, setSpeedVoce] = useState(1);
   const [wordClick, setWordClick] = useState("");
-  const [wordsEn, setWordesEn] = useState([]);
-  const [wordsTranslation, setWordsTranslation] = useState([]);
-  const [db, setDb] = useState([]);
+  const [wordsEn, setWordesEn] = useState(arrKey);
+  const [wordsTranslation, setWordsTranslation] = useState(arrValue);
+
   useEffect(() => {
-    //////////
-    fetch("https://learn-english-words-api.onrender.com/api/words")
-      .then((res) => res.json())
-      .then((res) => {
-        setWordesEn(
-          res.map((el) => Object.keys(el)[1])?.sort(() => Math.random() - 0.5)
-        );
-        setWordsTranslation(res.map((el) => Object.values(el)[1]))?.sort(
-          () => Math.random() - 0.5
-        );
-        setDb(res);
-      });
-
-    ///////////
-
     const clickToWindow = (e) => {
       if (e.target.nodeName !== "BUTTON") setWordClick("");
     };
@@ -57,8 +48,8 @@ export const List = () => {
     setWordClick(wordValue);
 
     if (
-      db.some((el) => wordValue === el[wordClick]) ||
-      db.some((el) => el[wordValue] === wordClick)
+      arrAllWords.some((el) => wordValue === el[wordClick]) ||
+      arrAllWords.some((el) => el[wordValue] === wordClick)
     ) {
       const wordsEnFiltered = wordsEn.filter(
         (el) => el !== wordClick && el !== wordValue
@@ -73,36 +64,26 @@ export const List = () => {
 
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
         alert("Ты красава все сделал правильно, я горжусь тобой!!!");
-        fetch("https://learn-english-words-api.onrender.com/api/words")
-          .then((res) => res.json())
-          .then((res) => {
-            setWordesEn(
-              res
-                .map((el) => Object.keys(el)[1])
-                ?.sort(() => Math.random() - 0.5)
-            );
-            setWordsTranslation(res.map((el) => Object.values(el)[1]))?.sort(
-              () => Math.random() - 0.5
-            );
-            setDb(res);
-          });
+        dispatch(getWords());
       }
       return;
     } else if (wordClick !== "" && !withList) {
       alert(
         `Ты ошибся слово "${
           wordsEn.includes(wordClick) ? wordClick : wordValue
-        }" переводится как "${db.reduce((acc, el) => {
+        }" переводится как "${arrAllWords.reduce((acc, el) => {
           if (el[wordsEn.includes(wordClick) ? wordClick : wordValue])
             acc = el[wordsEn.includes(wordClick) ? wordClick : wordValue];
           return acc;
         }, "")}" за ошибку будешь наказан :-)). Тебе придется начать заново!!!`
       );
       setWordesEn(
-        db.map((el) => Object.keys(el)[1])?.sort(() => Math.random() - 0.5)
+        arrAllWords
+          .map((el) => Object.keys(el)[1])
+          ?.sort(() => Math.random() - 0.5)
       );
 
-      setWordsTranslation(db.map((el) => Object.values(el)[1]))?.sort(
+      setWordsTranslation(arrAllWords.map((el) => Object.values(el)[1]))?.sort(
         () => Math.random() - 0.5
       );
       setWordClick("");

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    console.log("fech");
+  }, []);
+
   return <div>Home Page</div>;
 };
 

@@ -4,12 +4,16 @@ import "./index.css";
 import "normalize.css";
 import App from "./components/App/App";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  </Provider>
+  // </React.StrictMode>
 );
