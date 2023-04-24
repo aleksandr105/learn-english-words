@@ -8,12 +8,12 @@ import {
   SelectTitle,
   SelectWrapper,
 } from "./List.styled";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/selectors";
-import { useDispatch } from "react-redux";
 import { getWords } from "../../redux/words/operationsWords";
-
 import useTextToSpeech from "react-hook-text-to-speech";
+import { error, victory, complited } from "../../audio";
+import { onPlay, onNatification } from "../../helpers";
 
 export const List = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ export const List = () => {
   const [wordClick, setWordClick] = useState("");
   const [wordsEn, setWordesEn] = useState(arrKey);
   const [wordsTranslation, setWordsTranslation] = useState(arrValue);
+  const [buttonStatus, setButtonStatus] = useState(false);
 
   useEffect(() => {
     const clickToWindow = (e) => {
@@ -35,10 +36,10 @@ export const List = () => {
 
   const convert = useTextToSpeech();
 
-  const clickButton = (e) => {
+  const clickButton = async (e) => {
     const wordValue = e.target.textContent;
 
-    if (wordsEn.includes(wordValue)) convert(wordValue, speedVoce);
+    if (wordsEn.includes(wordValue)) await convert(wordValue, speedVoce);
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
@@ -51,6 +52,8 @@ export const List = () => {
       arrAllWords.some((el) => wordValue === el[wordClick]) ||
       arrAllWords.some((el) => el[wordValue] === wordClick)
     ) {
+      setButtonStatus(true);
+      await onPlay(complited);
       const wordsEnFiltered = wordsEn.filter(
         (el) => el !== wordClick && el !== wordValue
       );
@@ -59,34 +62,40 @@ export const List = () => {
       );
       setWordesEn(wordsEnFiltered);
       setWordsTranslation(wordsTranslationFiltered);
-
       setWordClick("");
-
+      setButtonStatus(false);
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
-        alert("Ты красава все сделал правильно, я горжусь тобой!!!");
+        await onPlay(victory);
+
+        onNatification("Ты красава все сделал правильно, я горжусь тобой!!!", {
+          type: "success",
+          autoClose: 5000,
+        });
+
         dispatch(getWords());
       }
       return;
     } else if (wordClick !== "" && !withList) {
-      alert(
+      setButtonStatus(true);
+      onNatification(
         `Ты ошибся слово "${
           wordsEn.includes(wordClick) ? wordClick : wordValue
         }" переводится как "${arrAllWords.reduce((acc, el) => {
           if (el[wordsEn.includes(wordClick) ? wordClick : wordValue])
             acc = el[wordsEn.includes(wordClick) ? wordClick : wordValue];
           return acc;
-        }, "")}" за ошибку будешь наказан :-)). Тебе придется начать заново!!!`
-      );
-      setWordesEn(
-        arrAllWords
-          .map((el) => Object.keys(el)[1])
-          ?.sort(() => Math.random() - 0.5)
+        }, "")}" за ошибку будешь наказан :-)). Тебе придется начать заново!!!`,
+        {}
       );
 
-      setWordsTranslation(arrAllWords.map((el) => Object.values(el)[1]))?.sort(
-        () => Math.random() - 0.5
-      );
+      await onPlay(error);
+
+      setWordesEn(arrKey);
+
+      setWordsTranslation(arrValue);
+
       setWordClick("");
+      setButtonStatus(false);
     }
   };
 
@@ -107,6 +116,7 @@ export const List = () => {
               return (
                 <ListButtomItem key={el}>
                   <EnButton
+                    disabled={buttonStatus}
                     variant="contained"
                     onClick={clickButton}
                     prop={{ el, wordClick }}
@@ -122,6 +132,7 @@ export const List = () => {
               return (
                 <ListButtomItem key={el}>
                   <EnButton
+                    disabled={buttonStatus}
                     variant="contained"
                     onClick={clickButton}
                     prop={{ el, wordClick }}
