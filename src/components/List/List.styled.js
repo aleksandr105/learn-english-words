@@ -33,9 +33,9 @@ export const EnButton = styled(Button)`
 
 export const SelectWrapper = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const Select = styled.select`

@@ -20,14 +20,15 @@ const wordsSlicee = createSlice({
   name: "words",
   initialState,
 
-  extraReducers: {
-    [getWords.pending]: handlePending,
-    [getWords.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.words = action.payload;
-    },
-    [getWords.rejected]: handleRejected,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getWords.pending, handlePending)
+      .addCase(getWords.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.words = action.payload;
+      })
+      .addCase(getWords.rejected, handleRejected);
   },
 });
 

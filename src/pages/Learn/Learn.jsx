@@ -1,5 +1,6 @@
 import React from "react";
 import { List } from "../../components/List/List";
+import { Spinner } from "../../components/Spinner/Spinner";
 import { useSelector } from "react-redux";
 import { words, loading } from "../../redux/selectors";
 import { Title } from "./Learn.styled";
@@ -19,6 +20,7 @@ const Learn = () => {
   return (
     <>
       <Title>Learn english words</Title>
+      <Spinner />
       {arrAllWords.length !== 0 && !isLoading && <List />}
     </>
   );
