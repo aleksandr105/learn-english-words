@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   EnButton,
-  FlexContainer,
   ListButton,
   ListButtomItem,
   Select,
@@ -110,40 +109,30 @@ export const List = () => {
         </Select>
       </SelectWrapper>
       {wordsEn && wordsTranslation && (
-        <FlexContainer>
-          <ListButton>
-            {wordsEn.map((el) => {
-              return (
-                <ListButtomItem key={el}>
-                  <EnButton
-                    disabled={buttonStatus}
-                    variant="contained"
-                    onClick={clickButton}
-                    prop={{ el, wordClick }}
-                  >
-                    {el}
-                  </EnButton>
-                </ListButtomItem>
-              );
-            })}
-          </ListButton>
-          <ListButton>
-            {wordsTranslation.map((el) => {
-              return (
-                <ListButtomItem key={el}>
-                  <EnButton
-                    disabled={buttonStatus}
-                    variant="contained"
-                    onClick={clickButton}
-                    prop={{ el, wordClick }}
-                  >
-                    {el}
-                  </EnButton>
-                </ListButtomItem>
-              );
-            })}
-          </ListButton>
-        </FlexContainer>
+        <ListButton>
+          {wordsEn.map((el, idx) => {
+            return (
+              <ListButtomItem key={el}>
+                <EnButton
+                  disabled={buttonStatus}
+                  variant="contained"
+                  onClick={clickButton}
+                  prop={{ el, wordClick }}
+                >
+                  {el}
+                </EnButton>
+                <EnButton
+                  disabled={buttonStatus}
+                  variant="contained"
+                  onClick={clickButton}
+                  prop={{ el, wordClick }}
+                >
+                  {wordsTranslation[idx]}
+                </EnButton>
+              </ListButtomItem>
+            );
+          })}
+        </ListButton>
       )}
     </>
   );

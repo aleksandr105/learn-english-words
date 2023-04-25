@@ -1,22 +1,21 @@
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
-export const FlexContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-bottom: 40px;
-  ul:not(:last-child) {
-    margin-right: 20px;
-  }
-`;
-
 export const ListButton = styled.ul`
+  padding-bottom: 40px;
+  max-width: 350px;
+  margin: 0 auto;
   li:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 `;
 
-export const ListButtomItem = styled.li``;
+export const ListButtomItem = styled.li`
+  display: flex;
+  button:first-of-type {
+    margin-right: 15px;
+  }
+`;
 
 export const EnButton = styled(Button)`
   color: ${({ prop: { el, wordClick } }) =>
@@ -44,6 +43,10 @@ export const Select = styled.select`
   color: #00f;
   font-weight: 500;
   border: none;
+  :focus {
+    outline: none;
+    border: none;
+  }
 `;
 
 export const SelectTitle = styled.span`

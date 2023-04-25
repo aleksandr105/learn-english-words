@@ -24,7 +24,6 @@ export const onNatification = (
     type = "error",
   }
 ) => {
-  console.log(autoClose);
   toast[type](message, {
     position,
     autoClose,
