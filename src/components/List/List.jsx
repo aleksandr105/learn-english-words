@@ -38,7 +38,9 @@ export const List = () => {
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;
 
-    if (wordsEn.includes(wordValue)) await convert(wordValue, speedVoce);
+    if (wordsEn.includes(wordValue)) {
+      convert(wordValue, speedVoce);
+    }
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
@@ -52,7 +54,8 @@ export const List = () => {
       arrAllWords.some((el) => el[wordValue] === wordClick)
     ) {
       setButtonStatus(true);
-      await onPlay(complited);
+
+      if (wordsEn.length >= 2) await onPlay(complited);
       const wordsEnFiltered = wordsEn.filter(
         (el) => el !== wordClick && el !== wordValue
       );
@@ -125,7 +128,7 @@ export const List = () => {
                   disabled={buttonStatus}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el, wordClick }}
+                  prop={{ el: wordsTranslation[idx], wordClick }}
                 >
                   {wordsTranslation[idx]}
                 </EnButton>
