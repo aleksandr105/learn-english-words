@@ -18,6 +18,7 @@ export const List = () => {
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const [speedVoce, setSpeedVoce] = useState(1);
   const [wordClick, setWordClick] = useState("");
+  const [wordClick2, setWordClick2] = useState("");
   const [wordsEn, setWordesEn] = useState(arrKey);
   const [wordsTranslation, setWordsTranslation] = useState(arrValue);
   const [buttonStatus, setButtonStatus] = useState(false);
@@ -36,12 +37,14 @@ export const List = () => {
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;
 
-    setWordClick(wordValue);
-
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
       (wordsTranslation.includes(wordValue) &&
         wordsTranslation.includes(wordClick));
+
+    setWordClick(wordValue);
+
+    if (wordClick !== "" && !withList) setWordClick2(wordValue);
 
     if (wordsEn.includes(wordValue) && !speakStatus) {
       setSpeakStatus(true);
@@ -99,7 +102,7 @@ export const List = () => {
       setWordesEn(arrKey);
 
       setWordsTranslation(arrValue);
-
+      setWordClick2("");
       setWordClick("");
       setButtonStatus(false);
     }
@@ -124,7 +127,7 @@ export const List = () => {
                   disabled={buttonStatus}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el, wordClick }}
+                  prop={{ el, wordClick, wordClick2 }}
                 >
                   {el}
                 </EnButton>
@@ -132,7 +135,7 @@ export const List = () => {
                   disabled={buttonStatus}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el: wordsTranslation[idx], wordClick }}
+                  prop={{ el: wordsTranslation[idx], wordClick, wordClick2 }}
                 >
                   {wordsTranslation[idx]}
                 </EnButton>

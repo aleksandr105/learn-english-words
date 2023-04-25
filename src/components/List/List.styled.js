@@ -18,13 +18,13 @@ export const ListButtomItem = styled.li`
 `;
 
 export const EnButton = styled(Button)`
-  color: ${({ prop: { el, wordClick } }) =>
-    el === wordClick ? "#00f" : "white"};
-  background-color: ${({ prop: { el, wordClick } }) =>
-    el === wordClick ? "#5f5" : "primary"};
+  color: ${({ prop: { el, wordClick, wordClick2 } }) =>
+    onBtnColor("#00f", "white", el, wordClick, wordClick2)};
+  background-color: ${({ prop: { el, wordClick, wordClick2 } }) =>
+    onBtnColor("#5f5", "primary", el, wordClick, wordClick2)};
   :hover {
-    background-color: ${({ prop: { el, wordClick } }) =>
-      el === wordClick ? "#5f5" : "primary"};
+    background-color: ${({ prop: { el, wordClick, wordClick2 } }) =>
+      onBtnColor("#5f5", "primary", el, wordClick, wordClick2)};
   }
   width: 100%;
   font-weight: 700;
@@ -54,3 +54,7 @@ export const SelectTitle = styled.span`
   color: #00f;
   margin-right: 5px;
 `;
+
+function onBtnColor(active, notActive, el, wordClick, wordClick2) {
+  return el === wordClick || el === wordClick2 ? active : notActive;
+}
