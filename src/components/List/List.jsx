@@ -10,9 +10,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/selectors";
 import { getWords } from "../../redux/words/operationsWords";
-import useTextToSpeech from "react-hook-text-to-speech";
 import { error, victory, complited } from "../../audio";
-import { onPlay, onNatification } from "../../helpers";
+import { onPlay, onNatification, onSpeak } from "../../helpers";
 
 export const List = () => {
   const dispatch = useDispatch();
@@ -22,6 +21,7 @@ export const List = () => {
   const [wordsEn, setWordesEn] = useState(arrKey);
   const [wordsTranslation, setWordsTranslation] = useState(arrValue);
   const [buttonStatus, setButtonStatus] = useState(false);
+  const [speakStatus, setSpeakStatus] = useState(false);
 
   useEffect(() => {
     const clickToWindow = (e) => {
@@ -33,21 +33,25 @@ export const List = () => {
     };
   }, []);
 
-  const convert = useTextToSpeech();
-
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;
 
-    if (wordsEn.includes(wordValue)) {
-      convert(wordValue, speedVoce);
-    }
+    setWordClick(wordValue);
 
     const withList =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
       (wordsTranslation.includes(wordValue) &&
         wordsTranslation.includes(wordClick));
 
-    setWordClick(wordValue);
+    if (wordsEn.includes(wordValue) && !speakStatus) {
+      setSpeakStatus(true);
+
+      if (wordsTranslation.includes(wordClick) && wordsEn.includes(wordValue)) {
+        setButtonStatus(true);
+      }
+      await onSpeak({ text: wordValue, rate: speedVoce });
+      setSpeakStatus(false);
+    }
 
     if (
       arrAllWords.some((el) => wordValue === el[wordClick]) ||
