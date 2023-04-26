@@ -10,18 +10,6 @@ export const onPlay = (file) => {
   });
 };
 
-export const onSpeak = ({ text, volume = 1, rate = 1, pitch = 0 }) => {
-  const speaker = new SpeechSynthesisUtterance();
-  speaker.text = text.trim();
-  speaker.volume = volume;
-  speaker.rate = rate;
-  speaker.pitch = pitch;
-  let voices = speechSynthesis.getVoices();
-  speaker.voice = voices[5];
-  speechSynthesis.speak(speaker);
-  return new Promise((resolve) => (speaker.onend = () => resolve()));
-};
-
 export const onNatification = (
   message = "",
   {

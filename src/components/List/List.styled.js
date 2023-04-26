@@ -18,13 +18,37 @@ export const ListButtomItem = styled.li`
 `;
 
 export const EnButton = styled(Button)`
-  color: ${({ prop: { el, wordClick, wordClick2 } }) =>
-    onBtnColor("#00f", "white", el, wordClick, wordClick2)};
-  background-color: ${({ prop: { el, wordClick, wordClick2 } }) =>
-    onBtnColor("#5f5", "primary", el, wordClick, wordClick2)};
+  color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>
+    onBtnColor(
+      "#00f",
+      "white",
+      el,
+      wordClick,
+      wordClick2,
+      clickError,
+      "white"
+    )};
+  background-color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>
+    onBtnColor(
+      "#5f5",
+      "primary",
+      el,
+      wordClick,
+      wordClick2,
+      clickError,
+      "red"
+    )};
   :hover {
-    background-color: ${({ prop: { el, wordClick, wordClick2 } }) =>
-      onBtnColor("#5f5", "primary", el, wordClick, wordClick2)};
+    background-color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>
+      onBtnColor(
+        "#5f5",
+        "primary",
+        el,
+        wordClick,
+        wordClick2,
+        clickError,
+        "red"
+      )};
   }
   width: 100%;
   font-weight: 700;
@@ -55,6 +79,20 @@ export const SelectTitle = styled.span`
   margin-right: 5px;
 `;
 
-function onBtnColor(active, notActive, el, wordClick, wordClick2) {
-  return el === wordClick || el === wordClick2 ? active : notActive;
+function onBtnColor(
+  active,
+  notActive,
+  el,
+  wordClick,
+  wordClick2,
+  clickError,
+  colorError
+) {
+  if ((el === wordClick || el === wordClick2) && !clickError) {
+    return active;
+  }
+
+  if ((el !== wordClick || el !== wordClick2) && !clickError) return notActive;
+
+  if (clickError) return colorError;
 }

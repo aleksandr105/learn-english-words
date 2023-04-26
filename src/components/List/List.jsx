@@ -11,18 +11,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/selectors";
 import { getWords } from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
-import { onPlay, onNatification, onSpeak } from "../../helpers";
+import { onPlay, onNatification } from "../../helpers";
+import { useSpeaker } from "../../hooks/useSpeaker";
+
+const selectOptions = [
+  { value: 1, name: "Быстро" },
+  { value: 0.5, name: "Средне" },
+  { value: 0.2, name: "Медленно" },
+];
 
 export const List = () => {
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const [speedVoce, setSpeedVoce] = useState(1);
-  const [wordClick, setWordClick] = useState("");
-  const [wordClick2, setWordClick2] = useState("");
+  const [wordClick, setWordClick] = useState(null);
+  const [wordClick2, setWordClick2] = useState(null);
   const [wordsEn, setWordesEn] = useState(arrKey);
   const [wordsTranslation, setWordsTranslation] = useState(arrValue);
   const [buttonStatus, setButtonStatus] = useState(false);
   const [speakStatus, setSpeakStatus] = useState(false);
+  const [clickError, setClickError] = useState(false);
+  const [speak, voices] = useSpeaker();
+  console.log(voices);
 
   useEffect(() => {
     const clickToWindow = (e) => {
@@ -37,42 +47,56 @@ export const List = () => {
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;
 
-    const withList =
+    const clickOnSameColumn =
       (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
       (wordsTranslation.includes(wordValue) &&
-        wordsTranslation.includes(wordClick));
+        wordsTranslation.includes(wordClick2));
 
-    setWordClick(wordValue);
+    if (wordsEn.includes(wordValue)) setWordClick(wordValue);
 
-    if (wordClick !== "" && !withList) setWordClick2(wordValue);
+    if (wordsTranslation.includes(wordValue)) setWordClick2(wordValue);
 
     if (wordsEn.includes(wordValue) && !speakStatus) {
+      if (
+        !arrAllWords.some(
+          (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
+        ) &&
+        !clickOnSameColumn &&
+        (wordClick || wordClick2)
+      )
+        setClickError(true);
+
       setSpeakStatus(true);
 
-      if (wordsTranslation.includes(wordClick) && wordsEn.includes(wordValue)) {
-        setButtonStatus(true);
-      }
-      await onSpeak({ text: wordValue, rate: speedVoce });
+      if (wordClick2) setButtonStatus(true);
+
+      await speak({ text: wordValue, rate: speedVoce });
       setSpeakStatus(false);
     }
 
     if (
-      arrAllWords.some((el) => wordValue === el[wordClick]) ||
-      arrAllWords.some((el) => el[wordValue] === wordClick)
+      arrAllWords.some(
+        (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
+      )
     ) {
       setButtonStatus(true);
 
       if (wordsEn.length >= 2) await onPlay(complited);
+
       const wordsEnFiltered = wordsEn.filter(
         (el) => el !== wordClick && el !== wordValue
       );
+
       const wordsTranslationFiltered = wordsTranslation.filter(
-        (el) => el !== wordClick && el !== wordValue
+        (el) => el !== wordClick2 && el !== wordValue
       );
+
       setWordesEn(wordsEnFiltered);
       setWordsTranslation(wordsTranslationFiltered);
-      setWordClick("");
+      setWordClick(null);
+      setWordClick2(null);
       setButtonStatus(false);
+
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
         await onPlay(victory);
 
@@ -84,8 +108,11 @@ export const List = () => {
         dispatch(getWords());
       }
       return;
-    } else if (wordClick !== "" && !withList) {
+    }
+
+    if (!clickOnSameColumn && (wordClick || wordClick2)) {
       setButtonStatus(true);
+      setClickError(true);
       onNatification(
         `Ты ошибся слово "${
           wordsEn.includes(wordClick) ? wordClick : wordValue
@@ -100,10 +127,10 @@ export const List = () => {
       await onPlay(error);
 
       setWordesEn(arrKey);
-
       setWordsTranslation(arrValue);
-      setWordClick2("");
-      setWordClick("");
+      setWordClick2(null);
+      setWordClick(null);
+      setClickError(false);
       setButtonStatus(false);
     }
   };
@@ -113,9 +140,11 @@ export const List = () => {
       <SelectWrapper>
         <SelectTitle>Скорость речи</SelectTitle>
         <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
-          <option value="1">Быстро</option>
-          <option value="0.5">Средне</option>
-          <option value="0.2">Медленно</option>
+          {selectOptions.map(({ value, name }) => (
+            <option key={name} value={value}>
+              {name}
+            </option>
+          ))}
         </Select>
       </SelectWrapper>
       {wordsEn && wordsTranslation && (
@@ -124,18 +153,25 @@ export const List = () => {
             return (
               <ListButtomItem key={el}>
                 <EnButton
-                  disabled={buttonStatus}
+                  disabled={buttonStatus && el !== wordClick}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el, wordClick, wordClick2 }}
+                  prop={{ el, wordClick, wordClick2, clickError }}
                 >
                   {el}
                 </EnButton>
                 <EnButton
-                  disabled={buttonStatus}
+                  disabled={
+                    buttonStatus && wordsTranslation[idx] !== wordClick2
+                  }
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el: wordsTranslation[idx], wordClick, wordClick2 }}
+                  prop={{
+                    el: wordsTranslation[idx],
+                    wordClick,
+                    wordClick2,
+                    clickError,
+                  }}
                 >
                   {wordsTranslation[idx]}
                 </EnButton>
