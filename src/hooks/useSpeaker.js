@@ -29,8 +29,13 @@
 
 export const useSpeaker = () => {
   const speaker = new SpeechSynthesisUtterance();
+  let voices = [];
+  voices = speechSynthesis.getVoices();
 
-  let voices = speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => {
+    voices = speechSynthesis.getVoices();
+    // console.log(voices.length);
+  };
 
   const speak = ({ text, volume = 1, rate = 1, pitch = 0, lang = 5 }) => {
     speaker.voice = voices[5];

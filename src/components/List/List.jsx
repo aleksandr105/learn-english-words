@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   EnButton,
   ListButton,
@@ -31,17 +31,17 @@ export const List = () => {
   const [buttonStatus, setButtonStatus] = useState(false);
   const [speakStatus, setSpeakStatus] = useState(false);
   const [clickError, setClickError] = useState(false);
-  const [speak] = useSpeaker();
-
-  useEffect(() => {
-    const clickToWindow = (e) => {
-      if (e.target.nodeName !== "BUTTON") setWordClick("");
-    };
-    window.addEventListener("click", clickToWindow);
-    return () => {
-      window.removeEventListener("click", clickToWindow);
-    };
-  }, []);
+  const [speak, voices] = useSpeaker();
+  console.log(voices.length);
+  // useEffect(() => {
+  //   const clickToWindow = (e) => {
+  //     if (e.target.nodeName !== "BUTTON" && !buttonStatus) setWordClick(null);
+  //   };
+  //   window.addEventListener("click", clickToWindow);
+  //   return () => {
+  //     window.removeEventListener("click", clickToWindow);
+  //   };
+  // }, []);
 
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;
@@ -54,7 +54,8 @@ export const List = () => {
     if (wordsEn.includes(wordValue)) setWordClick(wordValue);
 
     if (wordsTranslation.includes(wordValue)) setWordClick2(wordValue);
-
+    console.log(wordClick);
+    console.log(wordValue);
     if (wordsEn.includes(wordValue) && !speakStatus) {
       if (
         !arrAllWords.some(
@@ -71,6 +72,7 @@ export const List = () => {
 
       await speak({ text: wordValue, rate: speedVoce });
       setSpeakStatus(false);
+      setClickError(false);
     }
 
     if (
@@ -155,7 +157,7 @@ export const List = () => {
                   disabled={buttonStatus && el !== wordClick}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el, wordClick, wordClick2, clickError }}
+                  prop={{ el, wordClick, wordClick2, clickError, buttonStatus }}
                 >
                   {el}
                 </EnButton>
@@ -170,6 +172,7 @@ export const List = () => {
                     wordClick,
                     wordClick2,
                     clickError,
+                    buttonStatus,
                   }}
                 >
                   {wordsTranslation[idx]}
