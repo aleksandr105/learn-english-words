@@ -31,8 +31,7 @@ export const List = () => {
   const [buttonStatus, setButtonStatus] = useState(false);
   const [speakStatus, setSpeakStatus] = useState(false);
   const [clickError, setClickError] = useState(false);
-  const [speak, voices] = useSpeaker();
-  console.log(voices);
+  const [speak] = useSpeaker();
 
   useEffect(() => {
     const clickToWindow = (e) => {
