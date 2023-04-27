@@ -7,17 +7,19 @@ export const useSpeaker = () => {
 
   useEffect(() => {
     if (!voices.length) {
-      setVoices(speechSynthesis.getVoices());
+      setVoices(window.speechSynthesis.getVoices());
+
+      console.log("fsdfsdf");
     }
   }, [voices]);
-
+  console.log(voices);
   const speak = ({ text, volume = 1, rate = 1, pitch = 0, lang = 5 }) => {
     speaker.voice = voices[lang];
     speaker.text = text.trim();
     speaker.volume = volume;
     speaker.rate = rate;
     speaker.pitch = pitch;
-    speechSynthesis.speak(speaker);
+    window.speechSynthesis.speak(speaker);
     return new Promise((resolve) => (speaker.onend = () => resolve()));
   };
 
