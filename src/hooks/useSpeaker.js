@@ -37,8 +37,9 @@ export const useSpeaker = () => {
     // console.log(voices.length);
   };
 
-  const speak = ({ text, volume = 1, rate = 1, pitch = 0, lang = 5 }) => {
-    speaker.voice = voices[5];
+  const speak = ({ text, volume = 1, rate = 1, pitch = 1, lang = 5 }) => {
+    // speaker.voice = voices[5];
+    speaker.lang = "en-US";
     speaker.text = text.trim();
     speaker.volume = volume;
     speaker.rate = rate;
