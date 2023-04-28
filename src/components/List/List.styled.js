@@ -52,12 +52,8 @@ export const EnButton = styled(Button)`
   }
   width: 100%;
   font-weight: 700;
-  pointer-events: ${({ prop: { el, wordClick, wordClick2, buttonStatus } }) => {
-    console.log(buttonStatus && (el === wordClick2 || el === wordClick));
-    return buttonStatus && (el === wordClick2 || el === wordClick)
-      ? "none"
-      : "auto";
-  }};
+  pointer-events: ${({ prop: { el, wordClick, wordClick2, buttonStatus } }) =>
+    buttonStatus && (el === wordClick2 || el === wordClick) ? "none" : "auto"};
 `;
 
 export const SelectWrapper = styled.div`
