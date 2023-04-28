@@ -54,18 +54,16 @@ export const List = () => {
       (wordsTranslation.includes(wordValue) &&
         wordsTranslation.includes(wordClick2));
 
+    const isAnswerCorrect = arrAllWords.some(
+      (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
+    );
+
     if (wordsEn.includes(wordValue)) setWordClick(wordValue);
 
     if (wordsTranslation.includes(wordValue)) setWordClick2(wordValue);
 
     if (wordsEn.includes(wordValue) && !speakStatus) {
-      if (
-        !arrAllWords.some(
-          (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
-        ) &&
-        !clickOnSameColumn &&
-        (wordClick || wordClick2)
-      )
+      if (!isAnswerCorrect && !clickOnSameColumn && (wordClick || wordClick2))
         setClickError(true);
 
       setSpeakStatus(true);
@@ -74,14 +72,12 @@ export const List = () => {
 
       await speak({ text: wordValue, rate: speedVoce });
       setSpeakStatus(false);
-      setClickError(false);
+
+      if (isAnswerCorrect && clickOnSameColumn && (wordClick || wordClick2))
+        setClickError(false);
     }
 
-    if (
-      arrAllWords.some(
-        (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
-      )
-    ) {
+    if (isAnswerCorrect) {
       setButtonStatus(true);
 
       if (wordsEn.length >= 2) await onPlay(complited);
@@ -94,10 +90,10 @@ export const List = () => {
         (el) => el !== wordClick2 && el !== wordValue
       );
 
-      setWordesEn(wordsEnFiltered);
-      setWordsTranslation(wordsTranslationFiltered);
       setWordClick(null);
       setWordClick2(null);
+      setWordesEn(wordsEnFiltered);
+      setWordsTranslation(wordsTranslationFiltered);
       setButtonStatus(false);
 
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
