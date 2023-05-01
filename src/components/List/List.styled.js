@@ -1,20 +1,25 @@
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
-export const ListButton = styled.ul`
-  padding-bottom: 40px;
+export const ListsButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   max-width: 350px;
+  padding-bottom: 40px;
   margin: 0 auto;
-  li:not(:last-child) {
-    margin-bottom: 10px;
-  }
+  grid-column-gap: 14px;
+  grid-auto-rows: max-content;
+`;
+
+export const ListButton = styled.ul`
+  display: grid;
+  grid-row-gap: 10px;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
 `;
 
 export const ListButtomItem = styled.li`
-  display: flex;
-  button:first-of-type {
-    margin-right: 15px;
-  }
+  align-self: stretch;
 `;
 
 export const EnButton = styled(Button)`
@@ -50,6 +55,7 @@ export const EnButton = styled(Button)`
         "red"
       )};
   }
+  height: 100%;
   width: 100%;
   font-weight: 700;
   pointer-events: ${({ prop: { el, wordClick, wordClick2, buttonStatus } }) =>

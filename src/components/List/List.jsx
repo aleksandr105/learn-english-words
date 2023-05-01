@@ -6,6 +6,7 @@ import {
   Select,
   SelectTitle,
   SelectWrapper,
+  ListsButtonWrapper,
 } from "./List.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/selectors";
@@ -125,11 +126,14 @@ export const List = () => {
 
       await onPlay(error);
 
-      setWordesEn(arrKey);
-      setWordsTranslation(arrValue);
+      setClickError(false);
       setWordClick2(null);
       setWordClick(null);
-      setClickError(false);
+      setTimeout(() => {
+        setWordesEn(arrKey);
+        setWordsTranslation(arrValue);
+      }, 200);
+
       setButtonStatus(false);
     }
   };
@@ -147,38 +151,48 @@ export const List = () => {
         </Select>
       </SelectWrapper>
       {wordsEn && wordsTranslation && (
-        <ListButton>
-          {wordsEn.map((el, idx) => {
-            return (
+        <ListsButtonWrapper>
+          <ListButton>
+            {wordsEn.map((el) => (
               <ListButtomItem key={el}>
                 <EnButton
                   disabled={buttonStatus && el !== wordClick}
                   variant="contained"
                   onClick={clickButton}
-                  prop={{ el, wordClick, wordClick2, clickError, buttonStatus }}
-                >
-                  {el}
-                </EnButton>
-                <EnButton
-                  disabled={
-                    buttonStatus && wordsTranslation[idx] !== wordClick2
-                  }
-                  variant="contained"
-                  onClick={clickButton}
                   prop={{
-                    el: wordsTranslation[idx],
+                    el,
                     wordClick,
                     wordClick2,
                     clickError,
                     buttonStatus,
                   }}
                 >
-                  {wordsTranslation[idx]}
+                  {el}
                 </EnButton>
               </ListButtomItem>
-            );
-          })}
-        </ListButton>
+            ))}
+          </ListButton>
+          <ListButton>
+            {wordsTranslation.map((el) => (
+              <ListButtomItem key={el}>
+                <EnButton
+                  disabled={buttonStatus && el !== wordClick2}
+                  variant="contained"
+                  onClick={clickButton}
+                  prop={{
+                    el,
+                    wordClick,
+                    wordClick2,
+                    clickError,
+                    buttonStatus,
+                  }}
+                >
+                  {el}
+                </EnButton>
+              </ListButtomItem>
+            ))}
+          </ListButton>
+        </ListsButtonWrapper>
       )}
     </>
   );
