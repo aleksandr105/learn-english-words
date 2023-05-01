@@ -2,25 +2,25 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
 export const ListsButtonWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   max-width: 350px;
   padding-bottom: 40px;
   margin: 0 auto;
-  align-items: stretch;
-  ul:last-child {
-    margin-right: 0;
-  }
+  grid-column-gap: 14px;
+  grid-auto-rows: max-content;
 `;
 
 export const ListButton = styled.ul`
-  flex-basis: calc(50% - 7px);
-  margin-right: 14px;
-  li:not(:last-child) {
-    margin-bottom: 10px;
-  }
+  display: grid;
+  grid-row-gap: 10px;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
 `;
 
-export const ListButtomItem = styled.li``;
+export const ListButtomItem = styled.li`
+  align-self: stretch;
+`;
 
 export const EnButton = styled(Button)`
   color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>
@@ -55,6 +55,7 @@ export const EnButton = styled(Button)`
         "red"
       )};
   }
+  height: 100%;
   width: 100%;
   font-weight: 700;
   pointer-events: ${({ prop: { el, wordClick, wordClick2, buttonStatus } }) =>
