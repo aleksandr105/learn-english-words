@@ -8,23 +8,48 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import LanguageIcon from "@mui/icons-material/Language";
 import Typography from "@mui/material/Typography";
-import { Logo, Nav, NavList, NavMobile } from "./Header.styled";
+import {
+  Logo,
+  Nav,
+  NavList,
+  NavMobile,
+  LanguageMenu,
+  SelectedLanguage,
+} from "./Header.styled";
 import logo from "../../SVG/symbol-defs.svg";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const pages = ["Home", "Learn", "Statistic", "Login", "Signup"];
 
+const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
+
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { t, i18n } = useTranslation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const langChange = (language) => {
+    i18n.changeLanguage(language);
   };
 
   return (
@@ -43,7 +68,7 @@ export const Header = () => {
               justifyContent: "end",
             }}
           >
-            <p>Menu</p>
+            <p>{t("header.menu")}</p>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -74,7 +99,7 @@ export const Header = () => {
                 <MenuItem key={page} sx={{ p: 0 }} onClick={handleCloseNavMenu}>
                   <NavMobile to={page === "Home" ? "/" : page.toLowerCase()}>
                     <Typography textAlign="center" sx={{ fontWeight: 500 }}>
-                      {page}
+                      {t(`header.${page.toLocaleLowerCase()}`)}
                     </Typography>
                   </NavMobile>
                 </MenuItem>
@@ -92,12 +117,53 @@ export const Header = () => {
                     to={page === "Home" ? "/" : page.toLowerCase()}
                     onClick={handleCloseNavMenu}
                   >
-                    {page}
+                    {t(`header.${page.toLocaleLowerCase()}`)}
                   </Nav>
                 </li>
               ))}
             </NavList>
           </Box>
+          <div style={{ marginLeft: "auto" }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <SelectedLanguage>{i18n.resolvedLanguage}</SelectedLanguage>
+              <LanguageIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {Object.keys(locales).map((el) => (
+                <LanguageMenu
+                  p={{ active: i18n.resolvedLanguage === el }}
+                  onClick={() => {
+                    handleClose();
+                    langChange(el);
+                  }}
+                  key={el}
+                >
+                  {locales[el]}
+                </LanguageMenu>
+              ))}
+            </Menu>
+          </div>
         </Toolbar>
       </Container>
     </AppBar>

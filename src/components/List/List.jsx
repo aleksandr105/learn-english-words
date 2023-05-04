@@ -14,11 +14,12 @@ import { getWords } from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
+import { useTranslation } from "react-i18next";
 
 const selectOptions = [
-  { value: 1, name: "Быстро" },
-  { value: 0.5, name: "Средне" },
-  { value: 0.2, name: "Медленно" },
+  { value: 1, name: "value fast" },
+  { value: 0.5, name: "value medium" },
+  { value: 0.2, name: "value slow" },
 ];
 
 export const List = () => {
@@ -33,6 +34,7 @@ export const List = () => {
   const [speakStatus, setSpeakStatus] = useState(false);
   const [clickError, setClickError] = useState(false);
   const speak = useSpeaker();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const clickToWindow = (e) => {
@@ -100,7 +102,7 @@ export const List = () => {
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
         await onPlay(victory);
 
-        onNatification("Ты красава все сделал правильно, я горжусь тобой!!!", {
+        onNatification(t("notification.good"), {
           type: "success",
           autoClose: 5000,
         });
@@ -113,14 +115,19 @@ export const List = () => {
     if (!clickOnSameColumn && (wordClick || wordClick2)) {
       setButtonStatus(true);
       setClickError(true);
+
+      const getEnglishErrorWord = wordsEn.includes(wordClick)
+        ? wordClick
+        : wordValue;
+
       onNatification(
-        `Ты ошибся слово "${
-          wordsEn.includes(wordClick) ? wordClick : wordValue
-        }" переводится как "${arrAllWords.reduce((acc, el) => {
-          if (el[wordsEn.includes(wordClick) ? wordClick : wordValue])
-            acc = el[wordsEn.includes(wordClick) ? wordClick : wordValue];
-          return acc;
-        }, "")}" за ошибку будешь наказан :-)). Тебе придется начать заново!!!`,
+        t("notification.bad", {
+          wordEnglish: getEnglishErrorWord,
+          wordTranslation: arrAllWords.reduce((acc, el) => {
+            if (el[getEnglishErrorWord]) acc = el[getEnglishErrorWord];
+            return acc;
+          }, ""),
+        }),
         {}
       );
 
@@ -141,11 +148,11 @@ export const List = () => {
   return (
     <>
       <SelectWrapper>
-        <SelectTitle>Скорость речи</SelectTitle>
+        <SelectTitle>{t("learn.select title")}</SelectTitle>
         <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
           {selectOptions.map(({ value, name }) => (
             <option key={name} value={value}>
-              {name}
+              {t(`learn.${name}`)}
             </option>
           ))}
         </Select>

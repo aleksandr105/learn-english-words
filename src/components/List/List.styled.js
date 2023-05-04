@@ -14,13 +14,10 @@ export const ListsButtonWrapper = styled.div`
 export const ListButton = styled.ul`
   display: grid;
   grid-row-gap: 10px;
-  grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
 `;
 
-export const ListButtomItem = styled.li`
-  align-self: stretch;
-`;
+export const ListButtomItem = styled.li``;
 
 export const EnButton = styled(Button)`
   color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>

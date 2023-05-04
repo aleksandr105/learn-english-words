@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
+import { MenuItem } from "@mui/material";
 
 export const Logo = styled.svg`
   width: 36px;
@@ -39,4 +40,26 @@ export const NavList = styled.ul`
   li:not(:last-child) {
     margin-right: 10px;
   }
+`;
+
+export const LanguageMenu = styled(MenuItem)`
+  padding: 4px 8px;
+  flex-grow: 1;
+  color: #71706f;
+  border-radius: 15px;
+  background-color: ${({ p: { active } }) => (active ? "#5f5" : "transparant")};
+  color: ${({ p: { active } }) => (active ? "#00f" : "#71706f")};
+  :hover,
+  :focus {
+    background-color: ${({ p: { active } }) =>
+      active ? "#5f5" : "transparant"};
+    color: ${({ p: { active } }) => (active ? "#00f" : "#71706f")};
+  }
+  font-weight: 500;
+`;
+
+export const SelectedLanguage = styled.p`
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
 `;

@@ -1,0 +1,22 @@
+{
+  "header": {
+    "menu": "Menu",
+    "home": "Główna",
+    "learn": "Uczyć",
+    "statistic": "Statystyki",
+    "login": "Zaloguj",
+    "signup": "Wyloguj"
+  },
+
+  "learn": {
+    "select title": "Prędkość wymowy",
+    "value fast": "Szybko",
+    "value medium": "Średnio",
+    "value slow": "Powoli"
+  },
+
+  "notification": {
+    "good": "Jesteś najlepszy, zrobiłeś wszystko dobrze, jestem z Ciebie dumny!!!",
+    "bad": "Popełniłeś błąd, słowo {{wordEnglish}} tłumaczy się jako {{wordTranslation}} za błąd zostaniesz ukarany :-)). Trzeba będzie zacząć od nowa!!!"
+  }
+}
