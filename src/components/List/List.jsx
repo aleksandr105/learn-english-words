@@ -37,6 +37,9 @@ export const List = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    setWordsTranslation(arrValue);
+    setWordesEn(arrKey);
+
     const clickToWindow = (e) => {
       if (e.target.nodeName !== "BUTTON" && e.target.nodeName !== "LI") {
         setWordClick(null);
@@ -47,7 +50,7 @@ export const List = () => {
     return () => {
       window.removeEventListener("click", clickToWindow);
     };
-  }, []);
+  }, [arrKey, arrValue]);
 
   const clickButton = async (e) => {
     const wordValue = e.target.textContent;

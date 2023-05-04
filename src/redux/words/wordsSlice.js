@@ -14,11 +14,18 @@ const initialState = {
   words: [],
   isLoading: false,
   error: null,
+  language: "",
 };
 
 const wordsSlicee = createSlice({
   name: "words",
   initialState,
+
+  reducers: {
+    setLanguage(state, action) {
+      state.language = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -33,3 +40,4 @@ const wordsSlicee = createSlice({
 });
 
 export const wordsReducer = wordsSlicee.reducer;
+export const { setLanguage } = wordsSlicee.actions;
