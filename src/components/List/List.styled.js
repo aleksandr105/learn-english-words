@@ -17,7 +17,9 @@ export const ListButton = styled.ul`
   grid-auto-rows: 1fr;
 `;
 
-export const ListButtomItem = styled.li``;
+export const ListButtomItem = styled.li`
+  grid-auto-rows: max-content;
+`;
 
 export const EnButton = styled(Button)`
   color: ${({ prop: { el, wordClick, wordClick2, clickError } }) =>
