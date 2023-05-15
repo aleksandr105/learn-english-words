@@ -18,5 +18,24 @@
   "notification": {
     "good": "Jesteś najlepszy, zrobiłeś wszystko dobrze, jestem z Ciebie dumny!!!",
     "bad": "Popełniłeś błąd, słowo {{wordEnglish}} tłumaczy się jako {{wordTranslation}} za błąd zostaniesz ukarany :-)). Trzeba będzie zacząć od nowa!!!"
+  },
+
+  "registerBtnSubmit": {
+    "button": "Zarejestrować"
+  },
+
+  "customErrorMessages": {
+    "string": "Pole musi być linia",
+    "required": "Pole wymagane",
+    "email": "Zły format email",
+    "minName": "Musi mieć co najmniej 3 znaków",
+    "min": "Musi mieć co najmniej 6 znaków",
+    "max": "Musi mieć maksymalnie 32 znaki"
+  },
+
+  "inputLabel": {
+    "name": "Imie",
+    "email": "Email",
+    "password": "Hasło"
   }
 }
