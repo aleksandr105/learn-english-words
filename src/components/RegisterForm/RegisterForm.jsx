@@ -53,23 +53,24 @@ export const RegisterForm = () => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <InputWrapper>
         <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
-        <Input type="string" {...register("name")} />
-        <ErrorMessage isError={errors.name?.message ? true : false}>
-          {errors.name?.message}
-          {console.log(errors.name)}
-        </ErrorMessage>
+        <Input type="string" {...register("name")} changeError={errors.name} />
+        <ErrorMessage>{errors.name?.message}</ErrorMessage>
       </InputWrapper>
       <InputWrapper>
         <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
-        <Input type="email" {...register("email")} />
+        <Input type="email" {...register("email")} changeError={errors.email} />
         <ErrorMessage>{errors.email?.message}</ErrorMessage>
       </InputWrapper>
       <InputWrapper>
         <InputLabel htmlFor="password">{t("inputLabel.password")}</InputLabel>
-        <Input type="password" {...register("password")} />
+        <Input
+          type="password"
+          {...register("password")}
+          changeError={errors.password}
+        />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
       </InputWrapper>
-      <ButtonSubmit type="submit" disabled={!isValid}>
+      <ButtonSubmit type="submit" isErr={isValid} disabled={!isValid}>
         {t("registerBtnSubmit.button")}
       </ButtonSubmit>
     </Form>

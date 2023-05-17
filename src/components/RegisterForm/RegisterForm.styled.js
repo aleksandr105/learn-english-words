@@ -1,13 +1,29 @@
 import styled from "@emotion/styled";
+import Button from "@mui/material/Button";
 
-export const ButtonSubmit = styled.button`
+export const ButtonSubmit = styled(Button)`
   width: 50%;
   display: block;
-  margin: 0 auto;
+  margin: 35px auto auto auto;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: ${({ isErr }) => (isErr ? "#00f" : "white")};
+  background-color: ${({ isErr }) => (!isErr ? "red" : "#5f5")};
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: scale 150ms linear;
+  :hover {
+    background-color: #5f5;
+    scale: 1.03;
+  }
+  :disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    color: white;
+  }
 `;
 
 export const Form = styled.form`
@@ -22,10 +38,8 @@ export const Form = styled.form`
 export const Input = styled.input`
   width: 100%;
   padding: 10px;
-  border: ${(isError) => {
-    console.log(isError.message);
-    return isError ? "1px solid red" : "1px solid #ccc";
-  }};
+  border: ${({ changeError }) =>
+    changeError ? "1px solid red" : "1px solid #ccc"};
   border-radius: 4px;
   font-size: 14px;
   :focus {
@@ -34,14 +48,20 @@ export const Input = styled.input`
   }
 `;
 
-export const InputWrapper = styled.div``;
+export const InputWrapper = styled.div`
+  position: relative;
+`;
 
 export const InputLabel = styled.label`
   display: block;
   margin-bottom: 3px;
+  font-size: 15px;
 `;
 
 export const ErrorMessage = styled.p`
+  position: absolute;
   color: red;
   text-align: center;
+  left: 0px;
+  bottom: 0px;
 `;

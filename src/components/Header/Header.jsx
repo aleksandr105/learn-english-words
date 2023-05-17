@@ -66,6 +66,7 @@ export const Header = () => {
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
               justifyContent: "end",
+              alignItems: "center",
             }}
           >
             <p>{t("header.menu")}</p>
