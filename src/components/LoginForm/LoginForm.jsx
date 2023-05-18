@@ -6,13 +6,13 @@ import {
   InputLabel,
   ButtonSubmit,
   ErrorMessage,
-} from "./RegisterForm.styled";
+} from "./LoginForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const { t } = useTranslation();
 
   const schema = yup.object().shape({
@@ -51,11 +51,6 @@ export const RegisterForm = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper>
-        <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
-        <Input type="string" {...register("name")} changeError={errors.name} />
-        <ErrorMessage>{errors.name?.message}</ErrorMessage>
-      </InputWrapper>
       <InputWrapper>
         <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
         <Input type="email" {...register("email")} changeError={errors.email} />

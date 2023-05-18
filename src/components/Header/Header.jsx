@@ -105,6 +105,7 @@ export const Header = () => {
                   </NavMobile>
                 </MenuItem>
               ))}
+              <button>{t("header.logout")}</button>
             </Menu>
           </Box>
           <Box
@@ -123,6 +124,7 @@ export const Header = () => {
                 </li>
               ))}
             </NavList>
+            <button>{t("header.logout")}</button>
           </Box>
           <div style={{ marginLeft: "auto" }}>
             <IconButton

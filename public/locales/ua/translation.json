@@ -5,7 +5,8 @@
     "learn": "Вчити",
     "statistic": "Статистика",
     "login": "Увійти",
-    "signup": "Вийти"
+    "signup": "Реєстрація",
+    "logout": "Вийти"
   },
   "learn": {
     "select title": "Швидкість вимови",

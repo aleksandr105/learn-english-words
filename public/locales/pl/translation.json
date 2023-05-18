@@ -5,7 +5,8 @@
     "learn": "Uczyć",
     "statistic": "Statystyki",
     "login": "Zaloguj",
-    "signup": "Wyloguj"
+    "signup": "Zarejestruj",
+    "logout": "Wyloguj"
   },
 
   "learn": {
