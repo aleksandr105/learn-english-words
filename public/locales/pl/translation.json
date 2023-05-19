@@ -22,7 +22,8 @@
   },
 
   "registerBtnSubmit": {
-    "button": "Zarejestrować"
+    "button": "Zarejestrować",
+    "loginButton": "Zalogować"
   },
 
   "customErrorMessages": {

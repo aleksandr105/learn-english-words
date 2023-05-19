@@ -70,7 +70,7 @@ export const LoginForm = () => {
         p={isValid ? "true" : undefined}
         disabled={!isValid}
       >
-        {t("registerBtnSubmit.button")}
+        {t("registerBtnSubmit.loginButton")}
       </ButtonSubmit>
     </Form>
   );

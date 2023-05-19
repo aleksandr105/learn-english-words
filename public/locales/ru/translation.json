@@ -21,7 +21,8 @@
   },
 
   "registerBtnSubmit": {
-    "button": "Зарегестрировать"
+    "button": "Зарегестрировать",
+    "loginButton": "Войти"
   },
 
   "customErrorMessages": {
