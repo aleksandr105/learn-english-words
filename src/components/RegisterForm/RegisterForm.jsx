@@ -6,14 +6,22 @@ import {
   InputLabel,
   ButtonSubmit,
   ErrorMessage,
+  LoaderWrapper,
 } from "./RegisterForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+import { registerUser } from "../../redux/auth/authOperations";
+import { useDispatch, useSelector } from "react-redux";
+import { RotatingLines } from "react-loader-spinner";
+import { isLoading, errorAuth } from "../../redux/auth/selectors";
 
 export const RegisterForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const isLoadingAuth = useSelector(isLoading);
+  const error = useSelector(errorAuth);
 
   const schema = yup.object().shape({
     name: yup
@@ -45,38 +53,62 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(registerUser({ ...data, language: i18n.language }));
     reset();
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper>
-        <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
-        <Input type="string" {...register("name")} changeError={errors.name} />
-        <ErrorMessage>{errors.name?.message}</ErrorMessage>
-      </InputWrapper>
-      <InputWrapper>
-        <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
-        <Input type="email" {...register("email")} changeError={errors.email} />
-        <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      </InputWrapper>
-      <InputWrapper>
-        <InputLabel htmlFor="password">{t("inputLabel.password")}</InputLabel>
-        <Input
-          type="password"
-          {...register("password")}
-          changeError={errors.password}
+    <>
+      <LoaderWrapper>
+        <RotatingLines
+          strokeColor="#5f5"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="96"
+          visible={isLoadingAuth}
+          style={{ margin: "0 auto", display: "block" }}
         />
-        <ErrorMessage>{errors.password?.message}</ErrorMessage>
-      </InputWrapper>
-      <ButtonSubmit
-        type="submit"
-        p={isValid ? "true" : undefined}
-        disabled={!isValid}
-      >
-        {t("registerBtnSubmit.button")}
-      </ButtonSubmit>
-    </Form>
+      </LoaderWrapper>
+      {!isLoadingAuth && !error && (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputWrapper>
+            <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
+            <Input
+              type="string"
+              {...register("name")}
+              changeError={errors.name}
+            />
+            <ErrorMessage>{errors.name?.message}</ErrorMessage>
+          </InputWrapper>
+          <InputWrapper>
+            <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
+            <Input
+              type="email"
+              {...register("email")}
+              changeError={errors.email}
+            />
+            <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          </InputWrapper>
+          <InputWrapper>
+            <InputLabel htmlFor="password">
+              {t("inputLabel.password")}
+            </InputLabel>
+            <Input
+              type="password"
+              {...register("password")}
+              changeError={errors.password}
+            />
+            <ErrorMessage>{errors.password?.message}</ErrorMessage>
+          </InputWrapper>
+          <ButtonSubmit
+            type="submit"
+            p={isValid ? "true" : undefined}
+            disabled={!isValid}
+          >
+            {t("registerBtnSubmit.button")}
+          </ButtonSubmit>
+        </Form>
+      )}
+    </>
   );
 };

@@ -16,11 +16,6 @@ export const LoginForm = () => {
   const { t } = useTranslation();
 
   const schema = yup.object().shape({
-    name: yup
-      .string(() => t("customErrorMessages.string"))
-      .required(() => t("customErrorMessages.required"))
-      .min(3, () => t("customErrorMessages.minName", { count: 3 }))
-      .max(32, () => t("customErrorMessages.max", { count: 32 })),
     email: yup
       .string(() => t("customErrorMessages.string"))
       .required(() => t("customErrorMessages.required"))

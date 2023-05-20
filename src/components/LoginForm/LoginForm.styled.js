@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
 export const ButtonSubmit = styled(Button)`
-  max-width: 100%;
+  min-width: 180px;
   display: block;
   margin: 35px auto auto auto;
   padding: 10px;

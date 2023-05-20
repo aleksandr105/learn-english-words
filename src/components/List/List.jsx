@@ -9,7 +9,7 @@ import {
   ListsButtonWrapper,
 } from "./List.styled";
 import { useSelector, useDispatch } from "react-redux";
-import { words } from "../../redux/selectors";
+import { words } from "../../redux/words/selectors";
 import { getWords } from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
 export const ButtonSubmit = styled(Button)`
-  max-width: 100%;
+  min-width: 180px;
   display: block;
   margin: 35px auto auto auto;
   padding: 10px;
@@ -64,4 +64,12 @@ export const ErrorMessage = styled.p`
   text-align: center;
   left: 0px;
   bottom: 0px;
+`;
+
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 30%;
 `;

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { wordsReducer } from "./words/wordsSlice";
+import { words } from "./words/wordsSlice";
+import { auth } from "./auth/authSlice";
 
 export const store = configureStore({
-  reducer: wordsReducer,
+  reducer: { words, auth },
 });

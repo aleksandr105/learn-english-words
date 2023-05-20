@@ -39,5 +39,5 @@ const wordsSlicee = createSlice({
   },
 });
 
-export const wordsReducer = wordsSlicee.reducer;
+export const words = wordsSlicee.reducer;
 export const { setLanguage } = wordsSlicee.actions;

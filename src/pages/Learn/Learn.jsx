@@ -2,7 +2,7 @@ import React from "react";
 import { List } from "../../components/List/List";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { useSelector } from "react-redux";
-import { words, loading } from "../../redux/selectors";
+import { words, loading } from "../../redux/words/selectors";
 import { Title } from "./Learn.styled";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

@@ -1,5 +1,5 @@
 import { ProgressBar } from "react-loader-spinner";
-import { loading } from "../../redux/selectors";
+import { loading } from "../../redux/words/selectors";
 import { useSelector } from "react-redux";
 import { Wrapper, Title } from "./Spinner.styled";
 import React from "react";
