@@ -22,7 +22,9 @@
 
   "registerBtnSubmit": {
     "button": "Зареєструвати",
-    "loginButton": "Увійти"
+    "loginButton": "Увійти",
+    "errorMessage": "Пробувати знову",
+    "errorTitle": "Помилка реєстрації"
   },
 
   "customErrorMessages": {

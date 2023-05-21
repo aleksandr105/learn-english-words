@@ -23,7 +23,9 @@
 
   "registerBtnSubmit": {
     "button": "Zarejestrować",
-    "loginButton": "Zalogować"
+    "loginButton": "Zalogować",
+    "errorMessage": "Spróbuj ponownie",
+    "errorTitle": "Błąd rejestracji"
   },
 
   "customErrorMessages": {

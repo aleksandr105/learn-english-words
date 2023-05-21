@@ -4,12 +4,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const registerUser = createAsyncThunk(
   "auth/register",
 
-  async ({ name, email, password }, { rejectWithValue }) => {
+  async ({ name, email, password, language }, { rejectWithValue }) => {
     try {
       const { data } = await instance.post("/auth/register", {
         name,
         email,
         password,
+        language,
       });
 
       return data;

@@ -68,8 +68,37 @@ export const ErrorMessage = styled.p`
 
 export const LoaderWrapper = styled.div`
   position: absolute;
-  display: flex;
-  justify-content: center;
+  left: calc(50% - 50px);
   width: 100%;
   top: 30%;
+`;
+
+export const ErrorMessageWrapper = styled.div`
+  margin-top: 180px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const ErrorMessageAfterRequest = styled.p`
+  color: red;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  font-size: 18px;
+`;
+
+export const ErrorMessageButton = styled.button`
+  width: 160px;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+  color: #00f;
+  background-color: #5f5;
+  font-weight: 500;
+`;
+
+export const ErrorMessageTitle = styled.h2`
+  color: red;
 `;

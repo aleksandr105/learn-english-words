@@ -7,6 +7,10 @@ import {
   ButtonSubmit,
   ErrorMessage,
   LoaderWrapper,
+  ErrorMessageWrapper,
+  ErrorMessageAfterRequest,
+  ErrorMessageButton,
+  ErrorMessageTitle,
 } from "./RegisterForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +20,7 @@ import { registerUser } from "../../redux/auth/authOperations";
 import { useDispatch, useSelector } from "react-redux";
 import { RotatingLines } from "react-loader-spinner";
 import { isLoading, errorAuth } from "../../redux/auth/selectors";
+import { removeErrorMassage } from "../../redux/auth/authSlice";
 
 export const RegisterForm = () => {
   const { t, i18n } = useTranslation();
@@ -108,6 +113,17 @@ export const RegisterForm = () => {
             {t("registerBtnSubmit.button")}
           </ButtonSubmit>
         </Form>
+      )}
+      {error && (
+        <ErrorMessageWrapper>
+          <ErrorMessageTitle>
+            {t("registerBtnSubmit.errorTitle")}
+          </ErrorMessageTitle>
+          <ErrorMessageAfterRequest>{error}</ErrorMessageAfterRequest>
+          <ErrorMessageButton onClick={() => dispatch(removeErrorMassage())}>
+            {t("registerBtnSubmit.errorMessage")}
+          </ErrorMessageButton>
+        </ErrorMessageWrapper>
       )}
     </>
   );
