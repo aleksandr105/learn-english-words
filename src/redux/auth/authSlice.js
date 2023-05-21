@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser } from "./authOperations";
+import { registerUser, login } from "./authOperations";
 
 const handlePending = (state, action) => {
   state.error = null;
@@ -18,6 +18,7 @@ const initialState = {
   isRefreshing: false,
   isAuthLoading: false,
   error: null,
+  success: null,
 };
 
 const authSlice = createSlice({
@@ -28,6 +29,9 @@ const authSlice = createSlice({
     removeErrorMassage: (state) => {
       state.error = null;
     },
+    removeSuccess: (state) => {
+      state.success = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -35,12 +39,22 @@ const authSlice = createSlice({
       .addCase(registerUser.pending, handlePending)
       .addCase(registerUser.fulfilled, (state, action) => {
         const { name, email } = action.payload;
-        state.isAuthLoading = false;
         state.user = { name, email };
+        state.success = true;
+        state.isAuthLoading = false;
       })
       .addCase(registerUser.rejected, handleRejected);
+    builder
+      .addCase(login.pending, handlePending)
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
+        state.isLoggedIn = true;
+        state.isAuthLoading = false;
+      })
+      .addCase(login.rejected, handleRejected);
   },
 });
 
 export const { reducer: auth } = authSlice;
-export const { removeErrorMassage } = authSlice.actions;
+export const { removeErrorMassage, removeSuccess } = authSlice.actions;

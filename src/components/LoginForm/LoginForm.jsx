@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Input,
@@ -6,14 +6,20 @@ import {
   InputLabel,
   ButtonSubmit,
   ErrorMessage,
+  ShowPassword,
 } from "./LoginForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+import { BiShow, BiHide } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/authOperations";
 
 export const LoginForm = () => {
   const { t } = useTranslation();
+  const [isShow, setIsShow] = useState("password");
+  const dispatch = useDispatch();
 
   const schema = yup.object().shape({
     email: yup
@@ -40,8 +46,13 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(login(data));
     reset();
+  };
+
+  const showPassword = () => {
+    if (isShow === "password") setIsShow("text");
+    if (isShow === "text") setIsShow("password");
   };
 
   return (
@@ -54,11 +65,18 @@ export const LoginForm = () => {
       <InputWrapper>
         <InputLabel htmlFor="password">{t("inputLabel.password")}</InputLabel>
         <Input
-          type="password"
+          type={isShow}
           {...register("password")}
           changeError={errors.password}
         />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
+        <ShowPassword onClick={showPassword}>
+          {isShow === "password" ? (
+            <BiShow size={"25px"} />
+          ) : (
+            <BiHide size={"25px"} />
+          )}
+        </ShowPassword>
       </InputWrapper>
       <ButtonSubmit
         type="submit"

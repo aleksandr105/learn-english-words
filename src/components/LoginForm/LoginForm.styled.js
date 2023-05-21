@@ -30,7 +30,7 @@ export const Form = styled.form`
   padding-top: 200px;
   max-width: 400px;
   margin: 0 auto;
-  input:not(:last-child) {
+  div:nth-of-type(-n + 1) {
     margin-bottom: 20px;
   }
 `;
@@ -63,5 +63,17 @@ export const ErrorMessage = styled.p`
   color: red;
   text-align: center;
   left: 0px;
-  bottom: 0px;
+`;
+
+export const ShowPassword = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: none;
+  position: absolute;
+  top: 25px;
+  right: 12px;
+  cursor: pointer;
+  padding: 2px;
 `;

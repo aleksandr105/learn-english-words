@@ -19,3 +19,17 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+export const login = createAsyncThunk(
+  "auth/login",
+
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.post("/auth/login", { email, password });
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

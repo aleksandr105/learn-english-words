@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -11,6 +11,11 @@ import {
   ErrorMessageAfterRequest,
   ErrorMessageButton,
   ErrorMessageTitle,
+  SuccessMessageWrapper,
+  SuccessMassageTitle,
+  SuccessMassageText,
+  SuccessMassageButton,
+  ShowPassword,
 } from "./RegisterForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,17 +24,25 @@ import * as yup from "yup";
 import { registerUser } from "../../redux/auth/authOperations";
 import { useDispatch, useSelector } from "react-redux";
 import { RotatingLines } from "react-loader-spinner";
-import { isLoading, errorAuth } from "../../redux/auth/selectors";
-import { removeErrorMassage } from "../../redux/auth/authSlice";
+import {
+  isLoading,
+  errorAuth,
+  successRegister,
+} from "../../redux/auth/selectors";
+import { removeErrorMassage, removeSuccess } from "../../redux/auth/authSlice";
+import { BiShow, BiHide } from "react-icons/bi";
 
 export const RegisterForm = () => {
   const { t, i18n } = useTranslation();
+  const [isShow, setIsShow] = useState("password");
   const dispatch = useDispatch();
   const isLoadingAuth = useSelector(isLoading);
   const error = useSelector(errorAuth);
+  const isSuccess = useSelector(successRegister);
 
   useEffect(() => {
     dispatch(removeErrorMassage());
+    dispatch(removeSuccess());
   }, [dispatch]);
 
   const schema = yup.object().shape({
@@ -66,6 +79,11 @@ export const RegisterForm = () => {
     reset();
   };
 
+  const showPassword = () => {
+    if (isShow === "password") setIsShow("text");
+    if (isShow === "text") setIsShow("password");
+  };
+
   return (
     <>
       <LoaderWrapper>
@@ -78,7 +96,7 @@ export const RegisterForm = () => {
           style={{ margin: "0 auto", display: "block" }}
         />
       </LoaderWrapper>
-      {!isLoadingAuth && !error && (
+      {!isLoadingAuth && !error && !isSuccess && (
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputWrapper>
             <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
@@ -103,11 +121,18 @@ export const RegisterForm = () => {
               {t("inputLabel.password")}
             </InputLabel>
             <Input
-              type="password"
+              type={isShow}
               {...register("password")}
               changeError={errors.password}
             />
             <ErrorMessage>{errors.password?.message}</ErrorMessage>
+            <ShowPassword onClick={showPassword}>
+              {isShow === "password" ? (
+                <BiShow size={"25px"} />
+              ) : (
+                <BiHide size={"25px"} />
+              )}
+            </ShowPassword>
           </InputWrapper>
           <ButtonSubmit
             type="submit"
@@ -124,10 +149,29 @@ export const RegisterForm = () => {
             {t("registerBtnSubmit.errorTitle")}
           </ErrorMessageTitle>
           <ErrorMessageAfterRequest>{error}</ErrorMessageAfterRequest>
-          <ErrorMessageButton onClick={() => dispatch(removeErrorMassage())}>
+          <ErrorMessageButton
+            type="button"
+            onClick={() => dispatch(removeErrorMassage())}
+          >
             {t("registerBtnSubmit.errorMessage")}
           </ErrorMessageButton>
         </ErrorMessageWrapper>
+      )}
+      {isSuccess && (
+        <SuccessMessageWrapper>
+          <SuccessMassageTitle>
+            {t("successRegister.successTitle")}
+          </SuccessMassageTitle>
+          <SuccessMassageText>
+            {t("successRegister.successMassage")}
+          </SuccessMassageText>
+          <SuccessMassageButton
+            type="button"
+            onClick={() => dispatch(removeSuccess())}
+          >
+            {t("successRegister.successButton")}
+          </SuccessMassageButton>
+        </SuccessMessageWrapper>
       )}
     </>
   );
