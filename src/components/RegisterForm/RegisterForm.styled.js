@@ -69,8 +69,7 @@ export const ErrorMessage = styled.p`
 export const LoaderWrapper = styled.div`
   position: absolute;
   left: calc(50% - 50px);
-  width: 100%;
-  top: 30%;
+  top: 40%;
 `;
 
 export const ErrorMessageWrapper = styled.div`
@@ -101,4 +100,5 @@ export const ErrorMessageButton = styled.button`
 
 export const ErrorMessageTitle = styled.h2`
   color: red;
+  text-align: center;
 `;

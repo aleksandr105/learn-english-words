@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Form,
   Input,
@@ -27,6 +27,10 @@ export const RegisterForm = () => {
   const dispatch = useDispatch();
   const isLoadingAuth = useSelector(isLoading);
   const error = useSelector(errorAuth);
+
+  useEffect(() => {
+    dispatch(removeErrorMassage());
+  }, [dispatch]);
 
   const schema = yup.object().shape({
     name: yup
