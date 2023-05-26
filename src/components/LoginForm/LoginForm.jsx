@@ -70,7 +70,7 @@ export const LoginForm = () => {
           changeError={errors.password}
         />
         <ErrorMessage>{errors.password?.message}</ErrorMessage>
-        <ShowPassword onClick={showPassword}>
+        <ShowPassword onClick={showPassword} type="button">
           {isShow === "password" ? (
             <BiShow size={"25px"} />
           ) : (

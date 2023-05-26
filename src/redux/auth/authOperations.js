@@ -33,3 +33,14 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (payload, { rejectWithValue }) => {
+    await instance.post("/auth/logout");
+    try {
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

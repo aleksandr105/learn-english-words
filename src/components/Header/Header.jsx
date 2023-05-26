@@ -17,13 +17,18 @@ import {
   NavMobile,
   LanguageMenu,
   SelectedLanguage,
+  AuthMenuWrapper,
 } from "./Header.styled";
 import logo from "../../SVG/symbol-defs.svg";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { isLoggedIn } from "../../redux/auth/selectors";
+import { AuthMenu } from "../AuthMenu/AuthMenu";
+import { LoggedInMenu } from "../LoggedInMenu/LoggedInMenu";
 
-const pages = ["Home", "Learn", "Statistic", "Login", "Signup"];
+const pages = ["Home", "Learn", "Statistic"];
 
 const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
 
@@ -31,6 +36,7 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t, i18n } = useTranslation();
+  const loggedInStatus = useSelector(isLoggedIn);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -65,11 +71,10 @@ export const Header = () => {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
-              justifyContent: "end",
+              marginLeft: "10px",
               alignItems: "center",
             }}
           >
-            <p>{t("header.menu")}</p>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -105,7 +110,6 @@ export const Header = () => {
                   </NavMobile>
                 </MenuItem>
               ))}
-              <button>{t("header.logout")}</button>
             </Menu>
           </Box>
           <Box
@@ -124,9 +128,9 @@ export const Header = () => {
                 </li>
               ))}
             </NavList>
-            <button>{t("header.logout")}</button>
           </Box>
-          <div style={{ marginLeft: "auto" }}>
+          <AuthMenuWrapper>
+            {loggedInStatus ? <LoggedInMenu /> : <AuthMenu />}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -166,7 +170,7 @@ export const Header = () => {
                 </LanguageMenu>
               ))}
             </Menu>
-          </div>
+          </AuthMenuWrapper>
         </Toolbar>
       </Container>
     </AppBar>

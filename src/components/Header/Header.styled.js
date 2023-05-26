@@ -69,3 +69,9 @@ export const SelectedLanguage = styled.p`
   font-size: 13px;
   text-transform: uppercase;
 `;
+
+export const AuthMenuWrapper = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+`;
