@@ -1,6 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { lazy } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getCurrentUser } from "../../redux/auth/authOperations";
+import { useSelector } from "react-redux";
+import { isLoading } from "../../redux/auth/selectors";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const Learn = lazy(() => import("../../pages/Learn/Learn"));
@@ -10,6 +15,15 @@ const Signup = lazy(() => import("../../pages/Signup/Signup"));
 const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
 
 const App = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector(isLoading);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
+  if (loading) return <h2>Loading...</h2>;
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>

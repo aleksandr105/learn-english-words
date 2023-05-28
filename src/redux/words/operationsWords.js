@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../axiosSettings";
+import { instance } from "../../axiosSettings";
 
 export const getWords = createAsyncThunk(
   "words/getAllWords",

@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
+import { instance } from "../../axiosSettings";
 
 const Home = () => {
-  useEffect(() => {
-    console.log("fech");
-  }, []);
+  const getUser = async () => {
+    try {
+      const { data } = await instance.get("/auth/current");
+      console.log(data.name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  return <div>Home Page</div>;
+  return (
+    <div style={{ marginTop: "150px" }}>
+      Home Page
+      <button type="button" onClick={getUser}>
+        get current user
+      </button>
+    </div>
+  );
 };
 
 export default Home;
