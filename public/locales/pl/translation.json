@@ -46,5 +46,9 @@
     "successTitle": "Użytkownik został pomyślnie zarejestrowany",
     "successMassage": "Na podany adres e-mail została wysłana wiadomość z instrukcjami dotyczącymi zakończenia rejestracji. Sprawdź swoją skrzynkę e-mail i postępuj zgodnie z instrukcjami w wiadomości e-mail, aby potwierdzić rejestrację. Jeśli nie otrzymałeś wiadomości e-mail, sprawdź folder Spam.",
     "successButton": "Powrót"
+  },
+
+  "googleLinkAutorize": {
+    "googleLogin": "Zaloguj się za pomocą"
   }
 }

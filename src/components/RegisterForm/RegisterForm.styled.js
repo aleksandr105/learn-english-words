@@ -6,7 +6,6 @@ export const ButtonSubmit = styled(Button)`
   display: block;
   margin: 35px auto auto auto;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 15px;
   font-weight: 700;
