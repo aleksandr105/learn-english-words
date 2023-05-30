@@ -57,9 +57,9 @@ export const getCurrentUser = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     const accessToken = localStorage.getItem("accessToken");
 
-    if (accessToken === "null") return rejectWithValue();
-
     try {
+      if (accessToken === "null") return rejectWithValue();
+
       const { data } = await instance.get("/auth/current");
 
       return data;
