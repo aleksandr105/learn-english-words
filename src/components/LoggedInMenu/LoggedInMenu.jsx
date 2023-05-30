@@ -9,7 +9,7 @@ export const LoggedInMenu = () => {
   const { t } = useTranslation();
   const { email } = useSelector(user);
   const dispatch = useDispatch();
-  const [setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
 
   const onLogout = () => {
     setSearchParams({});
