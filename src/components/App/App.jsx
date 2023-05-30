@@ -17,13 +17,13 @@ const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
 const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
-  const { accessToken, refreshToken } = useParams();
+  const params = useParams();
 
   useEffect(() => {
-    console.log(accessToken, refreshToken);
-    if (accessToken && refreshToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+    console.log(params);
+    if (params.accessToken && params.refreshToken) {
+      localStorage.setItem("accessToken", params.accessToken);
+      localStorage.setItem("refreshToken", params.refreshToken);
     }
     dispatch(getCurrentUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
