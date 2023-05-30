@@ -20,6 +20,7 @@ const App = () => {
   const { accessToken, refreshToken } = useParams();
 
   useEffect(() => {
+    console.log(accessToken, refreshToken);
     if (accessToken && refreshToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
