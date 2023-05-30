@@ -1,4 +1,4 @@
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { lazy } from "react";
 import { useEffect } from "react";
@@ -17,13 +17,13 @@ const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
 const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
-  const params = useParams();
+  const [accessToken, refreshToken] = useSearchParams();
 
   useEffect(() => {
-    console.log(params);
-    if (params.accessToken && params.refreshToken) {
-      localStorage.setItem("accessToken", params.accessToken);
-      localStorage.setItem("refreshToken", params.refreshToken);
+    console.log(accessToken, refreshToken);
+    if (accessToken && refreshToken) {
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
     }
     dispatch(getCurrentUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
