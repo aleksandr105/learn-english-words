@@ -17,7 +17,10 @@ const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
 const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
-  const [accessToken, refreshToken] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  const accessToken = searchParams.get("accessToken");
+  const refreshToken = searchParams.get("refreshToken");
 
   useEffect(() => {
     console.log(accessToken, refreshToken);
