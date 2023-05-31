@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../redux/auth/authOperations";
 import { useSelector } from "react-redux";
-import { isLoading } from "../../redux/auth/selectors";
+import { isRefreshing } from "../../redux/auth/selectors";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const Learn = lazy(() => import("../../pages/Learn/Learn"));
@@ -16,7 +16,7 @@ const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
 
 const App = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(isLoading);
+  const refreshing = useSelector(isRefreshing);
   const [searchParams] = useSearchParams();
 
   const accessToken = searchParams.get("accessToken");
@@ -31,7 +31,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  if (loading) return <h2>Loading...</h2>;
+  if (refreshing) return <h2>Loading...</h2>;
 
   return (
     <Routes>

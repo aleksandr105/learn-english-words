@@ -41,10 +41,12 @@ export const RegisterForm = () => {
   const isSuccess = useSelector(successRegister);
 
   useEffect(() => {
+    if (isLoadingAuth) return;
     dispatch(removeErrorMassage());
     dispatch(removeSuccess());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
-
+  console.log(isSuccess);
   const schema = yup.object().shape({
     name: yup
       .string(() => t("customErrorMessages.string"))

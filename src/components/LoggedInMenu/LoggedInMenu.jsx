@@ -9,6 +9,7 @@ export const LoggedInMenu = () => {
   const { t } = useTranslation();
   const { email } = useSelector(user);
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams();
 
   const onLogout = () => {

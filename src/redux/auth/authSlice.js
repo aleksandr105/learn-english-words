@@ -61,14 +61,20 @@ const authSlice = createSlice({
       })
       .addCase(logout.rejected, handleRejected);
     builder
-      .addCase(getCurrentUser.pending, handlePending)
+      .addCase(getCurrentUser.pending, (state) => {
+        state.error = null;
+        state.isRefreshing = true;
+      })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.user.email = action.payload.email;
         state.user.name = action.payload.name;
-        state.isAuthLoading = false;
+        state.isRefreshing = false;
         state.isLoggedIn = true;
       })
-      .addCase(getCurrentUser.rejected, handleRejected);
+      .addCase(getCurrentUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isRefreshing = false;
+      });
   },
 });
 
