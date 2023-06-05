@@ -46,7 +46,7 @@ export const RegisterForm = () => {
     dispatch(removeSuccess());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
-  console.log(isSuccess);
+
   const schema = yup.object().shape({
     name: yup
       .string(() => t("customErrorMessages.string"))

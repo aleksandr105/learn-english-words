@@ -17,8 +17,15 @@ instance.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest = error.config;
+    const errorMessage = error.response.data.message;
 
-    if (error.response.status === 401 && error.config) {
+    if (
+      error.response.status === 401 &&
+      error.config &&
+      (errorMessage === "invalid token or not authorized" ||
+        errorMessage === "not authorized" ||
+        errorMessage === "Refresh token expired")
+    ) {
       const refreshToken = localStorage.getItem("refreshToken");
 
       if (refreshToken === "null" || !refreshToken) return;

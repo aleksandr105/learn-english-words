@@ -2,15 +2,16 @@ import React from "react";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
 import { GoogleAutorizeLink } from "../../components/GoogleAutorizeLink/GoogleAutorizeLink";
 import { successRegister } from "../../redux/auth/selectors";
-import { useSelector } from "react-redux";
+import { useSelector, isLoading } from "react-redux";
 
 const Signup = () => {
   const isRegister = useSelector(successRegister);
+  const isLoadingAuth = useSelector(isLoading);
 
   return (
     <>
       <RegisterForm />
-      {!isRegister && <GoogleAutorizeLink />}
+      {!isRegister && !isLoadingAuth && <GoogleAutorizeLink />}
     </>
   );
 };

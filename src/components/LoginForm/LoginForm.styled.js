@@ -75,3 +75,9 @@ export const ShowPassword = styled.button`
   cursor: pointer;
   padding: 2px;
 `;
+
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  left: calc(50% - 50px);
+  top: 40%;
+`;

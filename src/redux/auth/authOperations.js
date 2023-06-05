@@ -23,9 +23,13 @@ export const registerUser = createAsyncThunk(
 export const login = createAsyncThunk(
   "auth/login",
 
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, language }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.post("/auth/login", { email, password });
+      const { data } = await instance.post("/auth/login", {
+        email,
+        password,
+        language,
+      });
 
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("accessToken", data.accessToken);

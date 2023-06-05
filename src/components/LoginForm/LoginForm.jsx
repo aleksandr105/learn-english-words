@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Form,
   Input,
@@ -7,19 +7,33 @@ import {
   ButtonSubmit,
   ErrorMessage,
   ShowPassword,
+  LoaderWrapper,
 } from "./LoginForm.styled";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { BiShow, BiHide } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/auth/authOperations";
+import { removeErrorMassage } from "../../redux/auth/authSlice";
+import { errorAuth, isLoading } from "../../redux/auth/selectors";
+import { onNatification } from "../../helpers";
+import { RotatingLines } from "react-loader-spinner";
 
 export const LoginForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isShow, setIsShow] = useState("password");
   const dispatch = useDispatch();
+  const errorMessaage = useSelector(errorAuth);
+  const isLoadingAuth = useSelector(isLoading);
+
+  useEffect(() => {
+    if (errorMessaage) onNatification(errorMessaage, { autoClose: true });
+    return () => {
+      dispatch(removeErrorMassage());
+    };
+  }, [dispatch, errorMessaage]);
 
   const schema = yup.object().shape({
     email: yup
@@ -46,7 +60,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(login(data));
+    dispatch(login({ ...data, language: i18n.language }));
     reset();
   };
 
@@ -56,35 +70,55 @@ export const LoginForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper>
-        <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
-        <Input type="email" {...register("email")} changeError={errors.email} />
-        <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      </InputWrapper>
-      <InputWrapper>
-        <InputLabel htmlFor="password">{t("inputLabel.password")}</InputLabel>
-        <Input
-          type={isShow}
-          {...register("password")}
-          changeError={errors.password}
+    <>
+      <LoaderWrapper>
+        <RotatingLines
+          strokeColor="#5f5"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="96"
+          visible={isLoadingAuth}
+          style={{ margin: "0 auto", display: "block" }}
         />
-        <ErrorMessage>{errors.password?.message}</ErrorMessage>
-        <ShowPassword onClick={showPassword} type="button">
-          {isShow === "password" ? (
-            <BiShow size={"25px"} />
-          ) : (
-            <BiHide size={"25px"} />
-          )}
-        </ShowPassword>
-      </InputWrapper>
-      <ButtonSubmit
-        type="submit"
-        p={isValid ? "true" : undefined}
-        disabled={!isValid}
-      >
-        {t("registerBtnSubmit.loginButton")}
-      </ButtonSubmit>
-    </Form>
+      </LoaderWrapper>
+      {!isLoadingAuth && (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputWrapper>
+            <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
+            <Input
+              type="email"
+              {...register("email")}
+              changeError={errors.email}
+            />
+            <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          </InputWrapper>
+          <InputWrapper>
+            <InputLabel htmlFor="password">
+              {t("inputLabel.password")}
+            </InputLabel>
+            <Input
+              type={isShow}
+              {...register("password")}
+              changeError={errors.password}
+            />
+            <ErrorMessage>{errors.password?.message}</ErrorMessage>
+            <ShowPassword onClick={showPassword} type="button">
+              {isShow === "password" ? (
+                <BiShow size={"25px"} />
+              ) : (
+                <BiHide size={"25px"} />
+              )}
+            </ShowPassword>
+          </InputWrapper>
+          <ButtonSubmit
+            type="submit"
+            p={isValid ? "true" : undefined}
+            disabled={!isValid}
+          >
+            {t("registerBtnSubmit.loginButton")}
+          </ButtonSubmit>
+        </Form>
+      )}
+    </>
   );
 };
