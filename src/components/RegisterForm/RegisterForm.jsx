@@ -6,7 +6,6 @@ import {
   InputLabel,
   ButtonSubmit,
   ErrorMessage,
-  LoaderWrapper,
   ErrorMessageWrapper,
   ErrorMessageAfterRequest,
   ErrorMessageButton,
@@ -23,28 +22,23 @@ import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { registerUser } from "../../redux/auth/authOperations";
 import { useDispatch, useSelector } from "react-redux";
-import { RotatingLines } from "react-loader-spinner";
-import {
-  isLoading,
-  errorAuth,
-  successRegister,
-} from "../../redux/auth/selectors";
+import { errorAuth, successRegister } from "../../redux/auth/selectors";
 import { removeErrorMassage, removeSuccess } from "../../redux/auth/authSlice";
 import { BiShow, BiHide } from "react-icons/bi";
+import { GoogleAutorizeLink } from "../GoogleAutorizeLink/GoogleAutorizeLink";
 
 export const RegisterForm = () => {
   const { t, i18n } = useTranslation();
   const [isShow, setIsShow] = useState("password");
   const dispatch = useDispatch();
-  const isLoadingAuth = useSelector(isLoading);
   const error = useSelector(errorAuth);
   const isSuccess = useSelector(successRegister);
 
   useEffect(() => {
-    if (isLoadingAuth) return;
-    dispatch(removeErrorMassage());
-    dispatch(removeSuccess());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      dispatch(removeErrorMassage());
+      dispatch(removeSuccess());
+    };
   }, [dispatch]);
 
   const schema = yup.object().shape({
@@ -88,62 +82,55 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <LoaderWrapper>
-        <RotatingLines
-          strokeColor="#5f5"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="96"
-          visible={isLoadingAuth}
-          style={{ margin: "0 auto", display: "block" }}
-        />
-      </LoaderWrapper>
-      {!isLoadingAuth && !error && !isSuccess && (
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <InputWrapper>
-            <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
-            <Input
-              type="string"
-              {...register("name")}
-              changeError={errors.name}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </InputWrapper>
-          <InputWrapper>
-            <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
-            <Input
-              type="email"
-              {...register("email")}
-              changeError={errors.email}
-            />
-            <ErrorMessage>{errors.email?.message}</ErrorMessage>
-          </InputWrapper>
-          <InputWrapper>
-            <InputLabel htmlFor="password">
-              {t("inputLabel.password")}
-            </InputLabel>
-            <Input
-              type={isShow}
-              {...register("password")}
-              changeError={errors.password}
-            />
-            <ErrorMessage>{errors.password?.message}</ErrorMessage>
-            <ShowPassword onClick={showPassword} type="button">
-              {isShow === "password" ? (
-                <BiShow size={"25px"} />
-              ) : (
-                <BiHide size={"25px"} />
-              )}
-            </ShowPassword>
-          </InputWrapper>
-          <ButtonSubmit
-            type="submit"
-            p={isValid ? "true" : undefined}
-            disabled={!isValid}
-          >
-            {t("registerBtnSubmit.button")}
-          </ButtonSubmit>
-        </Form>
+      {!error && !isSuccess && (
+        <>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <InputWrapper>
+              <InputLabel htmlFor="name">{t("inputLabel.name")}</InputLabel>
+              <Input
+                type="string"
+                {...register("name")}
+                changeError={errors.name}
+              />
+              <ErrorMessage>{errors.name?.message}</ErrorMessage>
+            </InputWrapper>
+            <InputWrapper>
+              <InputLabel htmlFor="email">{t("inputLabel.email")}</InputLabel>
+              <Input
+                type="email"
+                {...register("email")}
+                changeError={errors.email}
+              />
+              <ErrorMessage>{errors.email?.message}</ErrorMessage>
+            </InputWrapper>
+            <InputWrapper>
+              <InputLabel htmlFor="password">
+                {t("inputLabel.password")}
+              </InputLabel>
+              <Input
+                type={isShow}
+                {...register("password")}
+                changeError={errors.password}
+              />
+              <ErrorMessage>{errors.password?.message}</ErrorMessage>
+              <ShowPassword onClick={showPassword} type="button">
+                {isShow === "password" ? (
+                  <BiShow size={"25px"} />
+                ) : (
+                  <BiHide size={"25px"} />
+                )}
+              </ShowPassword>
+            </InputWrapper>
+            <ButtonSubmit
+              type="submit"
+              p={isValid ? "true" : undefined}
+              disabled={!isValid}
+            >
+              {t("registerBtnSubmit.button")}
+            </ButtonSubmit>
+          </Form>
+          <GoogleAutorizeLink />
+        </>
       )}
       {error && (
         <ErrorMessageWrapper>

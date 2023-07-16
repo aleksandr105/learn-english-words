@@ -1,7 +1,7 @@
-import React from "react";
-
 const MyStatistic = () => {
-  return <div>MyStatistic</div>;
+  console.log("page  statistics");
+
+  return <div style={{ marginTop: "200px" }}>MyStatistic</div>;
 };
 
 export default MyStatistic;

@@ -64,12 +64,6 @@ export const ErrorMessage = styled.p`
   left: 0px;
 `;
 
-export const LoaderWrapper = styled.div`
-  position: absolute;
-  left: calc(50% - 50px);
-  top: 40%;
-`;
-
 export const ErrorMessageWrapper = styled.div`
   margin-top: 180px;
   display: flex;

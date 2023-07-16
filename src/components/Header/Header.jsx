@@ -28,8 +28,6 @@ import { isLoggedIn } from "../../redux/auth/selectors";
 import { AuthMenu } from "../AuthMenu/AuthMenu";
 import { LoggedInMenu } from "../LoggedInMenu/LoggedInMenu";
 
-const pages = ["Home", "Learn", "Statistic"];
-
 const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
 
 export const Header = () => {
@@ -37,6 +35,8 @@ export const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
+
+  const pages = ["Home", "Learn", "Statistic"];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

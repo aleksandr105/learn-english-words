@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { instance } from "../../axiosSettings";
 
 const Home = () => {
@@ -9,6 +10,10 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log("home");
+  }, []);
 
   return (
     <div style={{ marginTop: "150px" }}>

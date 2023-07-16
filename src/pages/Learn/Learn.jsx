@@ -27,6 +27,8 @@ const Learn = () => {
     i18n.resolvedLanguage,
   ]);
 
+  console.log("Learn");
+
   return (
     <>
       <Title>Learn english words</Title>
