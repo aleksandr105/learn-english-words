@@ -10,7 +10,7 @@ import { PrivateRouter } from "../PrivateRouter";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const Learn = lazy(() => import("../../pages/Learn/Learn"));
-const MyStatistic = lazy(() => import("../../pages/MyStatistics/MyStatistic"));
+const MyStatistic = lazy(() => import("../../pages/myStatistics/MyStatistic"));
 const Login = lazy(() => import("../../pages/Login/Login"));
 const Signup = lazy(() => import("../../pages/Signup/Signup"));
 const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
