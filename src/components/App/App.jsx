@@ -36,7 +36,7 @@ const App = () => {
       return;
 
     dispatch(getCurrentUser());
-    console.log("dispatch current user");
+    console.log("dispatch get user");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
