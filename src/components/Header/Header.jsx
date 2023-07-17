@@ -36,7 +36,13 @@ export const Header = () => {
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
 
-  const pages = ["Home", "Learn", "Statistic"];
+  const pages = ["Home", "Learn", "Statistic"].filter((el) => {
+    if (loggedInStatus) {
+      return true;
+    }
+
+    return el !== "Statistic";
+  });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

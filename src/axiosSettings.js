@@ -48,7 +48,6 @@ instance.interceptors.response.use(
         return instance.request(originalRequest);
       } catch (error) {
         console.log(error.response.data.message);
-        console.log("Not autorized");
       }
     }
 

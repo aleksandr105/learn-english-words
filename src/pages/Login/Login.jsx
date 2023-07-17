@@ -8,6 +8,7 @@ import { LoaderWrapper } from "./Login.styled";
 
 const Login = () => {
   const isLoadingAuth = useSelector(isLoading);
+
   return (
     <>
       <LoaderWrapper>

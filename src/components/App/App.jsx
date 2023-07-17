@@ -1,6 +1,6 @@
 import { Routes, Route, useSearchParams } from "react-router-dom";
 import { SharedLayout } from "../SharedLayout/SharedLayout";
-import { lazy, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "../../redux/auth/authOperations";
 import { useSelector } from "react-redux";
@@ -19,6 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
   const refreshing = useSelector(isRefreshing);
   const [searchParams] = useSearchParams();
+  const [dispatchCompleted, setDispatchCompleted] = useState(false);
 
   const accessToken = searchParams.get("accessToken");
   const refreshToken = searchParams.get("refreshToken");
@@ -35,19 +36,15 @@ const App = () => {
     )
       return;
 
-    dispatch(getCurrentUser());
-    console.log("dispatch get user");
+    dispatch(getCurrentUser()).then(() => {
+      setDispatchCompleted(true);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  if (refreshing)
-    return (
-      <>
-        <h2>Loading...</h2>
-        {console.log("skeliton")}
-      </>
-    );
-  console.log("after skeliton");
+  if (refreshing || !dispatchCompleted) return <h2>Loading...</h2>;
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
