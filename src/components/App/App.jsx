@@ -33,8 +33,10 @@ const App = () => {
     if (
       localStorage.getItem("accessToken") === "null" ||
       localStorage.getItem("refreshToken") === "null"
-    )
+    ) {
+      setDispatchCompleted(true);
       return;
+    }
 
     dispatch(getCurrentUser()).then(() => {
       setDispatchCompleted(true);
