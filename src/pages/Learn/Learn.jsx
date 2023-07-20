@@ -10,7 +10,7 @@ import { getWords } from "../../redux/words/operationsWords";
 import { setLanguage } from "../../redux/words/wordsSlice";
 import { useTranslation } from "react-i18next";
 
-const Learn = () => {
+const Learn = ({ showSpinner }) => {
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const isLoading = useSelector(loading);
@@ -30,8 +30,12 @@ const Learn = () => {
   return (
     <>
       <Title>Learn english words</Title>
-      <Spinner />
-      {arrAllWords.length !== 0 && !isLoading && <List />}
+
+      {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
+        <List />
+      ) : (
+        <Spinner isLoad={true} />
+      )}
     </>
   );
 };

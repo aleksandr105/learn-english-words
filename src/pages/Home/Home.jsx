@@ -1,6 +1,7 @@
 import { instance } from "../../axiosSettings";
+import { Spinner } from "../../components/Spinner/Spinner";
 
-const Home = () => {
+const Home = ({ showSpinner }) => {
   const getUser = async () => {
     try {
       const { data } = await instance.get("/auth/current");
@@ -9,6 +10,13 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  if (showSpinner)
+    return (
+      <div style={{ marginTop: "29vh" }}>
+        <Spinner isLoad={true} />
+      </div>
+    );
 
   return (
     <div style={{ marginTop: "150px" }}>

@@ -21,6 +21,8 @@ const App = () => {
   const [searchParams] = useSearchParams();
   const [dispatchCompleted, setDispatchCompleted] = useState(false);
 
+  const showSpinner = refreshing || !dispatchCompleted;
+
   const accessToken = searchParams.get("accessToken");
   const refreshToken = searchParams.get("refreshToken");
 
@@ -45,26 +47,40 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  if (refreshing || !dispatchCompleted) return <h2>Loading...</h2>;
-
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="learn" element={<Learn />} />
+        <Route index element={<Home showSpinner={showSpinner} />} />
+        <Route path="learn" element={<Learn showSpinner={showSpinner} />} />
         <Route
           path="statistic"
           element={
-            <PrivateRouter component={MyStatistic} redirectTo="/login" />
+            <PrivateRouter
+              component={MyStatistic}
+              redirectTo="/login"
+              showSpinner={showSpinner}
+            />
           }
         />
         <Route
           path="login"
-          element={<RestrictedRouter component={Login} redirectTo="/" />}
+          element={
+            <RestrictedRouter
+              component={Login}
+              redirectTo="/"
+              showSpinner={showSpinner}
+            />
+          }
         />
         <Route
           path="signup"
-          element={<RestrictedRouter component={Signup} redirectTo="/" />}
+          element={
+            <RestrictedRouter
+              component={Signup}
+              redirectTo="/"
+              showSpinner={showSpinner}
+            />
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Route>

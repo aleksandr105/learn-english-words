@@ -1,11 +1,8 @@
 import { ProgressBar } from "react-loader-spinner";
-import { loading } from "../../redux/words/selectors";
-import { useSelector } from "react-redux";
 import { Wrapper, Title } from "./Spinner.styled";
 import React from "react";
 
-export const Spinner = () => {
-  const isLoad = useSelector(loading);
+export const Spinner = ({ isLoad }) => {
   return (
     <>
       {isLoad && (
