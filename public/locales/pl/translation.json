@@ -50,5 +50,15 @@
 
   "googleLinkAutorize": {
     "googleLogin": "Zaloguj się za pomocą"
+  },
+
+  "footer": {
+    "textSendMessage": "Zgłoś błąd, zasugeruj ulepszenie aplikacji lub po prostu podziękuj programiście - napisz nam!",
+    "textDonate": "",
+    "copyright": "",
+    "button": "Napisać",
+    "donate": "Wesprzyj projekt darowizną",
+    "copyrightText": "Wszelkie prawa zastrzeżone",
+    "developer": "Deweloper"
   }
 }

@@ -19,7 +19,7 @@ const Home = ({ showSpinner }) => {
     );
 
   return (
-    <div style={{ marginTop: "150px" }}>
+    <div style={{ paddingTop: "150px" }}>
       Home Page
       <button type="button" onClick={getUser}>
         get current user

@@ -1,5 +1,5 @@
 const MyStatistic = () => {
-  return <div style={{ marginTop: "200px" }}>MyStatistic</div>;
+  return <div style={{ paddingTop: "200px" }}>MyStatistic</div>;
 };
 
 export default MyStatistic;
