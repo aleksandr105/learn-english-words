@@ -59,11 +59,14 @@
     "button": "Napisać",
     "donate": "Wesprzyj projekt darowizną",
     "copyrightText": "Wszelkie prawa zastrzeżone",
-    "developer": "Deweloper"
+    "developer": "Deweloper",
+    "notLoggedin": "Tylko autoryzowani użytkownicy mogą wysyłać wiadomości!"
   },
   "modal": {
     "title": "Napisz do nas",
     "placeholder": "Wiadomość...",
-    "button": "Wysłać"
+    "button": "Wysłać",
+    "errorMessage": "Najpierw napisz wiadomość",
+    "successMassage": "Wiadomość wysłana"
   }
 }

@@ -9,11 +9,14 @@ import { user } from "../../redux/auth/selectors";
 import { useSelector } from "react-redux";
 import { GrClose } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
+import { onNatification } from "../../helpers";
 
 export const FormSendMessage = ({ showModal }) => {
   const { name, email } = useSelector(user);
   const [message, setMessage] = useState("");
   const { t } = useTranslation();
+
+  const checkingMessage = message.trim().length;
 
   useEffect(() => {
     const message = localStorage.getItem("message");
@@ -23,9 +26,19 @@ export const FormSendMessage = ({ showModal }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (!checkingMessage) {
+      onNatification(t("modal.errorMessage"), { autoClose: 5000 });
+      return;
+    }
+
     setMessage("");
     localStorage.removeItem("message");
     showModal(false);
+    onNatification(t("modal.successMassage"), {
+      autoClose: 5000,
+      type: "success",
+    });
   };
 
   const changeMessage = (e) => {
