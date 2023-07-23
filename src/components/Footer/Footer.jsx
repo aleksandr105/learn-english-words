@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import {
   FooterEl,
   Logo,
@@ -17,15 +17,26 @@ import { Container } from "@mui/material";
 import logo from "../../SVG/symbol-defs.svg";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../Modal/Modal";
+import { FormSendMessage } from "../FormSendMessage/FormSendMessage";
 
 export const Footer = forwardRef((props, ref) => {
+  const [isShowModal, setIsShowModal] = useState(false);
+
   const { t } = useTranslation();
 
-  const showModal = () => {};
+  const showModal = (e) => {
+    if (e.code === "Escape") setIsShowModal(false);
+
+    if (e.target === e.currentTarget) setIsShowModal((prev) => !prev);
+  };
 
   return (
     <FooterEl ref={ref}>
-      {false && <Modal showModal={showModal}>ddfdfdf</Modal>}
+      {isShowModal && (
+        <Modal showModal={showModal}>
+          <FormSendMessage showModal={setIsShowModal} />
+        </Modal>
+      )}
       <Container>
         <FlexContainer>
           <LogoLink to="/">
@@ -36,7 +47,9 @@ export const Footer = forwardRef((props, ref) => {
           <Wrapper>
             <TextSendMessageWrapper>
               <TextSendMessage>{t("footer.textSendMessage")}</TextSendMessage>
-              <SendMessageButton>{t("footer.button")}</SendMessageButton>
+              <SendMessageButton onClick={showModal}>
+                {t("footer.button")}
+              </SendMessageButton>
             </TextSendMessageWrapper>
             <TextDonateWrapper>
               <TextDonate>{t("footer.donate")}:</TextDonate>

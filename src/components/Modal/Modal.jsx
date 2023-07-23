@@ -14,7 +14,7 @@ export const Modal = ({ showModal, children }) => {
   }, [showModal]);
 
   return createPortal(
-    <Backdrop>
+    <Backdrop onClick={showModal}>
       <ModalItem>{children}</ModalItem>
     </Backdrop>,
     modalRoot

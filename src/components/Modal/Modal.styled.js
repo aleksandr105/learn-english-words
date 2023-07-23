@@ -10,10 +10,12 @@ export const Backdrop = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
+  z-index: 1200;
 `;
 
 export const ModalItem = styled.div`
-  max-width: 50vw;
-  max-height: 50vh;
+  padding: 0 15px;
+  @media screen and (min-width: 510px) {
+    width: 500px;
+  }
 `;

@@ -60,5 +60,10 @@
     "donate": "Wesprzyj projekt darowizną",
     "copyrightText": "Wszelkie prawa zastrzeżone",
     "developer": "Deweloper"
+  },
+  "modal": {
+    "title": "Napisz do nas",
+    "placeholder": "Wiadomość...",
+    "button": "Wysłać"
   }
 }
