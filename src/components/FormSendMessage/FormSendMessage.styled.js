@@ -32,6 +32,10 @@ export const InputWrapper = styled.div`
     font-weight: 700;
     cursor: pointer;
     max-width: 210px;
+    transition: scale 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    :hover {
+      scale: 1.05;
+    }
   }
   textarea {
     resize: none;
@@ -66,4 +70,11 @@ export const CloseModalButton = styled.button`
   :hover {
     scale: 1.1;
   }
+`;
+
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  z-index: 100;
+  right: calc(50% - 96px / 2);
+  top: calc(50% - 96px / 2);
 `;
