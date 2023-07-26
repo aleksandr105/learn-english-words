@@ -53,7 +53,7 @@
   },
 
   "footer": {
-    "textSendMessage": "Zgłoś błąd, zasugeruj ulepszenie aplikacji lub po prostu podziękuj programiście - napisz nam!",
+    "textSendMessage": "Zgłoś błąd, zasugeruj ulepszenie aplikacji lub po prostu podziękuj programiście",
     "textDonate": "",
     "copyright": "",
     "button": "Napisać",
@@ -68,5 +68,16 @@
     "button": "Wysłać",
     "errorMessage": "Najpierw napisz wiadomość",
     "successMassage": "Wiadomość wysłana"
+  },
+
+  "homePage": {
+    "description": "Pozdrowienia! W tej aplikacji oferujemy naukę angielskich słówek w trzech językach: ukraińskim, rosyjskim i polskim. Odwiedzając stronę „link do strony” otrzymasz z bazy 10 par słów, które są najczęściej używane w mowie potocznej. Twoim zadaniem jest znalezienie odpowiednika dla każdego angielskiego słowa, klikając najpierw na angielskie słowo, a następnie na odpowiadające mu słowo w wybranym języku (lub odwrotnie). Jeśli odpowiedź jest poprawna, para zniknie, a tym samym skompletujesz wszystkie 10 par. Jeśli popełnisz błąd, będziesz musiał wrócić do uczenia się wszystkich słów, na które odpowiedziałeś poprawnie. W wyskakującym okienku pojawi się komunikat o błędzie i poprawna odpowiedź.",
+    "forRegisteredUsers": "Dla zarejestrowanych użytkowników otwierają się nowe możliwości:",
+    "benefit1": "1. Tworzenie własnej bazy słówek oraz dodawanie i usuwanie słówek.",
+    "benefit2": "2. Usuwać słowa, których nauczyłeś się w 100% z bazy najczęściej używanych słów iw razie potrzeby przywróć je do listy do ponownego nauczenia.",
+    "benefit3": "3. Widzieć statystyki swoich studiów i porównywać swoją ocenę z innymi użytkownikami",
+    "motivation": "Moją motywacją do stworzenia tej aplikacji była potrzeba nauki angielskich słówek. Nie znalazłem na rynku odpowiedniej aplikacji do nauki słów, więc postanowiłem sam ją stworzyć. Życzę sukcesów w nauce angielskich słówek!",
+    "startLearn": "Aby rozpocząć, kliknij link. Jeśli nie jesteś jeszcze zarejestrowany, możesz to również zrobić, klikając link link.",
+    "usAlready": "Już dołączyli"
   }
 }

@@ -46,9 +46,7 @@ instance.interceptors.response.use(
         localStorage.setItem("accessToken", data.accessToken);
 
         return instance.request(originalRequest);
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
+      } catch (error) {}
     }
 
     throw error;

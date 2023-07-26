@@ -3,7 +3,7 @@ import { List } from "../../components/List/List";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { useSelector } from "react-redux";
 import { words, loading } from "../../redux/words/selectors";
-import { Title } from "./Learn.styled";
+import { MainTitle } from "../../components/MainTitle/MainTitle";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getWords } from "../../redux/words/operationsWords";
@@ -29,7 +29,7 @@ const Learn = ({ showSpinner }) => {
 
   return (
     <>
-      <Title>Learn english words</Title>
+      <MainTitle />
 
       {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
         <List />

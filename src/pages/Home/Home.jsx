@@ -1,16 +1,8 @@
-import { instance } from "../../axiosSettings";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { DescriptionHome } from "../../components/DescriptionHome/DescriptionHome";
+import { MainTitle } from "../../components/MainTitle/MainTitle";
 
 const Home = ({ showSpinner }) => {
-  const getUser = async () => {
-    try {
-      const { data } = await instance.get("/auth/current");
-      console.log(data.name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   if (showSpinner)
     return (
       <div style={{ marginTop: "29vh" }}>
@@ -19,12 +11,10 @@ const Home = ({ showSpinner }) => {
     );
 
   return (
-    <div style={{ paddingTop: "150px" }}>
-      Home Page
-      <button type="button" onClick={getUser}>
-        get current user
-      </button>
-    </div>
+    <>
+      <MainTitle />
+      <DescriptionHome />
+    </>
   );
 };
 
