@@ -6,7 +6,14 @@ export const Section = styled.section`
     margin-bottom: 30px;
   }
   p {
+    /* border: 2px solid silver; */
+    color: black;
+    background-color: #5f5;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: 600;
     text-indent: 20px;
+    font-size: 20px;
   }
   span {
     display: block;
