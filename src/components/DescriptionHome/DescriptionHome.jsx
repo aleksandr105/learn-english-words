@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Section } from "./DescriptionHome.styled";
 import { useTranslation } from "react-i18next";
+import { getTotalUsers } from "../../operations";
 
 export const DescriptionHome = () => {
   const { t } = useTranslation();
+
+  const [users, setUsers] = useState(0);
+
+  useEffect(() => {
+    getTotalUsers().then(({ data }) => {
+      setUsers(data.totalUsers);
+    });
+  }, []);
 
   return (
     <Section>
@@ -16,7 +25,7 @@ export const DescriptionHome = () => {
       </p>
       <p>{t("homePage.motivation")}</p>
       <p>{t("homePage.startLearn")}</p>
-      <p>{t("homePage.usAlready")}</p>
+      <p>{t("homePage.usAlready", { users })}</p>
     </Section>
   );
 };

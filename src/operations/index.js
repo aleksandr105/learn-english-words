@@ -7,3 +7,11 @@ export const sendMessageDeveloper = async (data) => {
     console.log(error);
   }
 };
+
+export const getTotalUsers = async () => {
+  try {
+    return await instance.get("/statistics/total/users");
+  } catch (error) {
+    console.log(error);
+  }
+};

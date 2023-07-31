@@ -78,6 +78,6 @@
     "benefit3": "3. Widzieć statystyki swoich studiów i porównywać swoją ocenę z innymi użytkownikami",
     "motivation": "Moją motywacją do stworzenia tej aplikacji była potrzeba nauki angielskich słówek. Nie znalazłem na rynku odpowiedniej aplikacji do nauki słów, więc postanowiłem sam ją stworzyć. Życzę sukcesów w nauce angielskich słówek!",
     "startLearn": "Aby rozpocząć, kliknij link. Jeśli nie jesteś jeszcze zarejestrowany, możesz to również zrobić, klikając link link.",
-    "usAlready": "Już dołączyli"
+    "usAlready": "Już dołączyli {{users}}."
   }
 }

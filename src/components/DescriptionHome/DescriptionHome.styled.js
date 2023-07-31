@@ -8,7 +8,7 @@ export const Section = styled.section`
   p {
     /* border: 2px solid silver; */
     color: black;
-    background-color: #5f5;
+    background-color: #dddddd;
     padding: 15px;
     border-radius: 20px;
     font-weight: 600;
