@@ -8,6 +8,11 @@ export const Title = styled.h1`
   padding: 6px 6px 0 6px;
   max-width: 380px;
   border-radius: 30px;
-  margin: 90px auto 30px auto;
   font-family: "Alkatra";
+  margin: 0 auto;
+`;
+
+export const Wrapper = styled.div`
+  padding-top: 100px;
+  padding-bottom: 30px;
 `;

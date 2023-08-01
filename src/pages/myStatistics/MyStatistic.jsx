@@ -1,5 +1,11 @@
+import { MainTitle } from "../../components/MainTitle/MainTitle";
+
 const MyStatistic = () => {
-  return <div style={{ paddingTop: "200px" }}>MyStatistic</div>;
+  return (
+    <>
+      <MainTitle />
+    </>
+  );
 };
 
 export default MyStatistic;
