@@ -51,8 +51,8 @@ export const DescriptionHome = () => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           {showLoader ? (
             <Oval
-              height={25}
-              width={25}
+              height={21}
+              width={21}
               strokeWidth={8}
               color="#00f"
               secondaryColor="#5f5"
