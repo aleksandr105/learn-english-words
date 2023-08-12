@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 35px;
+  padding-bottom: 40px;
 `;
 
 export const Link = styled.a`

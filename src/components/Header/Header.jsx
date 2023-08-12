@@ -18,15 +18,19 @@ import {
   LanguageMenu,
   SelectedLanguage,
   AuthMenuWrapper,
+  Buttonlogout,
+  IconButtonWrapper,
 } from "./Header.styled";
 import logo from "../../SVG/symbol-defs.svg";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { isLoggedIn } from "../../redux/auth/selectors";
 import { AuthMenu } from "../AuthMenu/AuthMenu";
 import { LoggedInMenu } from "../LoggedInMenu/LoggedInMenu";
+import { useSearchParams } from "react-router-dom";
+import { logout } from "../../redux/auth/authOperations";
 
 const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
 
@@ -35,6 +39,10 @@ export const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
+
+  // eslint-disable-next-line no-unused-vars
+  const [_, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   const pages = ["Home", "Learn", "Statistic"].filter((el) => {
     if (loggedInStatus) {
@@ -62,6 +70,11 @@ export const Header = () => {
 
   const langChange = (language) => {
     i18n.changeLanguage(language);
+  };
+
+  const onLogout = () => {
+    setSearchParams({});
+    dispatch(logout());
   };
 
   return (
@@ -137,17 +150,25 @@ export const Header = () => {
           </Box>
           <AuthMenuWrapper>
             {loggedInStatus ? <LoggedInMenu /> : <AuthMenu />}
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <SelectedLanguage>{i18n.resolvedLanguage}</SelectedLanguage>
-              <LanguageIcon />
-            </IconButton>
+            <IconButtonWrapper>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+                style={{ padding: "0px" }}
+              >
+                <SelectedLanguage>{i18n.resolvedLanguage}</SelectedLanguage>
+                <LanguageIcon />
+              </IconButton>
+              {loggedInStatus && (
+                <Buttonlogout onClick={onLogout}>
+                  {t("header.logout")}
+                </Buttonlogout>
+              )}
+            </IconButtonWrapper>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}

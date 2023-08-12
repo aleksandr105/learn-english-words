@@ -75,3 +75,28 @@ export const AuthMenuWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const Buttonlogout = styled.button`
+  border-radius: 10px;
+  padding: 4px;
+  margin-top: 5px;
+  border: none;
+  color: #00f;
+  background-color: #5f5;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    scale 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  :hover {
+    background-color: #9cf654;
+    scale: 1.03;
+  }
+`;
+
+export const IconButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px 0px 10px 10px;
+`;

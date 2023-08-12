@@ -5,7 +5,8 @@
     "statistic": "Статистика",
     "login": "Войти",
     "signup": "Регистрация",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "hello": "Привет,"
   },
   "learn": {
     "select title": "Скорость речи",
