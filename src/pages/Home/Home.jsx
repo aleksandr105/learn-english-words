@@ -1,13 +1,17 @@
 import { Spinner } from "../../components/Spinner/Spinner";
 import { DescriptionHome } from "../../components/DescriptionHome/DescriptionHome";
 import { MainTitle } from "../../components/MainTitle/MainTitle";
+import { SpinnerWrapper } from "./Home.styled";
 
 const Home = ({ showSpinner }) => {
   if (showSpinner)
     return (
-      <div style={{ marginTop: "29vh" }}>
-        <Spinner isLoad={true} />
-      </div>
+      <>
+        <MainTitle />
+        <SpinnerWrapper>
+          <Spinner isLoad={true} />
+        </SpinnerWrapper>
+      </>
     );
 
   return (

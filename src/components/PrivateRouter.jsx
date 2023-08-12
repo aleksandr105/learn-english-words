@@ -2,6 +2,7 @@ import { isLoggedIn, isRefreshing } from "../redux/auth/selectors";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Spinner } from "./Spinner/Spinner";
+import { MainTitle } from "./MainTitle/MainTitle";
 
 export const PrivateRouter = ({
   component: Component,
@@ -13,9 +14,12 @@ export const PrivateRouter = ({
 
   if (showSpinner)
     return (
-      <div style={{ marginTop: "29vh" }}>
-        <Spinner isLoad={true} />
-      </div>
+      <>
+        <MainTitle />
+        <div>
+          <Spinner isLoad={true} />
+        </div>
+      </>
     );
 
   return !loggedin && !refreshing ? (
