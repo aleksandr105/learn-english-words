@@ -17,9 +17,8 @@ const selectOptions = [
   { value: 0.2, name: "value slow" },
 ];
 
-export const LearnOptions = ({ changeOptins }) => {
+export const LearnOptions = ({ changeOptins, learnOptions }) => {
   const { t } = useTranslation();
-  const learnOptions = JSON.parse(localStorage.getItem("learnOptions"));
 
   const changeSpeedVoice = (e) => {
     const changedOptions = {
@@ -60,6 +59,7 @@ export const LearnOptions = ({ changeOptins }) => {
           onChange={changeSpeedVoice}
           value={learnOptions.select}
           disabled={!learnOptions.voice}
+          voiceStatus={learnOptions.voice}
         >
           {selectOptions.map(({ value, name }) => (
             <option key={name} value={value}>

@@ -36,7 +36,10 @@ const Learn = ({ showSpinner }) => {
 
       {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
         <>
-          <LearnOptions changeOptins={setLearnOptions} />
+          <LearnOptions
+            changeOptins={setLearnOptions}
+            learnOptions={learnOptions}
+          />
           <List learnOptions={learnOptions} />
         </>
       ) : (

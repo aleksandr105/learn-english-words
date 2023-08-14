@@ -3,9 +3,6 @@ import {
   EnButton,
   ListButton,
   ListButtomItem,
-  // Select,
-  // SelectTitle,
-  // SelectWrapper,
   ListsButtonWrapper,
 } from "./List.styled";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,12 +12,6 @@ import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
 import { useTranslation } from "react-i18next";
-
-// const selectOptions = [
-//   { value: 1, name: "value fast" },
-//   { value: 0.5, name: "value medium" },
-//   { value: 0.2, name: "value slow" },
-// ];
 
 export const List = ({ learnOptions }) => {
   const { select, melody, voice } = learnOptions;
@@ -150,16 +141,6 @@ export const List = ({ learnOptions }) => {
 
   return (
     <>
-      {/* <SelectWrapper>
-        <SelectTitle>{t("learn.select title")}</SelectTitle>
-        <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
-          {selectOptions.map(({ value, name }) => (
-            <option key={name} value={value}>
-              {t(`learn.${name}`)}
-            </option>
-          ))}
-        </Select>
-      </SelectWrapper> */}
       {wordsEn && wordsTranslation && (
         <ListsButtonWrapper>
           <ListButton>

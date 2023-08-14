@@ -27,7 +27,8 @@ const App = () => {
     melody: true,
   };
 
-  localStorage.setItem("learnOptions", JSON.stringify(options));
+  if (!localStorage.getItem("learnOptions"))
+    localStorage.setItem("learnOptions", JSON.stringify(options));
 
   const showSpinner = refreshing || !dispatchCompleted;
 

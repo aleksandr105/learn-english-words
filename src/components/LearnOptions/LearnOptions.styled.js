@@ -12,7 +12,7 @@ export const SelectWrapper = styled.div`
 export const Select = styled.select`
   border-radius: 5px;
   height: 28px;
-  background-color: #5f5;
+  background-color: ${({ voiceStatus }) => (voiceStatus ? "#5f5" : "#FF0000")};
   color: #00f;
   font-weight: 500;
   border: none;
