@@ -61,31 +61,6 @@ export const EnButton = styled(Button)`
     buttonStatus && (el === wordClick2 || el === wordClick) ? "none" : "auto"};
 `;
 
-// export const SelectWrapper = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin-bottom: 20px;
-// `;
-
-// export const Select = styled.select`
-//   border-radius: 5px;
-//   background-color: #5f5;
-//   color: #00f;
-//   font-weight: 500;
-//   border: none;
-//   :focus {
-//     outline: none;
-//     border: none;
-//   }
-// `;
-
-// export const SelectTitle = styled.span`
-//   font-weight: 500;
-//   color: #00f;
-//   margin-right: 5px;
-// `;
-
 function onBtnColor(
   active,
   notActive,

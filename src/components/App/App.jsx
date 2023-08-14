@@ -21,6 +21,14 @@ const App = () => {
   const [searchParams] = useSearchParams();
   const [dispatchCompleted, setDispatchCompleted] = useState(false);
 
+  const options = {
+    select: 1,
+    voice: true,
+    melody: true,
+  };
+
+  localStorage.setItem("learnOptions", JSON.stringify(options));
+
   const showSpinner = refreshing || !dispatchCompleted;
 
   const accessToken = searchParams.get("accessToken");

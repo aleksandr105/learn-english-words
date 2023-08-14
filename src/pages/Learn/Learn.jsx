@@ -20,19 +20,6 @@ const Learn = ({ showSpinner }) => {
   );
 
   useEffect(() => {
-    const learnOptions = localStorage.getItem("learnOptions");
-
-    const options = {
-      select: 1,
-      voice: true,
-      melody: true,
-    };
-
-    if (!learnOptions) {
-      setLearnOptions(JSON.stringify(options));
-      localStorage.setItem("learnOptions", JSON.stringify(options));
-    }
-
     dispatch(setLanguage(i18n.resolvedLanguage));
     if (!arrKey.length || !arrValue.length) dispatch(getWords());
   }, [
