@@ -26,11 +26,12 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
-import { isLoggedIn } from "../../redux/auth/selectors";
+import { isLoggedIn, isLoading } from "../../redux/auth/selectors";
 import { AuthMenu } from "../AuthMenu/AuthMenu";
 import { LoggedInMenu } from "../LoggedInMenu/LoggedInMenu";
 import { useSearchParams } from "react-router-dom";
 import { logout } from "../../redux/auth/authOperations";
+import { Oval } from "react-loader-spinner";
 
 const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
 
@@ -39,6 +40,7 @@ export const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
+  const logoutLoad = useSelector(isLoading);
 
   // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams();
@@ -163,10 +165,19 @@ export const Header = () => {
                 <SelectedLanguage>{i18n.resolvedLanguage}</SelectedLanguage>
                 <LanguageIcon />
               </IconButton>
-              {loggedInStatus && (
+              {loggedInStatus && !logoutLoad && (
                 <Buttonlogout onClick={onLogout}>
                   {t("header.logout")}
                 </Buttonlogout>
+              )}
+              {logoutLoad && (
+                <Oval
+                  height={21}
+                  width={21}
+                  strokeWidth={8}
+                  color="#5f5"
+                  secondaryColor="#FFF"
+                />
               )}
             </IconButtonWrapper>
             <Menu

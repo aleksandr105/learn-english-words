@@ -3,9 +3,9 @@ import {
   EnButton,
   ListButton,
   ListButtomItem,
-  Select,
-  SelectTitle,
-  SelectWrapper,
+  // Select,
+  // SelectTitle,
+  // SelectWrapper,
   ListsButtonWrapper,
 } from "./List.styled";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,16 +16,16 @@ import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
 import { useTranslation } from "react-i18next";
 
-const selectOptions = [
-  { value: 1, name: "value fast" },
-  { value: 0.5, name: "value medium" },
-  { value: 0.2, name: "value slow" },
-];
+// const selectOptions = [
+//   { value: 1, name: "value fast" },
+//   { value: 0.5, name: "value medium" },
+//   { value: 0.2, name: "value slow" },
+// ];
 
-export const List = () => {
+export const List = ({ learnOptions }) => {
+  const { select, melody, voice } = learnOptions;
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
-  const [speedVoce, setSpeedVoce] = useState(1);
   const [wordClick, setWordClick] = useState(null);
   const [wordClick2, setWordClick2] = useState(null);
   const [wordsEn, setWordesEn] = useState(arrKey);
@@ -76,7 +76,7 @@ export const List = () => {
 
       if (wordClick2) setButtonStatus(true);
 
-      await speak({ text: wordValue, rate: speedVoce });
+      if (voice) await speak({ text: wordValue, rate: select });
       setSpeakStatus(false);
 
       if (isAnswerCorrect && clickOnSameColumn && (wordClick || wordClick2))
@@ -86,7 +86,7 @@ export const List = () => {
     if (isAnswerCorrect) {
       setButtonStatus(true);
 
-      if (wordsEn.length >= 2) await onPlay(complited);
+      if (wordsEn.length >= 2 && melody) await onPlay(complited);
 
       const wordsEnFiltered = wordsEn.filter(
         (el) => el !== wordClick && el !== wordValue
@@ -103,7 +103,7 @@ export const List = () => {
       setButtonStatus(false);
 
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
-        await onPlay(victory);
+        if (melody) await onPlay(victory);
 
         onNatification(t("notification.good"), {
           type: "success",
@@ -134,7 +134,7 @@ export const List = () => {
         {}
       );
 
-      await onPlay(error);
+      if (melody) await onPlay(error);
 
       setClickError(false);
       setWordClick2(null);
@@ -150,7 +150,7 @@ export const List = () => {
 
   return (
     <>
-      <SelectWrapper>
+      {/* <SelectWrapper>
         <SelectTitle>{t("learn.select title")}</SelectTitle>
         <Select name="speed" onChange={(e) => setSpeedVoce(e.target.value)}>
           {selectOptions.map(({ value, name }) => (
@@ -159,7 +159,7 @@ export const List = () => {
             </option>
           ))}
         </Select>
-      </SelectWrapper>
+      </SelectWrapper> */}
       {wordsEn && wordsTranslation && (
         <ListsButtonWrapper>
           <ListButton>

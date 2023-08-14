@@ -1,11 +1,11 @@
 import React from "react";
 import { List } from "../../components/List/List";
 import { Spinner } from "../../components/Spinner/Spinner";
-import { useSelector } from "react-redux";
+import { LearnOptions } from "../../components/LearnOptions/LearnOptions";
+import { useSelector, useDispatch } from "react-redux";
 import { words, loading } from "../../redux/words/selectors";
 import { MainTitle } from "../../components/MainTitle/MainTitle";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { getWords } from "../../redux/words/operationsWords";
 import { setLanguage } from "../../redux/words/wordsSlice";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,24 @@ const Learn = ({ showSpinner }) => {
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const isLoading = useSelector(loading);
   const { i18n } = useTranslation();
+  const [learnOptions, setLearnOptions] = useState(
+    JSON.parse(localStorage.getItem("learnOptions"))
+  );
 
   useEffect(() => {
+    const learnOptions = localStorage.getItem("learnOptions");
+
+    const options = {
+      select: 1,
+      voice: true,
+      melody: true,
+    };
+
+    if (!learnOptions) {
+      setLearnOptions(JSON.stringify(options));
+      localStorage.setItem("learnOptions", JSON.stringify(options));
+    }
+
     dispatch(setLanguage(i18n.resolvedLanguage));
     if (!arrKey.length || !arrValue.length) dispatch(getWords());
   }, [
@@ -28,15 +44,18 @@ const Learn = ({ showSpinner }) => {
   ]);
 
   return (
-    <>
+    <section>
       <MainTitle />
 
       {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
-        <List />
+        <>
+          <LearnOptions changeOptins={setLearnOptions} />
+          <List learnOptions={learnOptions} />
+        </>
       ) : (
         <Spinner isLoad={true} />
       )}
-    </>
+    </section>
   );
 };
 
