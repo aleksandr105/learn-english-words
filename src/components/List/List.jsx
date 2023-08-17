@@ -7,16 +7,19 @@ import {
 } from "./List.styled";
 import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/words/selectors";
+import { isLoggedIn } from "../../redux/auth/selectors";
 import { getWords } from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
 import { useTranslation } from "react-i18next";
+import { DeleteWordMenu } from "../DeleteWordMenu/DeleteWordMenu";
 
 export const List = ({ learnOptions }) => {
   const { select, melody, voice } = learnOptions;
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
+  const loggrdin = useSelector(isLoggedIn);
   const [wordClick, setWordClick] = useState(null);
   const [wordClick2, setWordClick2] = useState(null);
   const [wordsEn, setWordesEn] = useState(arrKey);
@@ -24,6 +27,7 @@ export const List = ({ learnOptions }) => {
   const [buttonStatus, setButtonStatus] = useState(false);
   const [speakStatus, setSpeakStatus] = useState(false);
   const [clickError, setClickError] = useState(false);
+  const [disableBtnDeleteWord, setDisableBtnDeleteWord] = useState(false);
   const speak = useSpeaker();
   const { t } = useTranslation();
 
@@ -37,7 +41,9 @@ export const List = ({ learnOptions }) => {
         setWordClick2(null);
       }
     };
+
     window.addEventListener("click", clickToWindow);
+
     return () => {
       window.removeEventListener("click", clickToWindow);
     };
@@ -146,6 +152,13 @@ export const List = ({ learnOptions }) => {
           <ListButton>
             {wordsEn.map((el) => (
               <ListButtomItem key={el}>
+                {loggrdin && (
+                  <DeleteWordMenu
+                    p={{ el, wordClick }}
+                    disableBtnDeleteWord={disableBtnDeleteWord}
+                    disabledBtnMenu={setDisableBtnDeleteWord}
+                  />
+                )}
                 <EnButton
                   disabled={buttonStatus && el !== wordClick}
                   variant="contained"

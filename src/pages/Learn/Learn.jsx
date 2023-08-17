@@ -4,16 +4,19 @@ import { Spinner } from "../../components/Spinner/Spinner";
 import { LearnOptions } from "../../components/LearnOptions/LearnOptions";
 import { useSelector, useDispatch } from "react-redux";
 import { words, loading } from "../../redux/words/selectors";
+import { isLoggedIn } from "../../redux/auth/selectors";
 import { MainTitle } from "../../components/MainTitle/MainTitle";
 import { useEffect, useState } from "react";
 import { getWords } from "../../redux/words/operationsWords";
 import { setLanguage } from "../../redux/words/wordsSlice";
 import { useTranslation } from "react-i18next";
+import { LearnButtonsOptions } from "../../components/LearnButtonsOptions/LearnButtonsOptions";
 
 const Learn = ({ showSpinner }) => {
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
   const isLoading = useSelector(loading);
+  const LogedIn = useSelector(isLoggedIn);
   const { i18n } = useTranslation();
   const [learnOptions, setLearnOptions] = useState(
     JSON.parse(localStorage.getItem("learnOptions"))
@@ -36,6 +39,7 @@ const Learn = ({ showSpinner }) => {
 
       {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
         <>
+          {LogedIn && <LearnButtonsOptions />}
           <LearnOptions
             changeOptins={setLearnOptions}
             learnOptions={learnOptions}

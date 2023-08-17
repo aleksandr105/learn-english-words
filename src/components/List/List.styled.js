@@ -19,6 +19,7 @@ export const ListButton = styled.ul`
 
 export const ListButtomItem = styled.li`
   grid-auto-rows: max-content;
+  position: relative;
 `;
 
 export const EnButton = styled(Button)`

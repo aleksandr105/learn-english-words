@@ -6,7 +6,7 @@ export const SelectWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 
 export const Select = styled.select`

@@ -82,5 +82,11 @@
 
   "notFound": {
     "text": "Страница не найдена"
+  },
+
+  "optionsDeleteWord": {
+    "optionDeleleTitle": "Вы действительно хотите добавить слово {{word}} в блок-лист",
+    "btnYes": "Да",
+    "btnNo": "Нет"
   }
 }

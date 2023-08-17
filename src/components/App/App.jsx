@@ -22,6 +22,7 @@ const App = () => {
   const [dispatchCompleted, setDispatchCompleted] = useState(false);
 
   const options = {
+    myChoiceLearn: "applicationBase",
     select: 1,
     voice: true,
     melody: true,

@@ -82,5 +82,11 @@
 
   "notFound": {
     "text": "Сторінка не знайдена"
+  },
+
+  "optionsDeleteWord": {
+    "optionDeleleTitle": "Ви дійсно хочете додати слово {{word}} до блок-листу",
+    "btnYes": "Так",
+    "btnNo": "Ні"
   }
 }

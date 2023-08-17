@@ -83,5 +83,11 @@
 
   "notFound": {
     "text": "Strona nie znaleziona"
+  },
+
+  "optionsDeleteWord": {
+    "optionDeleleTitle": "Czy na pewno chcesz dodać słowo {{word}} do listy zablokowanych",
+    "btnYes": "Tak",
+    "btnNo": "Nie"
   }
 }
