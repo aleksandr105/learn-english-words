@@ -88,5 +88,10 @@
     "optionDeleleTitle": "Ви дійсно хочете додати слово {{word}} до блок-листу",
     "btnYes": "Так",
     "btnNo": "Ні"
+  },
+
+  "thatLearnBtnText": {
+    "basic": "Основний словник",
+    "my": "Мій словник"
   }
 }

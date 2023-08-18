@@ -15,11 +15,18 @@ export const Btn = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  padding: 5px 10px 5px 0px;
+  padding: 5px 30px 5px 5px;
   font-weight: 600;
   border-radius: 10px;
   background-color: #1976d2;
-  color: #fff;
+  color: ${({ p: { idx, myChoiceLearn } }) =>
+    idx === myChoiceLearn ? "#FF7B14" : "#fff"};
+  scale: ${({ p: { idx, myChoiceLearn } }) =>
+    idx === myChoiceLearn ? 1.1 : 1};
+  box-shadow: ${({ p: { idx, myChoiceLearn } }) =>
+    idx === myChoiceLearn
+      ? "0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16)"
+      : "none"};
   cursor: pointer;
 `;
 

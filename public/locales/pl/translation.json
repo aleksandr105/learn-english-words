@@ -89,5 +89,10 @@
     "optionDeleleTitle": "Czy na pewno chcesz dodać słowo {{word}} do listy zablokowanych",
     "btnYes": "Tak",
     "btnNo": "Nie"
+  },
+
+  "thatLearnBtnText": {
+    "basic": "Podstawowy slownik",
+    "my": "Mój słownik"
   }
 }
