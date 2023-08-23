@@ -8,18 +8,23 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/words/selectors";
 import { isLoggedIn } from "../../redux/auth/selectors";
-import { getWords } from "../../redux/words/operationsWords";
+import {
+  getWords,
+  getBaseWordsForAuthorized,
+  getUserWords,
+} from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
 import { useTranslation } from "react-i18next";
 import { DeleteWordMenu } from "../DeleteWordMenu/DeleteWordMenu";
+import { allSettings } from "../../redux/userSettings/selectors";
 
-export const List = ({ learnOptions }) => {
-  const { select, melody, voice } = learnOptions;
+export const List = () => {
+  const { select, melody, voice, myChoiceLearn } = useSelector(allSettings);
   const dispatch = useDispatch();
   const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
-  const loggrdin = useSelector(isLoggedIn);
+  const LogedIn = useSelector(isLoggedIn);
   const [wordClick, setWordClick] = useState(null);
   const [wordClick2, setWordClick2] = useState(null);
   const [wordsEn, setWordesEn] = useState(arrKey);
@@ -107,7 +112,12 @@ export const List = ({ learnOptions }) => {
           autoClose: 5000,
         });
 
-        dispatch(getWords());
+        if (!LogedIn) dispatch(getWords());
+
+        if (LogedIn && myChoiceLearn === 0)
+          dispatch(getBaseWordsForAuthorized());
+
+        if (LogedIn && myChoiceLearn === 1) dispatch(getUserWords());
       }
       return;
     }
@@ -152,7 +162,7 @@ export const List = ({ learnOptions }) => {
           <ListButton>
             {wordsEn.map((el) => (
               <ListButtomItem key={el}>
-                {loggrdin && (
+                {LogedIn && (
                   <DeleteWordMenu
                     p={{ el, wordClick }}
                     disableBtnDeleteWord={disableBtnDeleteWord}

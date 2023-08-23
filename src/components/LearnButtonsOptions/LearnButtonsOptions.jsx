@@ -3,12 +3,18 @@ import { ListBtn, Btn, BtnShowModal } from "./LearnButtonsOptions.styled";
 import { Modal } from "../Modal/Modal";
 import { IoMdSettings } from "react-icons/io";
 import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
+import { allSettings } from "../../redux/userSettings/selectors";
+import { setMyChoiceLearn } from "../../redux/userSettings/userSettingsSlice";
+import {
+  getBaseWordsForAuthorized,
+  getUserWords,
+} from "../../redux/words/operationsWords";
 
 export const LearnButtonsOptions = () => {
   const [showModal, setShowModal] = useState(false);
-  const [myChoiceLearn, setMyChoiceLearn] = useState(
-    JSON.parse(localStorage.getItem("learnOptions"))
-  );
+  const myChoiceLearn = useSelector(allSettings);
+  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -24,7 +30,11 @@ export const LearnButtonsOptions = () => {
 
     localStorage.setItem("learnOptions", JSON.stringify(newDataChoiceLearn));
 
-    setMyChoiceLearn(newDataChoiceLearn);
+    dispatch(setMyChoiceLearn(btnIdx));
+
+    if (btnIdx === 0) dispatch(getBaseWordsForAuthorized());
+
+    if (btnIdx === 1) dispatch(getUserWords());
   };
 
   const toggleModal = (e) => {

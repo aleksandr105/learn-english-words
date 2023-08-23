@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getWords } from "./operationsWords";
+import {
+  getWords,
+  getBaseWordsForAuthorized,
+  getUserWords,
+} from "./operationsWords";
 
 const handlePending = (state, action) => {
   state.isLoading = true;
@@ -36,6 +40,22 @@ const wordsSlicee = createSlice({
         state.words = action.payload;
       })
       .addCase(getWords.rejected, handleRejected);
+    builder
+      .addCase(getBaseWordsForAuthorized.pending, handlePending)
+      .addCase(getBaseWordsForAuthorized.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.words = action.payload;
+      })
+      .addCase(getBaseWordsForAuthorized.rejected, handleRejected);
+    builder
+      .addCase(getUserWords.pending, handlePending)
+      .addCase(getUserWords.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.words = action.payload;
+      })
+      .addCase(getUserWords.rejected, handleRejected);
   },
 });
 

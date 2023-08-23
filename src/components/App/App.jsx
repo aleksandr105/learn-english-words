@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { isRefreshing } from "../../redux/auth/selectors";
 import { RestrictedRouter } from "../RestrictedRouter";
 import { PrivateRouter } from "../PrivateRouter";
+import { setSettings } from "../../redux/userSettings/userSettingsSlice";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const Learn = lazy(() => import("../../pages/Learn/Learn"));
@@ -28,8 +29,9 @@ const App = () => {
     melody: true,
   };
 
-  if (!localStorage.getItem("learnOptions"))
+  if (!localStorage.getItem("learnOptions")) {
     localStorage.setItem("learnOptions", JSON.stringify(options));
+  }
 
   const showSpinner = refreshing || !dispatchCompleted;
 
@@ -37,6 +39,8 @@ const App = () => {
   const refreshToken = searchParams.get("refreshToken");
 
   useEffect(() => {
+    dispatch(setSettings(JSON.parse(localStorage.getItem("learnOptions"))));
+
     if (accessToken && refreshToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);

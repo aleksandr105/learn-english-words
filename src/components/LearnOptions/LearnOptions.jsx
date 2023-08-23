@@ -11,14 +11,24 @@ import {
   MdOutlineRecordVoiceOver,
   MdOutlineVoiceOverOff,
 } from "react-icons/md";
+import { allSettings } from "../../redux/userSettings/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setSelect,
+  setMelody,
+  setVoice,
+} from "../../redux/userSettings/userSettingsSlice";
+
 const selectOptions = [
   { value: 1, name: "value fast" },
   { value: 0.5, name: "value medium" },
   { value: 0.2, name: "value slow" },
 ];
 
-export const LearnOptions = ({ changeOptins, learnOptions }) => {
+export const LearnOptions = () => {
   const { t } = useTranslation();
+  const learnOptions = useSelector(allSettings);
+  const dispatch = useDispatch();
 
   const changeSpeedVoice = (e) => {
     const changedOptions = {
@@ -27,7 +37,7 @@ export const LearnOptions = ({ changeOptins, learnOptions }) => {
     };
 
     localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
-    changeOptins(changedOptions);
+    dispatch(setSelect(e.target.value));
   };
 
   const changeMelody = () => {
@@ -37,7 +47,7 @@ export const LearnOptions = ({ changeOptins, learnOptions }) => {
     };
 
     localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
-    changeOptins(changedOptions);
+    dispatch(setMelody());
   };
 
   const changeVoice = () => {
@@ -47,7 +57,7 @@ export const LearnOptions = ({ changeOptins, learnOptions }) => {
     };
 
     localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
-    changeOptins(changedOptions);
+    dispatch(setVoice());
   };
 
   return (

@@ -6,45 +6,61 @@ import { useSelector, useDispatch } from "react-redux";
 import { words, loading } from "../../redux/words/selectors";
 import { isLoggedIn } from "../../redux/auth/selectors";
 import { MainTitle } from "../../components/MainTitle/MainTitle";
-import { useEffect, useState } from "react";
-import { getWords } from "../../redux/words/operationsWords";
+import { useEffect } from "react";
+import {
+  getWords,
+  getBaseWordsForAuthorized,
+  getUserWords,
+} from "../../redux/words/operationsWords";
 import { setLanguage } from "../../redux/words/wordsSlice";
 import { useTranslation } from "react-i18next";
 import { LearnButtonsOptions } from "../../components/LearnButtonsOptions/LearnButtonsOptions";
+import { allSettings } from "../../redux/userSettings/selectors";
 
 const Learn = ({ showSpinner }) => {
   const dispatch = useDispatch();
-  const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
+  const { arrKey = [], arrValue = [] } = useSelector(words);
   const isLoading = useSelector(loading);
   const LogedIn = useSelector(isLoggedIn);
   const { i18n } = useTranslation();
-  const [learnOptions, setLearnOptions] = useState(
-    JSON.parse(localStorage.getItem("learnOptions"))
-  );
+  const learnOptions = useSelector(allSettings);
 
   useEffect(() => {
     dispatch(setLanguage(i18n.resolvedLanguage));
-    if (!arrKey.length || !arrValue.length) dispatch(getWords());
+
+    if ((!arrKey.length || !arrValue.length) && !LogedIn) dispatch(getWords());
+
+    if (
+      (!arrKey.length || !arrValue.length) &&
+      LogedIn &&
+      learnOptions.myChoiceLearn === 0
+    )
+      dispatch(getBaseWordsForAuthorized());
+
+    if (
+      (!arrKey.length || !arrValue.length) &&
+      LogedIn &&
+      learnOptions.myChoiceLearn === 1
+    )
+      dispatch(getUserWords());
   }, [
-    arrAllWords.length,
+    LogedIn,
     arrKey.length,
     arrValue.length,
     dispatch,
     i18n.resolvedLanguage,
+    learnOptions.myChoiceLearn,
   ]);
 
   return (
     <section>
       <MainTitle />
 
-      {arrAllWords.length !== 0 && !isLoading && !showSpinner ? (
+      {!isLoading && !showSpinner ? (
         <>
           {LogedIn && <LearnButtonsOptions />}
-          <LearnOptions
-            changeOptins={setLearnOptions}
-            learnOptions={learnOptions}
-          />
-          <List learnOptions={learnOptions} />
+          <LearnOptions />
+          <List />
         </>
       ) : (
         <Spinner isLoad={true} />
