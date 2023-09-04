@@ -37,9 +37,6 @@ export const List = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    setWordsTranslation(arrValue);
-    setWordesEn(arrKey);
-
     const clickToWindow = (e) => {
       if (e.target.nodeName !== "BUTTON" && e.target.nodeName !== "LI") {
         setWordClick(null);
