@@ -35,3 +35,67 @@ export const onNatification = (
     theme,
   });
 };
+
+export const setWordsToRedux = ({ data, currentLanguage }) => {
+  let language = 0;
+
+  switch (currentLanguage) {
+    case "ua":
+      language = 1;
+      break;
+
+    case "ru":
+      language = 2;
+      break;
+
+    default:
+      language = 0;
+  }
+
+  const arrKey = data
+    .map((el) => Object.keys(el)[1])
+    ?.sort(() => Math.random() - 0.5);
+
+  const arrValue = data
+    .map((el) => Object.values(el)[1][language])
+    ?.sort(() => Math.random() - 0.5);
+
+  const arrAllWords = data.map((el) => {
+    return {
+      _id: el._id,
+      [Object.keys(el)[1]]: el[Object.keys(el)[1]][language],
+    };
+  });
+
+  return { arrKey, arrValue, arrAllWords };
+};
+
+export const onChooseWordsForLanguage = (data, currentLanguage) => {
+  let language = 0;
+
+  switch (currentLanguage) {
+    case "ua":
+      language = 1;
+      break;
+
+    case "ru":
+      language = 2;
+      break;
+
+    default:
+      language = 0;
+  }
+
+  const arrValue = data
+    .map((el) => Object.values(el)[1][language])
+    ?.sort(() => Math.random() - 0.5);
+
+  const arrAllWords = data.map((el) => {
+    return {
+      _id: el._id,
+      [Object.keys(el)[1]]: el[Object.keys(el)[1]][language],
+    };
+  });
+
+  return { arrValue, arrAllWords };
+};
