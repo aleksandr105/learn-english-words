@@ -44,7 +44,7 @@ export const Header = () => {
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
   const logoutLoad = useSelector(isLoading);
-  const { originalWords } = useSelector(words);
+  const { originalWords, arrKey } = useSelector(words);
 
   // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams();
@@ -77,7 +77,9 @@ export const Header = () => {
   const langChange = (language) => {
     i18n.changeLanguage(language);
     dispatch(
-      setTranslationWords(onChooseWordsForLanguage(originalWords, language))
+      setTranslationWords(
+        onChooseWordsForLanguage(originalWords, arrKey, language)
+      )
     );
   };
 

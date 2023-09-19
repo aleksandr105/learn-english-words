@@ -70,7 +70,7 @@ export const setWordsToRedux = ({ data, currentLanguage }) => {
   return { arrKey, arrValue, arrAllWords };
 };
 
-export const onChooseWordsForLanguage = (data, currentLanguage) => {
+export const onChooseWordsForLanguage = (data, keys, currentLanguage) => {
   let language = 0;
 
   switch (currentLanguage) {
@@ -86,9 +86,9 @@ export const onChooseWordsForLanguage = (data, currentLanguage) => {
       language = 0;
   }
 
-  const arrValue = data
-    .map((el) => Object.values(el)[1][language])
-    ?.sort(() => Math.random() - 0.5);
+  // const allArrValue = data
+  //   .map((el) => Object.values(el)[1][language])
+  //   ?.sort(() => Math.random() - 0.5);
 
   const arrAllWords = data.map((el) => {
     return {
@@ -96,6 +96,11 @@ export const onChooseWordsForLanguage = (data, currentLanguage) => {
       [Object.keys(el)[1]]: el[Object.keys(el)[1]][language],
     };
   });
+
+  const arrValue = arrAllWords
+    .filter((el) => keys.includes(Object.keys(el)[1]))
+    .map((el) => Object.values(el)[1])
+    .sort(() => Math.random() - 0.5);
 
   return { arrValue, arrAllWords };
 };
