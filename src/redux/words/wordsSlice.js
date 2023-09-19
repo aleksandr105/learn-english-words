@@ -15,7 +15,7 @@ const handleRejected = (state, action) => {
 };
 
 const initialState = {
-  words: [],
+  words: { arrKey: [], arrValue: [], arrAllWords: [], originalWords: [] },
   isLoading: false,
   error: null,
   language: "",
@@ -28,6 +28,16 @@ const wordsSlicee = createSlice({
   reducers: {
     setLanguage(state, action) {
       state.language = action.payload;
+    },
+    setTranslationWords(state, action) {
+      state.words.arrValue = action.payload.arrValue;
+      state.words.arrAllWords = action.payload.arrAllWords;
+    },
+    setWordsKey(state, action) {
+      state.words.arrKey = action.payload;
+    },
+    setWordsValue(state, action) {
+      state.words.arrValue = action.payload;
     },
   },
 
@@ -60,4 +70,5 @@ const wordsSlicee = createSlice({
 });
 
 export const words = wordsSlicee.reducer;
-export const { setLanguage } = wordsSlicee.actions;
+export const { setLanguage, setTranslationWords, setWordsKey, setWordsValue } =
+  wordsSlicee.actions;

@@ -16,7 +16,7 @@ export const LearnButtonsOptions = () => {
   const myChoiceLearn = useSelector(allSettings);
   const dispatch = useDispatch();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const buttonText = [
     { text: t("thatLearnBtnText.basic"), component: <div></div> },
@@ -32,9 +32,10 @@ export const LearnButtonsOptions = () => {
 
     dispatch(setMyChoiceLearn(btnIdx));
 
-    if (btnIdx === 0) dispatch(getBaseWordsForAuthorized());
+    if (btnIdx === 0)
+      dispatch(getBaseWordsForAuthorized(i18n.resolvedLanguage));
 
-    if (btnIdx === 1) dispatch(getUserWords());
+    if (btnIdx === 1) dispatch(getUserWords(i18n.resolvedLanguage));
   };
 
   const toggleModal = (e) => {

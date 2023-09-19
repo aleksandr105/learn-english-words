@@ -28,21 +28,22 @@ const Learn = ({ showSpinner }) => {
   useEffect(() => {
     dispatch(setLanguage(i18n.resolvedLanguage));
 
-    if ((!arrKey.length || !arrValue.length) && !LogedIn) dispatch(getWords());
+    if ((!arrKey.length || !arrValue.length) && !LogedIn)
+      dispatch(getWords(i18n.resolvedLanguage));
 
     if (
       (!arrKey.length || !arrValue.length) &&
       LogedIn &&
       learnOptions.myChoiceLearn === 0
     )
-      dispatch(getBaseWordsForAuthorized());
+      dispatch(getBaseWordsForAuthorized(i18n.resolvedLanguage));
 
     if (
       (!arrKey.length || !arrValue.length) &&
       LogedIn &&
       learnOptions.myChoiceLearn === 1
     )
-      dispatch(getUserWords());
+      dispatch(getUserWords(i18n.resolvedLanguage));
   }, [
     LogedIn,
     arrKey.length,

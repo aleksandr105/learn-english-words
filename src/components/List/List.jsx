@@ -8,27 +8,21 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { words } from "../../redux/words/selectors";
 import { isLoggedIn } from "../../redux/auth/selectors";
-import {
-  getWords,
-  getBaseWordsForAuthorized,
-  getUserWords,
-} from "../../redux/words/operationsWords";
 import { error, victory, complited } from "../../audio";
 import { onPlay, onNatification } from "../../helpers";
 import { useSpeaker } from "../../hooks/useSpeaker";
 import { useTranslation } from "react-i18next";
 import { DeleteWordMenu } from "../DeleteWordMenu/DeleteWordMenu";
 import { allSettings } from "../../redux/userSettings/selectors";
+import { setWordsValue, setWordsKey } from "../../redux/words/wordsSlice";
 
 export const List = () => {
-  const { select, melody, voice, myChoiceLearn } = useSelector(allSettings);
+  const { select, melody, voice } = useSelector(allSettings);
   const dispatch = useDispatch();
-  const { arrKey = [], arrValue = [], arrAllWords = [] } = useSelector(words);
+  const { arrKey, arrValue, arrAllWords } = useSelector(words);
   const LogedIn = useSelector(isLoggedIn);
   const [wordClick, setWordClick] = useState(null);
   const [wordClick2, setWordClick2] = useState(null);
-  const [wordsEn, setWordesEn] = useState(arrKey);
-  const [wordsTranslation, setWordsTranslation] = useState(arrValue);
   const [buttonStatus, setButtonStatus] = useState(false);
   const [speakStatus, setSpeakStatus] = useState(false);
   const [clickError, setClickError] = useState(false);
@@ -55,19 +49,18 @@ export const List = () => {
     const wordValue = e.target.textContent;
 
     const clickOnSameColumn =
-      (wordsEn.includes(wordValue) && wordsEn.includes(wordClick)) ||
-      (wordsTranslation.includes(wordValue) &&
-        wordsTranslation.includes(wordClick2));
+      (arrKey.includes(wordValue) && arrKey.includes(wordClick)) ||
+      (arrValue.includes(wordValue) && arrValue.includes(wordClick2));
 
     const isAnswerCorrect = arrAllWords.some(
       (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
     );
 
-    if (wordsEn.includes(wordValue)) setWordClick(wordValue);
+    if (arrKey.includes(wordValue)) setWordClick(wordValue);
 
-    if (wordsTranslation.includes(wordValue)) setWordClick2(wordValue);
+    if (arrValue.includes(wordValue)) setWordClick2(wordValue);
 
-    if (wordsEn.includes(wordValue) && !speakStatus) {
+    if (arrKey.includes(wordValue) && !speakStatus) {
       if (!isAnswerCorrect && !clickOnSameColumn && (wordClick || wordClick2))
         setClickError(true);
 
@@ -85,20 +78,20 @@ export const List = () => {
     if (isAnswerCorrect) {
       setButtonStatus(true);
 
-      if (wordsEn.length >= 2 && melody) await onPlay(complited);
+      if (arrKey.length >= 2 && melody) await onPlay(complited);
 
-      const wordsEnFiltered = wordsEn.filter(
+      const wordsEnFiltered = arrKey.filter(
         (el) => el !== wordClick && el !== wordValue
       );
 
-      const wordsTranslationFiltered = wordsTranslation.filter(
+      const wordsTranslationFiltered = arrValue.filter(
         (el) => el !== wordClick2 && el !== wordValue
       );
 
       setWordClick(null);
       setWordClick2(null);
-      setWordesEn(wordsEnFiltered);
-      setWordsTranslation(wordsTranslationFiltered);
+      dispatch(setWordsKey(wordsEnFiltered));
+      dispatch(setWordsValue(wordsTranslationFiltered));
       setButtonStatus(false);
 
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
@@ -108,13 +101,6 @@ export const List = () => {
           type: "success",
           autoClose: 5000,
         });
-
-        if (!LogedIn) dispatch(getWords());
-
-        if (LogedIn && myChoiceLearn === 0)
-          dispatch(getBaseWordsForAuthorized());
-
-        if (LogedIn && myChoiceLearn === 1) dispatch(getUserWords());
       }
       return;
     }
@@ -123,7 +109,7 @@ export const List = () => {
       setButtonStatus(true);
       setClickError(true);
 
-      const getEnglishErrorWord = wordsEn.includes(wordClick)
+      const getEnglishErrorWord = arrKey.includes(wordClick)
         ? wordClick
         : wordValue;
 
@@ -144,8 +130,15 @@ export const List = () => {
       setWordClick2(null);
       setWordClick(null);
       setTimeout(() => {
-        setWordesEn(arrKey);
-        setWordsTranslation(arrValue);
+        const key = arrAllWords
+          .map((el) => Object.keys(el)[1])
+          .sort(() => Math.random() - 0.5);
+        const value = arrAllWords
+          .map((el) => Object.values(el)[1])
+          .sort(() => Math.random() - 0.5);
+
+        dispatch(setWordsKey(key));
+        dispatch(setWordsValue(value));
       }, 200);
 
       setButtonStatus(false);
@@ -154,10 +147,10 @@ export const List = () => {
 
   return (
     <>
-      {wordsEn && wordsTranslation && (
+      {arrKey && arrValue && (
         <ListsButtonWrapper>
           <ListButton>
-            {wordsEn.map((el) => (
+            {arrKey.map((el) => (
               <ListButtomItem key={el}>
                 {LogedIn && (
                   <DeleteWordMenu
@@ -184,7 +177,7 @@ export const List = () => {
             ))}
           </ListButton>
           <ListButton>
-            {wordsTranslation.map((el) => (
+            {arrValue.map((el) => (
               <ListButtomItem key={el}>
                 <EnButton
                   disabled={buttonStatus && el !== wordClick2}

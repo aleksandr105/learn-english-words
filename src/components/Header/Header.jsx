@@ -32,6 +32,9 @@ import { LoggedInMenu } from "../LoggedInMenu/LoggedInMenu";
 import { useSearchParams } from "react-router-dom";
 import { logout } from "../../redux/auth/authOperations";
 import { Oval } from "react-loader-spinner";
+import { setTranslationWords } from "../../redux/words/wordsSlice";
+import { onChooseWordsForLanguage } from "../../helpers";
+import { words } from "../../redux/words/selectors";
 
 const locales = { pl: "Polski", ua: "Українська", ru: "Русский" };
 
@@ -41,6 +44,7 @@ export const Header = () => {
   const { t, i18n } = useTranslation();
   const loggedInStatus = useSelector(isLoggedIn);
   const logoutLoad = useSelector(isLoading);
+  const { originalWords, arrKey } = useSelector(words);
 
   // eslint-disable-next-line no-unused-vars
   const [_, setSearchParams] = useSearchParams();
@@ -72,6 +76,11 @@ export const Header = () => {
 
   const langChange = (language) => {
     i18n.changeLanguage(language);
+    dispatch(
+      setTranslationWords(
+        onChooseWordsForLanguage(originalWords, arrKey, language)
+      )
+    );
   };
 
   const onLogout = () => {
