@@ -86,6 +86,7 @@
 
   "optionsDeleteWord": {
     "optionDeleleTitle": "Ви дійсно хочете додати слово {{word}} до блок-листу",
+    "optionDeleteUserWordTitle": "Ви впевнені, що хочете видалити слово",
     "btnYes": "Так",
     "btnNo": "Ні"
   },

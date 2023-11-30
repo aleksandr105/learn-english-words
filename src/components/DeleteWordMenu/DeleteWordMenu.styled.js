@@ -55,3 +55,10 @@ export const BtnNo = styled.button`
   width: 36px;
   cursor: pointer;
 `;
+
+export const SpinnerWrapper = styled.div`
+  position: absolute;
+  z-index: 10;
+  right: 2px;
+  top: calc(43% - 11px);
+`;

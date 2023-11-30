@@ -86,10 +86,6 @@ export const onChooseWordsForLanguage = (data, keys, currentLanguage) => {
       language = 0;
   }
 
-  // const allArrValue = data
-  //   .map((el) => Object.values(el)[1][language])
-  //   ?.sort(() => Math.random() - 0.5);
-
   const arrAllWords = data.map((el) => {
     return {
       _id: el._id,

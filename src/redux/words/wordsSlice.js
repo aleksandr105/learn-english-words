@@ -3,6 +3,8 @@ import {
   getWords,
   getBaseWordsForAuthorized,
   getUserWords,
+  addWordToBlockList,
+  removeUserWord,
 } from "./operationsWords";
 
 const handlePending = (state, action) => {
@@ -12,6 +14,7 @@ const handlePending = (state, action) => {
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+  state.showSpinnerWhenAddsToBlockList = false;
 };
 
 const initialState = {
@@ -19,6 +22,7 @@ const initialState = {
   isLoading: false,
   error: null,
   language: "",
+  showSpinnerWhenAddsToBlockList: false,
 };
 
 const wordsSlicee = createSlice({
@@ -66,6 +70,32 @@ const wordsSlicee = createSlice({
         state.words = action.payload;
       })
       .addCase(getUserWords.rejected, handleRejected);
+    builder
+      .addCase(addWordToBlockList.pending, (state) => {
+        state.showSpinnerWhenAddsToBlockList = true;
+      })
+      .addCase(addWordToBlockList.fulfilled, (state, action) => {
+        state.words.arrKey = action.payload.newArrKey;
+        state.words.arrValue = action.payload.newArrValue;
+        state.words.arrAllWords = action.payload.newArrAllWords;
+        state.words.originalWords = action.payload.newOriginalWords;
+        state.showSpinnerWhenAddsToBlockList = false;
+        state.error = null;
+      })
+      .addCase(addWordToBlockList.rejected, handleRejected);
+    builder
+      .addCase(removeUserWord.pending, (state) => {
+        state.showSpinnerWhenAddsToBlockList = true;
+      })
+      .addCase(removeUserWord.fulfilled, (state, action) => {
+        state.words.arrKey = action.payload.newArrKey;
+        state.words.arrValue = action.payload.newArrValue;
+        state.words.arrAllWords = action.payload.newArrAllWords;
+        state.words.originalWords = action.payload.newOriginalWords;
+        state.showSpinnerWhenAddsToBlockList = false;
+        state.error = null;
+      })
+      .addCase(removeUserWord.rejected, handleRejected);
   },
 });
 

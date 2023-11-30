@@ -87,6 +87,7 @@
 
   "optionsDeleteWord": {
     "optionDeleleTitle": "Czy na pewno chcesz dodać słowo {{word}} do listy zablokowanych",
+    "optionDeleteUserWordTitle": "Czy na pewno chcesz usunąć słowo",
     "btnYes": "Tak",
     "btnNo": "Nie"
   },

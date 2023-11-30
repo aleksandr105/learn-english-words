@@ -47,3 +47,33 @@ export const getUserWords = createAsyncThunk(
     }
   }
 );
+
+export const addWordToBlockList = createAsyncThunk(
+  "words/addToBlockList",
+  async ({ word, newState }, { rejectWithValue }) => {
+    try {
+      await instance.patch("words/add_word_to_block_list", {
+        words: [word],
+      });
+
+      return newState;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeUserWord = createAsyncThunk(
+  "words/removeUserWord",
+  async ({ word, newState }, { rejectWithValue }) => {
+    try {
+      console.log({ words: [word] });
+      await instance.delete("words/remove_user_words", { words: [word] });
+
+      return newState;
+    } catch (error) {
+      console.log(rejectWithValue(error));
+      return rejectWithValue(error.message);
+    }
+  }
+);
