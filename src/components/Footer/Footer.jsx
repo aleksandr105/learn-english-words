@@ -12,6 +12,7 @@ import {
   TextSendMessageWrapper,
   TextDonateWrapper,
   PaymentDetails,
+  ModalItem,
 } from "./Footer.styled";
 import { Container } from "@mui/material";
 import logo from "../../SVG/symbol-defs.svg";
@@ -44,7 +45,9 @@ export const Footer = forwardRef((props, ref) => {
     <FooterEl ref={ref}>
       {isShowModal && (
         <Modal showModal={showModal}>
-          <FormSendMessage showModal={setIsShowModal} />
+          <ModalItem>
+            <FormSendMessage showModal={setIsShowModal} />
+          </ModalItem>
         </Modal>
       )}
       <Container>

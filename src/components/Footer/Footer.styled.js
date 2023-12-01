@@ -122,3 +122,10 @@ export const Copyright = styled.p`
   font-size: 13px;
   line-height: 17px;
 `;
+
+export const ModalItem = styled.div`
+  padding: 0 15px;
+  @media screen and (min-width: 510px) {
+    width: 500px;
+  }
+`;

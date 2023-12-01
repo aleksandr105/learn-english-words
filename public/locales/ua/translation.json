@@ -94,5 +94,10 @@
   "thatLearnBtnText": {
     "basic": "Основний словник",
     "my": "Мій словник"
+  },
+
+  "mainDbSettings": {
+    "title": "Налаштування основного словника",
+    "placeholder": "Знайти слова"
   }
 }

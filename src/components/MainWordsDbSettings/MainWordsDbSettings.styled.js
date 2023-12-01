@@ -1,0 +1,44 @@
+import styled from "@emotion/styled";
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: #fff;
+  padding: 60px 20px 15px 20px;
+  border-radius: 20px;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 8px 8px 18px 5px,
+    inset rgba(0, 0, 0, 0.5) -8px -8px 18px 5px;
+  height: 95vh;
+  overflow: auto;
+`;
+
+export const DbSettingsTitle = styled.h2`
+  text-align: center;
+  color: #00f;
+  text-transform: uppercase;
+  background-color: #5f5;
+  padding: 6px 6px 0 6px;
+  max-width: 400px;
+  border-radius: 30px;
+  margin-bottom: 30px;
+`;
+
+export const CloseModalButton = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #ff9714;
+  transition: scale 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  :hover {
+    scale: 1.1;
+  }
+`;

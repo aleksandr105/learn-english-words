@@ -95,5 +95,10 @@
   "thatLearnBtnText": {
     "basic": "Podstawowy slownik",
     "my": "Mój słownik"
+  },
+
+  "mainDbSettings": {
+    "title": "Ustawienia głównego słownika",
+    "placeholder": "Znajdź słowa"
   }
 }

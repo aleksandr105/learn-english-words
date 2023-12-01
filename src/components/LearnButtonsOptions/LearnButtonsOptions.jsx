@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListBtn, Btn, BtnShowModal } from "./LearnButtonsOptions.styled";
 import { Modal } from "../Modal/Modal";
 import { IoMdSettings } from "react-icons/io";
@@ -10,17 +10,29 @@ import {
   getBaseWordsForAuthorized,
   getUserWords,
 } from "../../redux/words/operationsWords";
+import { MainWordsDbSettings } from "../MainWordsDbSettings/MainWordsDbSettings";
+import { deleteWords } from "../../redux/dictionarySettings/dictionarySettingsSlice";
 
 export const LearnButtonsOptions = () => {
   const [showModal, setShowModal] = useState(false);
   const myChoiceLearn = useSelector(allSettings);
+  const [showSelectedModal, setShowSelectedModal] = useState(
+    myChoiceLearn.myChoiceLearn
+  );
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation();
 
+  useEffect(() => {
+    dispatch(deleteWords());
+  }, [dispatch, showModal]);
+
   const buttonText = [
-    { text: t("thatLearnBtnText.basic"), component: <div></div> },
-    { text: t("thatLearnBtnText.my"), component: <div></div> },
+    {
+      text: t("thatLearnBtnText.basic"),
+      component: <MainWordsDbSettings setShowModal={setShowModal} />,
+    },
+    { text: t("thatLearnBtnText.my"), component: <div>vccfdgfdgrfg</div> },
   ];
 
   const onChoiceLearn = (e) => {
@@ -57,10 +69,15 @@ export const LearnButtonsOptions = () => {
               >
                 {el.text}
               </Btn>
-              <BtnShowModal onClick={() => setShowModal(true)}>
+              <BtnShowModal
+                onClick={() => {
+                  setShowModal(true);
+                  setShowSelectedModal(idx);
+                }}
+              >
                 <IoMdSettings color="#FFB442" size={26} />
               </BtnShowModal>
-              {showModal && (
+              {showModal && idx === showSelectedModal && (
                 <Modal showModal={toggleModal}>{el.component}</Modal>
               )}
             </li>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ModalItem, Backdrop } from "./Modal.styled";
+import { Backdrop } from "./Modal.styled";
 
 const modalRoot = document.querySelector("#modal-root");
 
@@ -14,9 +14,7 @@ export const Modal = ({ showModal, children }) => {
   }, [showModal]);
 
   return createPortal(
-    <Backdrop onClick={showModal}>
-      <ModalItem>{children}</ModalItem>
-    </Backdrop>,
+    <Backdrop onClick={showModal}>{children}</Backdrop>,
     modalRoot
   );
 };
