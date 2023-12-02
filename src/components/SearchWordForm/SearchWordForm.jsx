@@ -6,9 +6,7 @@ export const SearchWordForm = () => {
   const [seearchParams, setSeearchParams] = useState("");
   const { t } = useTranslation();
 
-  useEffect(() => {
-    console.log(seearchParams);
-  }, [seearchParams]);
+  useEffect(() => {}, [seearchParams]);
 
   const changeParams = (e) => {
     setSeearchParams(e.target.value.trim());

@@ -12,3 +12,18 @@ export const getBlockListWords = createAsyncThunk(
     }
   }
 );
+
+export const removeWordFromBlockList = createAsyncThunk(
+  "settingsDictionary/removeWordFromBlockList",
+  async ({ word, newState }, { rejectWithValue }) => {
+    try {
+      await instance.delete("words/remove_word_from_block_list", {
+        data: { words: [word] },
+      });
+
+      return newState;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

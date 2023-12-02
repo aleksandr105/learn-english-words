@@ -98,6 +98,7 @@
 
   "mainDbSettings": {
     "title": "Налаштування основного словника",
-    "placeholder": "Знайти слова"
+    "placeholder": "Знайти слова",
+    "dellWordForBlockListToast": "Слово {{word}} видалено зі списку заблокованих"
   }
 }

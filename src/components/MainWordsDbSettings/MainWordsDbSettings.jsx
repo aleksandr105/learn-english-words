@@ -11,11 +11,13 @@ import { ModalListSetting } from "../ModalListSetting/ModalListSetting";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlockListWords } from "../../redux/dictionarySettings/operationDictionarySettings";
 import { dataSettingsDictionary } from "../../redux/dictionarySettings/selectors";
+import { Spinner } from "../Spinner/Spinner";
+import { removeWordFromBlockList } from "../../redux/dictionarySettings/operationDictionarySettings";
 
 export const MainWordsDbSettings = ({ setShowModal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { words } = useSelector(dataSettingsDictionary);
+  const { words, isLoading } = useSelector(dataSettingsDictionary);
 
   useEffect(() => {
     dispatch(getBlockListWords());
@@ -28,7 +30,13 @@ export const MainWordsDbSettings = ({ setShowModal }) => {
       </CloseModalButton>
       <DbSettingsTitle>{t("mainDbSettings.title")}</DbSettingsTitle>
       <SearchWordForm />
-      <ModalListSetting data={words} />
+      <Spinner isLoad={isLoading} />
+      {words !== 0 && (
+        <ModalListSetting
+          data={words}
+          requestFunction={removeWordFromBlockList}
+        />
+      )}
     </Wrapper>
   );
 };

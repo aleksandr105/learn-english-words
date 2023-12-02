@@ -25,6 +25,10 @@ export const LearnButtonsOptions = () => {
 
   useEffect(() => {
     dispatch(deleteWords());
+    document.body.style.overflow = showModal ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [dispatch, showModal]);
 
   const buttonText = [

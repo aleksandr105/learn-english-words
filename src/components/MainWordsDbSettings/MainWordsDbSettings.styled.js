@@ -6,12 +6,12 @@ export const Wrapper = styled.div`
   align-items: center;
   position: relative;
   background-color: #fff;
-  padding: 60px 20px 15px 20px;
+  padding: 60px 20px 35px 20px;
   border-radius: 20px;
   box-shadow: inset rgba(255, 255, 255, 0.2) 8px 8px 18px 5px,
     inset rgba(0, 0, 0, 0.5) -8px -8px 18px 5px;
   height: 95vh;
-  overflow: auto;
+  width: 100%;
 `;
 
 export const DbSettingsTitle = styled.h2`
@@ -22,13 +22,13 @@ export const DbSettingsTitle = styled.h2`
   padding: 6px 6px 0 6px;
   max-width: 400px;
   border-radius: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 `;
 
 export const CloseModalButton = styled.button`
   position: absolute;
-  right: 12px;
-  top: 12px;
+  right: 25px;
+  top: 15px;
   border: none;
   border-radius: 50%;
   padding: 5px;

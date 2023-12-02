@@ -99,6 +99,7 @@
 
   "mainDbSettings": {
     "title": "Ustawienia głównego słownika",
-    "placeholder": "Znajdź słowa"
+    "placeholder": "Znajdź słowa",
+    "dellWordForBlockListToast": "Słowo {{word}} usunięte z listy zablokowanych"
   }
 }
