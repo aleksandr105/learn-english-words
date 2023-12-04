@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   List,
   Item,
-  ItemText,
   ButtonDelete,
   SpinnerWrapper,
 } from "./ModalListSetting.styled";
@@ -12,19 +11,34 @@ import { dataSettingsDictionary } from "../../redux/dictionarySettings/selectors
 import { Oval } from "react-loader-spinner";
 import { onNatification } from "../../helpers";
 import { useTranslation } from "react-i18next";
+import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
+import { EditingText } from "../EditingText/EditingText";
 
-export const ModalListSetting = ({ data, requestFunction }) => {
+export const ModalListSetting = ({
+  dellWordFromBlockList,
+  getWordsFromBlockList,
+  page,
+  setPage,
+  searchParams,
+}) => {
   const dispatch = useDispatch();
-  const { isLoadingDellFromBlockList } = useSelector(dataSettingsDictionary);
+  const { isLoadingDellFromBlockList, words } = useSelector(
+    dataSettingsDictionary
+  );
   const [elClick, setElClick] = useState(null);
   const { t } = useTranslation();
 
   const onDellWord = async (word) => {
     try {
       setElClick(word);
-      const newState = data.filter((el) => el !== word);
+      const filteredWords = words.data.filter((el) => el !== word);
 
-      await dispatch(requestFunction({ word, newState }));
+      await dispatch(
+        dellWordFromBlockList({
+          word,
+          newState: { data: filteredWords, total: words.total },
+        })
+      );
 
       onNatification(t("mainDbSettings.dellWordForBlockListToast", { word }), {
         autoClose: 2000,
@@ -35,32 +49,47 @@ export const ModalListSetting = ({ data, requestFunction }) => {
     }
   };
 
+  const fetchDataFunc = async ({ page, limit, words }) => {
+    if (words.data.length < words.total) {
+      setPage((prev) => prev + 1);
+      dispatch(getWordsFromBlockList({ page, limit, words: words.data }));
+      return;
+    }
+  };
+
   return (
     <List>
-      {data.map((el) => (
-        <Item key={el}>
-          {elClick !== el && (
-            <ButtonDelete
-              onClick={() => onDellWord(el)}
-              disabled={isLoadingDellFromBlockList}
-            >
-              <MdOutlineClear color="red" size={25} />
-            </ButtonDelete>
-          )}
-          {elClick === el && isLoadingDellFromBlockList && (
-            <SpinnerWrapper>
-              <Oval
-                height={25}
-                width={25}
-                strokeWidth={12}
-                color="rgb(255, 180, 66)"
-                secondaryColor="#FF7B14"
-              />
-            </SpinnerWrapper>
-          )}
-          <ItemText>{el}</ItemText>
-        </Item>
-      ))}
+      <InfiniteScroll
+        data={words}
+        fetchDataFunc={fetchDataFunc}
+        limit={50}
+        page={page}
+      >
+        {words.data.map((el) => (
+          <Item key={el}>
+            {elClick !== el && (
+              <ButtonDelete
+                onClick={() => onDellWord(el)}
+                disabled={isLoadingDellFromBlockList}
+              >
+                <MdOutlineClear color="red" size={25} />
+              </ButtonDelete>
+            )}
+            {elClick === el && isLoadingDellFromBlockList && (
+              <SpinnerWrapper>
+                <Oval
+                  height={25}
+                  width={25}
+                  strokeWidth={12}
+                  color="rgb(255, 180, 66)"
+                  secondaryColor="#FF7B14"
+                />
+              </SpinnerWrapper>
+            )}
+            <EditingText text={el} query={searchParams} />
+          </Item>
+        ))}
+      </InfiniteScroll>
     </List>
   );
 };

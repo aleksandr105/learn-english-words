@@ -1,12 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input } from "./SearchWordForm.styled";
+import React, { useEffect } from "react";
+import { Form, Input, DellSearchTextBtn } from "./SearchWordForm.styled";
 import { useTranslation } from "react-i18next";
+import { MdOutlineClear } from "react-icons/md";
 
-export const SearchWordForm = () => {
-  const [seearchParams, setSeearchParams] = useState("");
+export const SearchWordForm = ({
+  searchWordsFunc,
+  getAllWords,
+  searchParams,
+  setSeearchParams,
+}) => {
   const { t } = useTranslation();
 
-  useEffect(() => {}, [seearchParams]);
+  useEffect(() => {
+    if (searchParams === "") {
+      getAllWords({ limit: 50, page: 1 });
+      return;
+    }
+
+    const delayDebounceFn = setTimeout(() => {
+      searchWordsFunc(searchParams);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const changeParams = (e) => {
     setSeearchParams(e.target.value.trim());
@@ -14,9 +31,15 @@ export const SearchWordForm = () => {
 
   return (
     <Form>
+      {searchParams !== "" && (
+        <DellSearchTextBtn onClick={() => setSeearchParams("")}>
+          <MdOutlineClear color="red" size={25} />
+        </DellSearchTextBtn>
+      )}
       <Input
         placeholder={t("mainDbSettings.placeholder")}
         onChange={changeParams}
+        value={searchParams}
       />
     </Form>
   );

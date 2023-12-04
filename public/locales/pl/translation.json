@@ -100,6 +100,7 @@
   "mainDbSettings": {
     "title": "Ustawienia głównego słownika",
     "placeholder": "Znajdź słowa",
-    "dellWordForBlockListToast": "Słowo {{word}} usunięte z listy zablokowanych"
+    "dellWordForBlockListToast": "Słowo {{word}} usunięte z listy zablokowanych",
+    "noWordsMessage": "Nie znaleziono słów"
   }
 }

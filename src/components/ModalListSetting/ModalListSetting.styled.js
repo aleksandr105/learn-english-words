@@ -37,12 +37,6 @@ export const Item = styled.li`
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 `;
 
-export const ItemText = styled.p`
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: 500;
-`;
-
 export const ButtonDelete = styled.button`
   position: absolute;
   border: none;

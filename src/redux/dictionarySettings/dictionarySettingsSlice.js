@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getBlockListWords,
   removeWordFromBlockList,
+  searchRequest,
 } from "./operationDictionarySettings";
 
 const handlePending = (state, action) => {
@@ -14,7 +15,7 @@ const handleRejected = (state, action) => {
 };
 
 const initialState = {
-  words: [],
+  words: { data: [], total: 0 },
   isLoading: false,
   isLoadingDellFromBlockList: false,
   error: null,
@@ -26,7 +27,7 @@ const dictionarySettingsSlice = createSlice({
 
   reducers: {
     deleteWords(state, action) {
-      state.words = [];
+      state.words = { data: [], total: 0 };
     },
   },
 
@@ -50,6 +51,13 @@ const dictionarySettingsSlice = createSlice({
         state.error = action.payload;
         state.isLoadingDellFromBlockList = false;
       });
+    builder
+      .addCase(searchRequest.pending, handlePending)
+      .addCase(searchRequest.fulfilled, (state, action) => {
+        state.words = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(searchRequest.rejected, handleRejected);
   },
 });
 

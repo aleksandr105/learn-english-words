@@ -3,10 +3,13 @@ import { instance } from "../../axiosSettings";
 
 export const getBlockListWords = createAsyncThunk(
   "settingsDictionary/getBlockList",
-  async (payload, { rejectWithValue }) => {
+  async ({ page, limit, words = [] }, { rejectWithValue }) => {
     try {
-      const { data } = await instance.get("words/get_words_block_list");
-      return data;
+      const { data } = await instance.get(
+        `words/get_words_block_list?page=${page}&limit=${limit}`
+      );
+
+      return { data: [...words, ...data.data], total: data.total };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -22,6 +25,21 @@ export const removeWordFromBlockList = createAsyncThunk(
       });
 
       return newState;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const searchRequest = createAsyncThunk(
+  "settingsDictionary/searchRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(
+        `words/get_search_words_block_list/${payload}`
+      );
+
+      return { data, total: data.length };
     } catch (error) {
       return rejectWithValue(error.message);
     }

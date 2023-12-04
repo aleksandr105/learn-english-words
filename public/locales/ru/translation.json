@@ -99,6 +99,7 @@
   "mainDbSettings": {
     "title": "Настройки основного словаря",
     "placeholder": "Найти слова",
-    "dellWordForBlockListToast": "Слово {{word}} удалено с блок листа"
+    "dellWordForBlockListToast": "Слово {{word}} удалено с блок листа",
+    "noWordsMessage": "Слова не были найдены"
   }
 }
