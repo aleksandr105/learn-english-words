@@ -101,5 +101,9 @@
     "placeholder": "Найти слова",
     "dellWordForBlockListToast": "Слово {{word}} удалено с блок листа",
     "noWordsMessage": "Слова не были найдены"
+  },
+
+  "userDbSettings": {
+    "title": "Настройки личного словаря"
   }
 }

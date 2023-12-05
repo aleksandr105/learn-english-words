@@ -101,5 +101,9 @@
     "placeholder": "Знайти слова",
     "dellWordForBlockListToast": "Слово {{word}} видалено зі списку заблокованих",
     "noWordsMessage": "Слов не було знайдено"
+  },
+
+  "userDbSettings": {
+    "title": "Налаштування словника користувача"
   }
 }

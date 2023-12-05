@@ -27,14 +27,15 @@ export const SearchWordForm = ({
       setPage(1);
       dispatch(deleteWords());
       searchWordsFunc({ searchParams, limit: 50, page: 1 });
-    }, 1000);
+    }, 800);
 
     return () => clearTimeout(delayDebounceFn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const changeParams = (e) => {
-    console.log("e");
+    e.preventDefault();
+
     if (searchParams === "") setPage(1);
     setSeearchParams(e.target.value.trim());
   };
@@ -50,6 +51,9 @@ export const SearchWordForm = ({
         placeholder={t("mainDbSettings.placeholder")}
         onChange={changeParams}
         value={searchParams}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") e.preventDefault();
+        }}
       />
     </Form>
   );

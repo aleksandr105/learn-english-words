@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { allSettings } from "../../redux/userSettings/selectors";
 import { setMyChoiceLearn } from "../../redux/userSettings/userSettingsSlice";
+import { UserWordsSettings } from "../UserWordsSettings/UserWordsSettings";
 import {
   getBaseWordsForAuthorized,
   getUserWords,
@@ -36,11 +37,16 @@ export const LearnButtonsOptions = () => {
       text: t("thatLearnBtnText.basic"),
       component: <MainWordsDbSettings setShowModal={setShowModal} />,
     },
-    { text: t("thatLearnBtnText.my"), component: <div>vccfdgfdgrfg</div> },
+    {
+      text: t("thatLearnBtnText.my"),
+      component: <UserWordsSettings setShowModal={setShowModal} />,
+    },
   ];
 
   const onChoiceLearn = (e) => {
     const btnIdx = Number(e.currentTarget.getAttribute("data-idx"));
+
+    if (myChoiceLearn.myChoiceLearn === btnIdx) return;
 
     const newDataChoiceLearn = { ...myChoiceLearn, myChoiceLearn: btnIdx };
 
