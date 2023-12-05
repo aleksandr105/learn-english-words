@@ -20,6 +20,7 @@ export const ModalListSetting = ({
   page,
   setPage,
   searchParams,
+  getSearchWordsBlockList,
 }) => {
   const dispatch = useDispatch();
   const { isLoadingDellFromBlockList, words } = useSelector(
@@ -52,7 +53,17 @@ export const ModalListSetting = ({
   const fetchDataFunc = async ({ page, limit, words }) => {
     if (words.data.length < words.total) {
       setPage((prev) => prev + 1);
-      dispatch(getWordsFromBlockList({ page, limit, words: words.data }));
+
+      searchParams === ""
+        ? dispatch(getWordsFromBlockList({ page, limit, words: words.data }))
+        : dispatch(
+            getSearchWordsBlockList({
+              searchParams,
+              limit,
+              page,
+              words: words.data,
+            })
+          );
       return;
     }
   };

@@ -38,8 +38,8 @@ export const MainWordsDbSettings = ({ setShowModal }) => {
     dispatch(getBlockListWords({ limit, page }));
   };
 
-  const searchWords = (text) => {
-    dispatch(searchRequest(text));
+  const searchWords = ({ searchParams, limit, page }) => {
+    dispatch(searchRequest({ searchParams, limit, page }));
   };
 
   return (
@@ -53,6 +53,7 @@ export const MainWordsDbSettings = ({ setShowModal }) => {
         getAllWords={getOnePageWordsBlockList}
         searchParams={searchParams}
         setSeearchParams={setSeearchParams}
+        setPage={setPage}
       />
       <Loading isLoad={isLoading} styles={style} />
       {!data.length && !isLoading && <WordsNotFoundMessage />}
@@ -60,6 +61,7 @@ export const MainWordsDbSettings = ({ setShowModal }) => {
         <ModalListSetting
           dellWordFromBlockList={removeWordFromBlockList}
           getWordsFromBlockList={getBlockListWords}
+          getSearchWordsBlockList={searchRequest}
           page={page}
           setPage={setPage}
           searchParams={searchParams}

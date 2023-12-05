@@ -12,7 +12,7 @@ export const Input = styled.input`
   width: 100%;
   height: 30px;
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 33px 10px 10px;
 `;
 
 export const DellSearchTextBtn = styled.button`
@@ -21,9 +21,11 @@ export const DellSearchTextBtn = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 10px;
-  right: -1px;
-  padding: 3px;
+  /* border-radius: 10px; */
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  right: 1px;
+  padding: 2px;
   background-color: #d5d5d5;
   transition: scale 200ms linear, background-color 200ms linear;
   &:hover,

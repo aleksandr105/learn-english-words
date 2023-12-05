@@ -31,6 +31,7 @@ export const InfiniteScroll = ({
     }
 
     setHasMore(false);
+
     fetchDataFunc({ page: page + 1, limit, words: data });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasMore]);

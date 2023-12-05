@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 export const NoWordsMessage = styled.p`
   font-size: 25px;
   text-align: center;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color: red;
 `;
 

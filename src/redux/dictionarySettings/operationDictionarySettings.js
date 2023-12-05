@@ -33,13 +33,13 @@ export const removeWordFromBlockList = createAsyncThunk(
 
 export const searchRequest = createAsyncThunk(
   "settingsDictionary/searchRequest",
-  async (payload, { rejectWithValue }) => {
+  async ({ searchParams, limit, page, words = [] }, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(
-        `words/get_search_words_block_list/${payload}`
+        `words/get_search_words_block_list/${searchParams}?limit=${limit}&page=${page}`
       );
 
-      return { data, total: data.length };
+      return { data: [...words, ...data.data], total: data.total };
     } catch (error) {
       return rejectWithValue(error.message);
     }
