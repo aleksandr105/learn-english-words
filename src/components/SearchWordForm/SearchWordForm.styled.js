@@ -10,7 +10,7 @@ export const Form = styled.form`
 
 export const Input = styled.input`
   width: 100%;
-  height: 30px;
+  height: 35px;
   border-radius: 10px;
   padding: 10px 33px 10px 10px;
 `;
@@ -24,8 +24,10 @@ export const DellSearchTextBtn = styled.button`
   /* border-radius: 10px; */
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  right: 1px;
-  padding: 2px;
+  right: 0px;
+  top: 0;
+  height: 35px;
+  padding: 3px;
   background-color: #d5d5d5;
   transition: scale 200ms linear, background-color 200ms linear;
   &:hover,

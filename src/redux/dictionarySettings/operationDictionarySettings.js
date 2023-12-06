@@ -45,3 +45,18 @@ export const searchRequest = createAsyncThunk(
     }
   }
 );
+
+export const getUserWords = createAsyncThunk(
+  "settingsDictionary/getUserWords",
+  async ({ page, limit, words = [] }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(
+        `words/get_words_block_list?page=${page}&limit=${limit}`
+      );
+
+      return { data: [...words, ...data.data], total: data.total };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
