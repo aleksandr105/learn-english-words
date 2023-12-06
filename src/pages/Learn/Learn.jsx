@@ -4,7 +4,7 @@ import { Spinner } from "../../components/Spinner/Spinner";
 import { LearnOptions } from "../../components/LearnOptions/LearnOptions";
 import { useSelector, useDispatch } from "react-redux";
 import { words, loading } from "../../redux/words/selectors";
-import { isLoggedIn } from "../../redux/auth/selectors";
+import { isLoggedIn, isRefreshing } from "../../redux/auth/selectors";
 import { MainTitle } from "../../components/MainTitle/MainTitle";
 import { useEffect } from "react";
 import {
@@ -28,7 +28,7 @@ const Learn = ({ showSpinner }) => {
   useEffect(() => {
     dispatch(setLanguage(i18n.resolvedLanguage));
 
-    if ((!arrKey.length || !arrValue.length) && !LogedIn)
+    if ((!arrKey.length || !arrValue.length) && !LogedIn && !isRefreshing)
       dispatch(getWords(i18n.resolvedLanguage));
 
     if (
