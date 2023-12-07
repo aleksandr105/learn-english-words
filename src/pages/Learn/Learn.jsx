@@ -22,15 +22,16 @@ const Learn = ({ showSpinner }) => {
   const { arrKey = [], arrValue = [] } = useSelector(words);
   const isLoading = useSelector(loading);
   const LogedIn = useSelector(isLoggedIn);
+  const refresh = useSelector(isRefreshing);
   const { i18n } = useTranslation();
   const learnOptions = useSelector(allSettings);
 
   useEffect(() => {
     dispatch(setLanguage(i18n.resolvedLanguage));
 
-    if ((!arrKey.length || !arrValue.length) && !LogedIn && !isRefreshing)
+    if ((!arrKey.length || !arrValue.length) && !LogedIn && !refresh) {
       dispatch(getWords(i18n.resolvedLanguage));
-
+    }
     if (
       (!arrKey.length || !arrValue.length) &&
       LogedIn &&
