@@ -43,6 +43,12 @@ const wordsSlicee = createSlice({
     setWordsValue(state, action) {
       state.words.arrValue = action.payload;
     },
+    setNewStateAfterDellWord(state, action) {
+      state.words.arrKey = action.payload.newArrKey;
+      state.words.arrValue = action.payload.newArrValue;
+      state.words.arrAllWords = action.payload.newArrAllWords;
+      state.words.originalWords = action.payload.newOriginalWords;
+    },
   },
 
   extraReducers: (builder) => {
@@ -100,5 +106,10 @@ const wordsSlicee = createSlice({
 });
 
 export const words = wordsSlicee.reducer;
-export const { setLanguage, setTranslationWords, setWordsKey, setWordsValue } =
-  wordsSlicee.actions;
+export const {
+  setLanguage,
+  setTranslationWords,
+  setWordsKey,
+  setWordsValue,
+  setNewStateAfterDellWord,
+} = wordsSlicee.actions;

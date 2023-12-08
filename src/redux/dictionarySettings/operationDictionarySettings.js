@@ -46,15 +46,30 @@ export const searchRequest = createAsyncThunk(
   }
 );
 
-export const getUserWords = createAsyncThunk(
+export const getUserWordsFromSettings = createAsyncThunk(
   "settingsDictionary/getUserWords",
   async ({ page, limit, words = [] }, { rejectWithValue }) => {
     try {
       const { data } = await instance.get(
-        `words/get_words_block_list?page=${page}&limit=${limit}`
+        `words/get_all_user_words?page=${page}&limit=${limit}`
       );
 
       return { data: [...words, ...data.data], total: data.total };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeWordUserList = createAsyncThunk(
+  "settingsDictionary/dellWordFromUserDictionary",
+  async ({ word, newState }, { rejectWithValue }) => {
+    try {
+      await instance.delete("words/remove_user_words", {
+        data: { words: [word] },
+      });
+
+      return newState;
     } catch (error) {
       return rejectWithValue(error.message);
     }

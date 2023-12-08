@@ -13,6 +13,9 @@ import { onNatification } from "../../helpers";
 import { useTranslation } from "react-i18next";
 import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
 import { EditingText } from "../EditingText/EditingText";
+import { allSettings } from "../../redux/userSettings/selectors";
+import { words as stateWords } from "../../redux/words/selectors";
+import { setNewStateAfterDellWord } from "../../redux/words/wordsSlice";
 
 export const ModalListSetting = ({
   dellWordFromBlockList,
@@ -26,8 +29,21 @@ export const ModalListSetting = ({
   const { isLoadingDellFromBlockList, words } = useSelector(
     dataSettingsDictionary
   );
+  const { myChoiceLearn } = useSelector(allSettings);
+  const { arrKey, arrValue, arrAllWords, originalWords } =
+    useSelector(stateWords);
   const [elClick, setElClick] = useState(null);
   const { t } = useTranslation();
+
+  const filterDeletingWords = (word) => {
+    const newArrKey = arrKey.filter((el) => el !== word);
+    const newArrValue = arrValue.filter(
+      (el) => el !== Object.values(arrAllWords.find((el) => el[word]) || {})[1]
+    );
+    const newArrAllWords = arrAllWords.filter((el) => !el[word]);
+    const newOriginalWords = originalWords.filter((el) => !el[word]);
+    return { newArrKey, newArrValue, newArrAllWords, newOriginalWords };
+  };
 
   const onDellWord = async (word) => {
     try {
@@ -37,9 +53,12 @@ export const ModalListSetting = ({
       await dispatch(
         dellWordFromBlockList({
           word,
-          newState: { data: filteredWords, total: words.total },
+          newState: { data: filteredWords, total: words.total - 1 },
         })
       );
+
+      if (myChoiceLearn === 1)
+        dispatch(setNewStateAfterDellWord(filterDeletingWords(word)));
 
       onNatification(t("mainDbSettings.dellWordForBlockListToast", { word }), {
         autoClose: 2000,

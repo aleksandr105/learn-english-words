@@ -3,6 +3,8 @@ import {
   getBlockListWords,
   removeWordFromBlockList,
   searchRequest,
+  getUserWordsFromSettings,
+  removeWordUserList,
 } from "./operationDictionarySettings";
 
 const handlePending = (state, action) => {
@@ -58,6 +60,25 @@ const dictionarySettingsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(searchRequest.rejected, handleRejected);
+    builder
+      .addCase(getUserWordsFromSettings.pending, handlePending)
+      .addCase(getUserWordsFromSettings.fulfilled, (state, action) => {
+        state.words = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getUserWordsFromSettings.rejected, handleRejected);
+    builder
+      .addCase(removeWordUserList.pending, (state, action) => {
+        state.isLoadingDellFromBlockList = true;
+      })
+      .addCase(removeWordUserList.fulfilled, (state, action) => {
+        state.words = action.payload;
+        state.isLoadingDellFromBlockList = false;
+      })
+      .addCase(removeWordUserList.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoadingDellFromBlockList = false;
+      });
   },
 });
 
