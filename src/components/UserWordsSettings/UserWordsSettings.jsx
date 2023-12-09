@@ -15,7 +15,9 @@ import { ModalListSetting } from "../ModalListSetting/ModalListSetting";
 import {
   getUserWordsFromSettings,
   removeWordUserList,
+  searchUserWords,
 } from "../../redux/dictionarySettings/operationDictionarySettings";
+import { AddWordsForm } from "../AddWordsForm/AddWordsForm";
 
 const style = {
   top: "45%",
@@ -38,6 +40,10 @@ export const UserWordsSettings = ({ setShowModal }) => {
     dispatch(getUserWordsFromSettings({ limit, page }));
   };
 
+  const searchWords = ({ searchParams, limit, page }) => {
+    dispatch(searchUserWords({ searchParams, limit, page }));
+  };
+
   return (
     <Wrapper>
       <CloseModalButton onClick={() => setShowModal(false)}>
@@ -45,19 +51,20 @@ export const UserWordsSettings = ({ setShowModal }) => {
       </CloseModalButton>
       <DbSettingsTitle>{t("userDbSettings.title")}</DbSettingsTitle>
       <SearchWordForm
-        searchWordsFunc={() => {}}
+        searchWordsFunc={searchWords}
         getAllWords={getOnePageUserWords}
         searchParams={searchParams}
         setSeearchParams={setSeearchParams}
         setPage={setPage}
       />
+      <AddWordsForm />
       <Loading isLoad={isLoading} styles={style} />
       {!data.length && !isLoading && <WordsNotFoundMessage />}
       {data !== 0 && data && (
         <ModalListSetting
           dellWordFromBlockList={removeWordUserList}
           getWordsFromBlockList={getUserWordsFromSettings}
-          getSearchWordsBlockList={() => {}}
+          getSearchWordsBlockList={searchUserWords}
           page={page}
           setPage={setPage}
           searchParams={searchParams}

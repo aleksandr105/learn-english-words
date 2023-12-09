@@ -5,6 +5,7 @@ import {
   searchRequest,
   getUserWordsFromSettings,
   removeWordUserList,
+  searchUserWords,
 } from "./operationDictionarySettings";
 
 const handlePending = (state, action) => {
@@ -79,6 +80,13 @@ const dictionarySettingsSlice = createSlice({
         state.error = action.payload;
         state.isLoadingDellFromBlockList = false;
       });
+    builder
+      .addCase(searchUserWords.pending, handlePending)
+      .addCase(searchUserWords.fulfilled, (state, action) => {
+        state.words = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(searchUserWords.rejected, handleRejected);
   },
 });
 

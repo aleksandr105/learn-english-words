@@ -75,3 +75,18 @@ export const removeWordUserList = createAsyncThunk(
     }
   }
 );
+
+export const searchUserWords = createAsyncThunk(
+  "settingsDictionary/searchUserWords",
+  async ({ searchParams, limit, page, words = [] }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get(
+        `words/search_user_words/${searchParams}?limit=${limit}&page=${page}`
+      );
+
+      return { data: [...words, ...data.data], total: data.total };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
