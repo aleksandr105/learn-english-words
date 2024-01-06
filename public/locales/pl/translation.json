@@ -105,6 +105,11 @@
   },
 
   "userDbSettings": {
-    "title": "Ustawienie słownika użytkownika"
+    "title": "Ustawienie słownika użytkownika",
+    "showAddWordBtn": "Dodaj słowo",
+    "returnToDictionary": "Wróć do słownika",
+    "inputTitleEngl": "Wpisz angielskie słowo",
+    "inputTitileTranslation": "Wpisz tłumaczenie słowa",
+    "placeholder": "Świat"
   }
 }

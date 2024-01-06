@@ -3,6 +3,7 @@ import {
   Wrapper,
   CloseModalButton,
   DbSettingsTitle,
+  ShowAddWordBtn,
 } from "./UserWordsSettings.styled";
 import { GrClose } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
@@ -26,6 +27,7 @@ const style = {
 export const UserWordsSettings = ({ setShowModal }) => {
   const [page, setPage] = useState(1);
   const [searchParams, setSeearchParams] = useState("");
+  const [addWordShow, setAddWordShow] = useState(false);
   const dispatch = useDispatch();
 
   const {
@@ -50,16 +52,24 @@ export const UserWordsSettings = ({ setShowModal }) => {
         <GrClose />
       </CloseModalButton>
       <DbSettingsTitle>{t("userDbSettings.title")}</DbSettingsTitle>
-      <SearchWordForm
-        searchWordsFunc={searchWords}
-        getAllWords={getOnePageUserWords}
-        searchParams={searchParams}
-        setSeearchParams={setSeearchParams}
-        setPage={setPage}
-      />
-      <AddWordsForm />
-      <Loading isLoad={isLoading} styles={style} />
-      {!data.length && !isLoading && <WordsNotFoundMessage />}
+      {!addWordShow ? (
+        <SearchWordForm
+          searchWordsFunc={searchWords}
+          getAllWords={getOnePageUserWords}
+          searchParams={searchParams}
+          setSeearchParams={setSeearchParams}
+          setPage={setPage}
+        />
+      ) : (
+        <AddWordsForm setAddWordShow={setAddWordShow} />
+      )}
+      <ShowAddWordBtn onClick={() => setAddWordShow((prev) => !prev)}>
+        {!addWordShow
+          ? t("userDbSettings.showAddWordBtn")
+          : t("userDbSettings.returnToDictionary")}
+      </ShowAddWordBtn>
+      <Loading isLoad={isLoading && !addWordShow} styles={style} />
+      {!data.length && !isLoading && !addWordShow && <WordsNotFoundMessage />}
       {data !== 0 && data && (
         <ModalListSetting
           dellWordFromBlockList={removeWordUserList}

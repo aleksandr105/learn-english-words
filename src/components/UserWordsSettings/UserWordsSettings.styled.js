@@ -42,3 +42,17 @@ export const CloseModalButton = styled.button`
     scale: 1.1;
   }
 `;
+
+export const ShowAddWordBtn = styled.button`
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  color: #00f;
+  background-color: #5f5;
+  font-weight: 500;
+  transition: scale 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  :hover {
+    scale: 1.02;
+  }
+`;

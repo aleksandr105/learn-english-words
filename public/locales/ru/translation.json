@@ -104,6 +104,11 @@
   },
 
   "userDbSettings": {
-    "title": "Настройки личного словаря"
+    "title": "Настройки личного словаря",
+    "showAddWordBtn": "Добавить слово",
+    "returnToDictionary": "Вернуться к словарю",
+    "inputTitleEngl": "Введите английское слово",
+    "inputTitileTranslation": "Введите перевод слова",
+    "placeholder": "Мир"
   }
 }

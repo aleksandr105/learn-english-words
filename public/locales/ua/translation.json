@@ -104,6 +104,11 @@
   },
 
   "userDbSettings": {
-    "title": "Налаштування словника користувача"
+    "title": "Налаштування словника користувача",
+    "showAddWordBtn": "Додати слово",
+    "returnToDictionary": "Повернутись до словника",
+    "inputTitleEngl": "Введіть англійське слово",
+    "inputTitileTranslation": "Введіть переклад слова",
+    "placeholder": "Світ"
   }
 }
