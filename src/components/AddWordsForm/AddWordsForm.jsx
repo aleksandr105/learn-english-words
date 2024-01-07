@@ -154,6 +154,8 @@ export const AddWordsForm = ({ setAddWordShow }) => {
     setAddWordShow();
   };
 
+  const a = 5;
+
   return (
     <Wrapper>
       {errorMessage && (
