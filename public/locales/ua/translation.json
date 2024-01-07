@@ -109,6 +109,16 @@
     "returnToDictionary": "Повернутись до словника",
     "inputTitleEngl": "Введіть англійське слово",
     "inputTitileTranslation": "Введіть переклад слова",
-    "placeholder": "Світ"
+    "placeholder": "Світ",
+    "backBtn": "Назад",
+    "nextBtn": "Далі",
+    "saveBtn": "Додати",
+    "errorMessageRequired": "Поле обов'язкове",
+    "errorMessageMin": "Мінімум два символи",
+    "errorMessageMax": "Максимум 15 символів",
+    "errorMessageMatches": "Лише англійські літери",
+    "errorMessageWrongLanguage": "Лише {{currentLanguage}} літери",
+    "successedAddingWord": "Слово додано до словника",
+    "errorAddingWord": "Виникла помилка додавання слова. Спробуйте знову"
   }
 }

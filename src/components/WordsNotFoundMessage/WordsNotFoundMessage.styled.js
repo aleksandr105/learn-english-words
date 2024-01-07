@@ -9,6 +9,10 @@ export const NoWordsMessage = styled.p`
 `;
 
 export const Img = styled.img`
+  @media screen and (max-width: 400px) {
+    max-height: 130px;
+    flex-basis: 130px;
+  }
   border-radius: 20px;
   max-height: 200px;
   flex-basis: 200px;

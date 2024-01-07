@@ -6,4 +6,10 @@ import { settingsDictionary } from "./dictionarySettings/dictionarySettingsSlice
 
 export const store = configureStore({
   reducer: { words, auth, settings, settingsDictionary },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["settingsDictionary/addUserWord/fulfilled"],
+      },
+    }),
 });

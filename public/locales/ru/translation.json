@@ -109,6 +109,16 @@
     "returnToDictionary": "Вернуться к словарю",
     "inputTitleEngl": "Введите английское слово",
     "inputTitileTranslation": "Введите перевод слова",
-    "placeholder": "Мир"
+    "placeholder": "Мир",
+    "backBtn": "Назад",
+    "nextBtn": "Дальше",
+    "saveBtn": "Добавить",
+    "errorMessageRequired": "Поле обязательно",
+    "errorMessageMin": "Минимум два символа",
+    "errorMessageMax": "Максимум 15 символов",
+    "errorMessageMatches": "Только английские буквы",
+    "errorMessageWrongLanguage": "Только {{currentLanguage}} буквы",
+    "successedAddingWord": "Слово добавлено в словарь",
+    "errorAddingWord": "Произошла ошибка добавления слова. Попробуйте снова"
   }
 }

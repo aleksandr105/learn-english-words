@@ -110,6 +110,16 @@
     "returnToDictionary": "Wróć do słownika",
     "inputTitleEngl": "Wpisz angielskie słowo",
     "inputTitileTranslation": "Wpisz tłumaczenie słowa",
-    "placeholder": "Świat"
+    "placeholder": "Świat",
+    "backBtn": "Powrót",
+    "nextBtn": "Dalej",
+    "saveBtn": "Dodać",
+    "errorMessageRequired": "Pole wymagane",
+    "errorMessageMin": "Minimum dwa znaki",
+    "errorMessageMax": "Maksymalnie 15 znaków",
+    "errorMessageMatches": "Tylko litery angielskie",
+    "errorMessageWrongLanguage": "Tylko litery {{currentLanguage}}",
+    "successedAddingWord": "Słowo dodane do słownika",
+    "errorAddingWord": "Wystąpił błąd podczas dodawania słowa. Spróbuj ponownie"
   }
 }

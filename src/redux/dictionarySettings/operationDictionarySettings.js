@@ -1,5 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../axiosSettings";
+import { onNatification } from "../../helpers";
+import { setWordsToRedux } from "../../helpers";
+import { setNewStateAfterDellWord } from "../words/wordsSlice";
 
 export const getBlockListWords = createAsyncThunk(
   "settingsDictionary/getBlockList",
@@ -86,6 +89,57 @@ export const searchUserWords = createAsyncThunk(
 
       return { data: [...words, ...data.data], total: data.total };
     } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addWordToUserDictionary = createAsyncThunk(
+  "settingsDictionary/addUserWord",
+  async (
+    { data, messageSuccess, messageError, currentWords, language },
+    { rejectWithValue, dispatch }
+  ) => {
+    try {
+      const response = await instance.patch("words/add_user_word", data);
+      onNatification(messageSuccess, { type: "success", autoClose: 3000 });
+
+      const { arrKey, arrValue, arrAllWords, originalWords } = currentWords;
+
+      const addedWord =
+        response.data.userWords[response.data.userWords.length - 1];
+
+      const { myChoiceLearn } = JSON.parse(
+        localStorage.getItem("learnOptions")
+      );
+
+      if (currentWords.arrAllWords.length < 10 && myChoiceLearn === 1) {
+        const {
+          arrKey: key,
+          arrValue: value,
+          arrAllWords: words,
+        } = setWordsToRedux({
+          data: [addedWord],
+          currentLanguage: language,
+        });
+
+        const sort = (a, b) => Math.random() - 0.5;
+
+        dispatch(
+          setNewStateAfterDellWord({
+            newArrKey: [...key, ...arrKey].sort(sort),
+            newArrValue: [...value, ...arrValue].sort(sort),
+            newArrAllWords: [...words, ...arrAllWords],
+            newOriginalWords: [addedWord, ...originalWords],
+          })
+        );
+
+        return response;
+      }
+
+      return response;
+    } catch (error) {
+      onNatification(messageError + error.message, { autoClose: 3000 });
       return rejectWithValue(error.message);
     }
   }

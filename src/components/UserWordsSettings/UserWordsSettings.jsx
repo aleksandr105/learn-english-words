@@ -63,14 +63,14 @@ export const UserWordsSettings = ({ setShowModal }) => {
       ) : (
         <AddWordsForm setAddWordShow={setAddWordShow} />
       )}
-      <ShowAddWordBtn onClick={() => setAddWordShow((prev) => !prev)}>
-        {!addWordShow
-          ? t("userDbSettings.showAddWordBtn")
-          : t("userDbSettings.returnToDictionary")}
-      </ShowAddWordBtn>
+      {!addWordShow && (
+        <ShowAddWordBtn onClick={() => setAddWordShow((prev) => !prev)}>
+          {t("userDbSettings.showAddWordBtn")}
+        </ShowAddWordBtn>
+      )}
       <Loading isLoad={isLoading && !addWordShow} styles={style} />
       {!data.length && !isLoading && !addWordShow && <WordsNotFoundMessage />}
-      {data !== 0 && data && (
+      {data !== 0 && data && !addWordShow && (
         <ModalListSetting
           dellWordFromBlockList={removeWordUserList}
           getWordsFromBlockList={getUserWordsFromSettings}
