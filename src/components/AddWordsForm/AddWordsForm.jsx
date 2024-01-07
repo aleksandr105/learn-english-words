@@ -225,4 +225,3 @@ export const AddWordsForm = ({ setAddWordShow }) => {
     </Wrapper>
   );
 };
-const a = 5;
