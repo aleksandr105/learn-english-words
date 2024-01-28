@@ -26,7 +26,8 @@ export const AddWordsForm = ({ setAddWordShow }) => {
   const [translate, setTranslate] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const orError = englishWord === "" || errorMessage;
+  const orErrorStep1 = englishWord === "" || errorMessage;
+  const orErrorStep2 = translate === "" || errorMessage;
   let currentLanguage;
   let regex;
 
@@ -180,9 +181,9 @@ export const AddWordsForm = ({ setAddWordShow }) => {
               {t("userDbSettings.backBtn")}
             </ToBackStepBtn>
             <NextStepBtn
-              disabled={orError}
+              disabled={orErrorStep1}
               onClick={goToStepTwo}
-              orDisabled={orError}
+              orDisabled={orErrorStep1}
             >
               {t("userDbSettings.nextBtn")}
             </NextStepBtn>
@@ -214,8 +215,8 @@ export const AddWordsForm = ({ setAddWordShow }) => {
             </ToBackStepBtn>
             <SaveWordBtn
               onClick={saveWord}
-              disabled={orError}
-              orDisabled={orError}
+              disabled={orErrorStep2}
+              orDisabled={orErrorStep2}
             >
               {t("userDbSettings.saveBtn")}
             </SaveWordBtn>
