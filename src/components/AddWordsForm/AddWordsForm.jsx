@@ -34,22 +34,22 @@ export const AddWordsForm = ({ setAddWordShow }) => {
   switch (i18n.language) {
     case "ru":
       currentLanguage = "русские";
-      regex = /^[а-яА-ЯёЁ]+$/;
+      regex = /^[а-яА-ЯёЁ\s]+$/;
       break;
 
     case "ua":
       currentLanguage = "українські";
-      regex = /^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ']+$/;
+      regex = /^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ'\s]+$/;
       break;
 
     case "pl":
       currentLanguage = "polski";
-      regex = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$/;
+      regex = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$/;
       break;
 
     default:
       currentLanguage = "Polski";
-      regex = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$/;
+      regex = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$/;
   }
 
   const schemaEnglishWord = string()
@@ -136,23 +136,25 @@ export const AddWordsForm = ({ setAddWordShow }) => {
   };
 
   const saveWord = async () => {
-    await dispatch(
-      await addWordToUserDictionary({
-        data: {
-          [englishWord]: [translate, translate, translate],
-        },
-        messageSuccess: t("userDbSettings.successedAddingWord"),
-        messageError: t("userDbSettings.errorAddingWord"),
-        currentWords,
-        language: i18n.language,
-      })
-    );
+    try {
+      await dispatch(
+        await addWordToUserDictionary({
+          data: {
+            [englishWord]: [translate, translate, translate],
+          },
+          messageSuccess: t("userDbSettings.successedAddingWord"),
+          messageError: t("userDbSettings.errorAddingWord"),
+          currentWords,
+          language: i18n.language,
+        })
+      );
 
-    localStorage.setItem(
-      "vocabularyFormData",
-      JSON.stringify({ englishWord: "", translate: "", step: 1 })
-    );
-    setAddWordShow();
+      localStorage.setItem(
+        "vocabularyFormData",
+        JSON.stringify({ englishWord: "", translate: "", step: 1 })
+      );
+      setAddWordShow();
+    } catch (error) {}
   };
 
   return (

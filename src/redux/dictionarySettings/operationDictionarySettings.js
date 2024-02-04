@@ -139,7 +139,34 @@ export const addWordToUserDictionary = createAsyncThunk(
 
       return response;
     } catch (error) {
-      onNatification(messageError + error.message, { autoClose: 3000 });
+      if (error.response.status === 400) {
+        let translatedErrorMessage = "";
+
+        const errorMessage = {
+          ru: "Невозможно добавить!!! Это слово или перевод уже существует в словаре",
+          ua: "Неможливо додати!!! Це слово або переклад вже існує у словнику",
+          pl: "Nie można dodać!!! To słowo lub tłumaczenie już istnieje w słowniku",
+        };
+
+        switch (language) {
+          case "ru":
+            translatedErrorMessage = errorMessage.ru;
+            break;
+          case "ua":
+            translatedErrorMessage = errorMessage.ua;
+            break;
+          case "pl":
+            translatedErrorMessage = errorMessage.pl;
+            break;
+          default:
+            translatedErrorMessage = errorMessage.pl;
+        }
+
+        onNatification(translatedErrorMessage, { autoClose: 4000 });
+        return rejectWithValue(error.message);
+      }
+
+      onNatification(messageError + error.message, { autoClose: 4000 });
       return rejectWithValue(error.message);
     }
   }
