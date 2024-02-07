@@ -100,7 +100,7 @@
   "mainDbSettings": {
     "title": "Ustawienia głównego słownika",
     "placeholder": "Znajdź słowa",
-    "dellWordForBlockListToast": "Słowo {{word}} usunięte z listy zablokowanych",
+    "dellWordForBlockListToast": "Słowo {{word}} usunięte",
     "noWordsMessage": "Nie znaleziono słów"
   },
 
@@ -121,5 +121,16 @@
     "errorMessageWrongLanguage": "Tylko litery {{currentLanguage}}",
     "successedAddingWord": "Słowo dodane do słownika",
     "errorAddingWord": "Wystąpił błąd podczas dodawania słowa. Spróbuj ponownie"
+  },
+
+  "statistic": {
+    "title": "Moje statystyki",
+    "success": "Pomyślnie zaliczone:",
+    "error": "Zakończono z błędem:",
+    "successPercentage": "Procent zakończonych pomyślnie:",
+    "errorPercentage": "Procent zakończonych z błędem:",
+    "learned": "Nauczone słowa \"lista zablokowanych\":",
+    "toBeLearn": "Do nauczenia:",
+    "inMyDictionary": "Słowa w słowniku osobistym:"
   }
 }

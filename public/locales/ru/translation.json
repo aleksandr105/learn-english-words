@@ -99,7 +99,7 @@
   "mainDbSettings": {
     "title": "Настройки основного словаря",
     "placeholder": "Найти слова",
-    "dellWordForBlockListToast": "Слово {{word}} удалено с блок листа",
+    "dellWordForBlockListToast": "Слово {{word}} удалено",
     "noWordsMessage": "Слова не были найдены"
   },
 
@@ -120,5 +120,16 @@
     "errorMessageWrongLanguage": "Только {{currentLanguage}} буквы",
     "successedAddingWord": "Слово добавлено в словарь",
     "errorAddingWord": "Произошла ошибка добавления слова. Попробуйте снова"
+  },
+
+  "statistic": {
+    "title": "Моя статистика",
+    "success": "Успешно пройдено:",
+    "error": "Пройдено с ошибкой:",
+    "successPercentage": "Процент успешно пройденных:",
+    "errorPercentage": "Процент пройденных с ошибкой:",
+    "learned": "Выучено слов \"блок-лист\":",
+    "toBeLearn": "Осталось выучить:",
+    "inMyDictionary": "Слов в личном словаре:"
   }
 }

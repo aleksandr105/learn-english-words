@@ -99,7 +99,7 @@
   "mainDbSettings": {
     "title": "Налаштування основного словника",
     "placeholder": "Знайти слова",
-    "dellWordForBlockListToast": "Слово {{word}} видалено зі списку заблокованих",
+    "dellWordForBlockListToast": "Слово {{word}} видалено",
     "noWordsMessage": "Слов не було знайдено"
   },
 
@@ -120,5 +120,16 @@
     "errorMessageWrongLanguage": "Лише {{currentLanguage}} літери",
     "successedAddingWord": "Слово додано до словника",
     "errorAddingWord": "Виникла помилка додавання слова. Спробуйте знову"
+  },
+
+  "statistic": {
+    "title": "Моя статистика",
+    "success": "Успішно пройдено:",
+    "error": "Пройдено з помилкою:",
+    "successPercentage": "Відсоток успішно пройдених:",
+    "errorPercentage": "Відсоток пройдених з помилкою:",
+    "learned": "Вивчено слов \"блок-лист\":",
+    "toBeLearn": "Залишилось вивчити:",
+    "inMyDictionary": "Слів в особистому словнику:"
   }
 }

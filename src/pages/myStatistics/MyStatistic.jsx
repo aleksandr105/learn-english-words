@@ -1,11 +1,12 @@
 import { MainTitle } from "../../components/MainTitle/MainTitle";
+import { StatisticComponent } from "../../components/StatisticComponent/StatisticComponent";
 
 const MyStatistic = () => {
   return (
-    <>
+    <div style={{ paddingBottom: "100px" }}>
       <MainTitle />
-      <h2 style={{ textAlign: "center" }}>Page is under construction</h2>
-    </>
+      <StatisticComponent />
+    </div>
   );
 };
 

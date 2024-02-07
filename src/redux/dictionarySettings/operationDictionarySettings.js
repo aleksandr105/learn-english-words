@@ -106,14 +106,13 @@ export const addWordToUserDictionary = createAsyncThunk(
 
       const { arrKey, arrValue, arrAllWords, originalWords } = currentWords;
 
-      const addedWord =
-        response.data.userWords[response.data.userWords.length - 1];
-
       const { myChoiceLearn } = JSON.parse(
         localStorage.getItem("learnOptions")
       );
 
       if (currentWords.arrAllWords.length < 10 && myChoiceLearn === 1) {
+        const addedWord = response.data.userWords[0];
+
         const {
           arrKey: key,
           arrValue: value,

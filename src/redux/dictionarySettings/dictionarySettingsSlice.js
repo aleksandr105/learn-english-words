@@ -6,7 +6,6 @@ import {
   getUserWordsFromSettings,
   removeWordUserList,
   searchUserWords,
-  addWordToUserDictionary,
 } from "./operationDictionarySettings";
 
 const handlePending = (state, action) => {
