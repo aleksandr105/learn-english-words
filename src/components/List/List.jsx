@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { DeleteWordMenu } from "../DeleteWordMenu/DeleteWordMenu";
 import { allSettings } from "../../redux/userSettings/selectors";
 import { setWordsValue, setWordsKey } from "../../redux/words/wordsSlice";
+import { saveStatistic } from "../../operations";
 
 export const List = () => {
   const { select, melody, voice } = useSelector(allSettings);
@@ -101,6 +102,8 @@ export const List = () => {
           type: "success",
           autoClose: 5000,
         });
+
+        saveStatistic("correct");
       }
       return;
     }
@@ -125,6 +128,8 @@ export const List = () => {
       );
 
       if (melody) await onPlay(error);
+
+      saveStatistic("incorrect");
 
       setClickError(false);
       setWordClick2(null);

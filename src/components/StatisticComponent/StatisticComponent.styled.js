@@ -43,4 +43,6 @@ export const Field = styled.p`
   padding-right: 20px;
 `;
 
-export const Result = styled.p``;
+export const Result = styled.p`
+  white-space: nowrap;
+`;

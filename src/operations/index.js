@@ -15,3 +15,11 @@ export const getTotalUsers = async () => {
     console.log(error);
   }
 };
+
+export const saveStatistic = async (answer) => {
+  try {
+    await instance.patch("/statistics/save_statistic", { answer });
+  } catch (error) {
+    console.log(error);
+  }
+};
