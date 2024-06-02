@@ -1,9 +1,10 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://cute-tan-slug-hat.cyclic.app/api";
+axios.defaults.baseURL =
+  "https://learn-english-words-api-production.up.railway.app";
 
 export const instance = axios.create({
-  baseURL: "https://cute-tan-slug-hat.cyclic.app/api",
+  baseURL: "https://learn-english-words-api-production.up.railway.app",
 });
 
 instance.interceptors.request.use((config) => {
