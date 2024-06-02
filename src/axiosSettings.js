@@ -1,10 +1,12 @@
 import axios from "axios";
 
-axios.defaults.baseURL =
+export const URL =
   "https://learn-english-words-api-production.up.railway.app/api";
 
+axios.defaults.baseURL = URL;
+
 export const instance = axios.create({
-  baseURL: "https://learn-english-words-api-production.up.railway.app/api",
+  baseURL: URL,
 });
 
 instance.interceptors.request.use((config) => {
