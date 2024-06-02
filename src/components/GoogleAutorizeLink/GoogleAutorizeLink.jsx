@@ -9,7 +9,7 @@ export const GoogleAutorizeLink = () => {
 
   return (
     <Wrapper>
-      <Link href={URL}>
+      <Link href={URL + "/auth/google"}>
         {t("googleLinkAutorize.googleLogin")}
         <IconWrapper>
           <FcGoogle size="18px" />
