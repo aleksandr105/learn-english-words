@@ -56,7 +56,7 @@ export const AddWordsForm = ({ setAddWordShow }) => {
     .required(t("userDbSettings.errorMessageRequired"))
     .min(2, t("userDbSettings.errorMessageMin"))
     .max(15, t("userDbSettings.errorMessageMax"))
-    .matches(/^[a-zA-Z]+$/, t("userDbSettings.errorMessageMatches"));
+    .matches(/^[a-zA-Z\s]+$/, t("userDbSettings.errorMessageMatches"));
 
   const translationWordSchema = string()
     .required(t("userDbSettings.errorMessageRequired"))
@@ -125,7 +125,7 @@ export const AddWordsForm = ({ setAddWordShow }) => {
 
   const handleTranslationChange = async (e) => {
     try {
-      const value = e.target.value.trim();
+      const value = e.target.value.replace(/^\s+/g, "");
 
       setTranslate(value);
       await translationWordSchema.validate(value);
@@ -140,7 +140,11 @@ export const AddWordsForm = ({ setAddWordShow }) => {
       await dispatch(
         await addWordToUserDictionary({
           data: {
-            [englishWord]: [translate, translate, translate],
+            [englishWord]: [
+              translate.trim(),
+              translate.trim(),
+              translate.trim(),
+            ],
           },
           messageSuccess: t("userDbSettings.successedAddingWord"),
           messageError: t("userDbSettings.errorAddingWord"),

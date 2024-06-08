@@ -182,8 +182,8 @@ export const List = () => {
             ))}
           </ListButton>
           <ListButton>
-            {arrValue.map((el) => (
-              <ListButtomItem key={el}>
+            {arrValue.map((el, idx) => (
+              <ListButtomItem key={el + arrKey[idx]}>
                 <EnButton
                   disabled={buttonStatus && el !== wordClick2}
                   variant="contained"
