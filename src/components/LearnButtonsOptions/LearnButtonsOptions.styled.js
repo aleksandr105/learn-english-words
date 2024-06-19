@@ -33,15 +33,18 @@ export const Btn = styled.button`
 export const BtnShowModal = styled.button`
   position: absolute;
   cursor: pointer;
-  background-color: transparent;
-  border: none;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   top: calc(50% - 16px);
-  right: 0;
+  right: 5px;
   transition: scale 300ms cubic-bezier(0.4, 0, 0.2, 1);
   padding: 3px;
+  /* box-shadow: inset rgba(255, 255, 255, 0.2) 8px 8px 18px 5px,
+    inset rgba(0, 0, 0, 0.5) -8px -8px 18px 5px; */
+  border: none;
+  border-radius: 10px;
   :hover,
   :focus {
     scale: 1.2;
