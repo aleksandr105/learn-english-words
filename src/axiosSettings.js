@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const URL =
-  "https://learn-english-words-api-production.up.railway.app/api";
+export const URL = "https://english-words-api.glitch.me/api";
 
 axios.defaults.baseURL = URL;
 
