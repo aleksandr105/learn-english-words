@@ -17,6 +17,8 @@ import {
   setSettings,
 } from '../../redux/userSettings/userSettingsSlice';
 import { useEffect } from 'react';
+import { useSpeaker } from '../../hooks/useSpeaker';
+import { onNatification } from '../../helpers';
 
 const selectOptions = [
   { value: 1, name: 'value fast' },
@@ -28,6 +30,8 @@ export const LearnOptions = () => {
   const { t } = useTranslation();
   const learnOptions = useSelector(allSettings);
   const dispatch = useDispatch();
+  const canUseSpeaker = useSpeaker();
+  const isDisabledVoiceBtn = learnOptions.voice && canUseSpeaker;
 
   useEffect(() => {
     dispatch(setSettings(JSON.parse(localStorage.getItem('learnOptions'))));
@@ -54,6 +58,11 @@ export const LearnOptions = () => {
   };
 
   const changeVoice = () => {
+    if (!canUseSpeaker) {
+      onNatification(t('notification.cantUseSpeacer'), { autoClose: 5000, closeOnClick: false });
+      return;
+    }
+
     const changedOptions = {
       ...learnOptions,
       voice: !learnOptions.voice,
@@ -71,8 +80,8 @@ export const LearnOptions = () => {
           name="speed"
           onChange={changeSpeedVoice}
           value={learnOptions.select}
-          disabled={!learnOptions.voice}
-          voiceStatus={learnOptions.voice}
+          disabled={!isDisabledVoiceBtn}
+          voiceStatus={isDisabledVoiceBtn}
         >
           {selectOptions.map(({ value, name }) => (
             <option key={name} value={value}>
@@ -82,8 +91,8 @@ export const LearnOptions = () => {
         </Select>
       </div>
       <OptionButtonsWrapper>
-        <OptionButton onClick={changeVoice} optionsVoice={learnOptions.voice} id={1}>
-          {learnOptions.voice ? (
+        <OptionButton onClick={changeVoice} optionsVoice={isDisabledVoiceBtn} id={1}>
+          {isDisabledVoiceBtn ? (
             <MdOutlineRecordVoiceOver size={18} color="#00f" />
           ) : (
             <MdOutlineVoiceOverOff color="#00f" size={18} />

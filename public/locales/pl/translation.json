@@ -18,7 +18,8 @@
 
   "notification": {
     "good": "Jesteś najlepszy, zrobiłeś wszystko dobrze, jestem z Ciebie dumny!!!",
-    "bad": "Popełniłeś błąd, słowo {{wordEnglish}} tłumaczy się jako {{wordTranslation}} za błąd zostaniesz ukarany :-)). Trzeba będzie zacząć od nowa!!!"
+    "bad": "Popełniłeś błąd, słowo {{wordEnglish}} tłumaczy się jako {{wordTranslation}} za błąd zostaniesz ukarany :-)). Trzeba będzie zacząć od nowa!!!",
+    "cantUseSpeacer": "Twoja przeglądarka nie obsługuje funkcji odtwarzania mowy. Zalecamy korzystanie z Google Chrome, aby wszystko działało poprawnie."
   },
 
   "registerBtnSubmit": {
