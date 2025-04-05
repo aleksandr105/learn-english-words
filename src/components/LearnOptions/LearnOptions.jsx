@@ -4,25 +4,24 @@ import {
   Select,
   OptionButton,
   OptionButtonsWrapper,
-} from "./LearnOptions.styled";
-import { useTranslation } from "react-i18next";
-import { PiSpeakerSlashDuotone, PiSpeakerHighDuotone } from "react-icons/pi";
-import {
-  MdOutlineRecordVoiceOver,
-  MdOutlineVoiceOverOff,
-} from "react-icons/md";
-import { allSettings } from "../../redux/userSettings/selectors";
-import { useDispatch, useSelector } from "react-redux";
+} from './LearnOptions.styled';
+import { useTranslation } from 'react-i18next';
+import { PiSpeakerSlashDuotone, PiSpeakerHighDuotone } from 'react-icons/pi';
+import { MdOutlineRecordVoiceOver, MdOutlineVoiceOverOff } from 'react-icons/md';
+import { allSettings } from '../../redux/userSettings/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setSelect,
   setMelody,
   setVoice,
-} from "../../redux/userSettings/userSettingsSlice";
+  setSettings,
+} from '../../redux/userSettings/userSettingsSlice';
+import { useEffect } from 'react';
 
 const selectOptions = [
-  { value: 1, name: "value fast" },
-  { value: 0.5, name: "value medium" },
-  { value: 0.2, name: "value slow" },
+  { value: 1, name: 'value fast' },
+  { value: 0.5, name: 'value medium' },
+  { value: 0.2, name: 'value slow' },
 ];
 
 export const LearnOptions = () => {
@@ -30,13 +29,17 @@ export const LearnOptions = () => {
   const learnOptions = useSelector(allSettings);
   const dispatch = useDispatch();
 
-  const changeSpeedVoice = (e) => {
+  useEffect(() => {
+    dispatch(setSettings(JSON.parse(localStorage.getItem('learnOptions'))));
+  }, [dispatch]);
+
+  const changeSpeedVoice = e => {
     const changedOptions = {
       ...learnOptions,
       select: e.target.value,
     };
 
-    localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
+    localStorage.setItem('learnOptions', JSON.stringify(changedOptions));
     dispatch(setSelect(e.target.value));
   };
 
@@ -46,7 +49,7 @@ export const LearnOptions = () => {
       melody: !learnOptions.melody,
     };
 
-    localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
+    localStorage.setItem('learnOptions', JSON.stringify(changedOptions));
     dispatch(setMelody());
   };
 
@@ -56,14 +59,14 @@ export const LearnOptions = () => {
       voice: !learnOptions.voice,
     };
 
-    localStorage.setItem("learnOptions", JSON.stringify(changedOptions));
+    localStorage.setItem('learnOptions', JSON.stringify(changedOptions));
     dispatch(setVoice());
   };
 
   return (
     <SelectWrapper>
       <div>
-        <SelectTitle>{t("learn.select title")}</SelectTitle>
+        <SelectTitle>{t('learn.select title')}</SelectTitle>
         <Select
           name="speed"
           onChange={changeSpeedVoice}
@@ -79,22 +82,14 @@ export const LearnOptions = () => {
         </Select>
       </div>
       <OptionButtonsWrapper>
-        <OptionButton
-          onClick={changeVoice}
-          optionsVoice={learnOptions.voice}
-          id={1}
-        >
+        <OptionButton onClick={changeVoice} optionsVoice={learnOptions.voice} id={1}>
           {learnOptions.voice ? (
             <MdOutlineRecordVoiceOver size={18} color="#00f" />
           ) : (
             <MdOutlineVoiceOverOff color="#00f" size={18} />
           )}
         </OptionButton>
-        <OptionButton
-          onClick={changeMelody}
-          optionsMelody={learnOptions.melody}
-          id={2}
-        >
+        <OptionButton onClick={changeMelody} optionsMelody={learnOptions.melody} id={2}>
           {!learnOptions.melody ? (
             <PiSpeakerSlashDuotone color="#00f" size={18} />
           ) : (

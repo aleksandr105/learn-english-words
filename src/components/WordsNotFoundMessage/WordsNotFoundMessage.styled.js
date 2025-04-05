@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const NoWordsMessage = styled.p`
   font-size: 25px;
@@ -16,4 +16,9 @@ export const Img = styled.img`
   border-radius: 20px;
   max-height: 200px;
   flex-basis: 200px;
+  margin: 0 auto;
+`;
+
+export const NoWordsMessageWrapper = styled.div`
+  padding-bottom: 30px;
 `;

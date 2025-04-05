@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getWords,
   getBaseWordsForAuthorized,
   getUserWords,
   addWordToBlockList,
   removeUserWord,
-} from "./operationsWords";
+} from './operationsWords';
 
 const handlePending = (state, action) => {
   state.isLoading = true;
@@ -21,12 +21,12 @@ const initialState = {
   words: { arrKey: [], arrValue: [], arrAllWords: [], originalWords: [] },
   isLoading: false,
   error: null,
-  language: "",
+  language: '',
   showSpinnerWhenAddsToBlockList: false,
 };
 
 const wordsSlicee = createSlice({
-  name: "words",
+  name: 'words',
   initialState,
 
   reducers: {
@@ -49,9 +49,12 @@ const wordsSlicee = createSlice({
       state.words.arrAllWords = action.payload.newArrAllWords;
       state.words.originalWords = action.payload.newOriginalWords;
     },
+    removeWords(state) {
+      state.words = initialState.words;
+    },
   },
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getWords.pending, handlePending)
       .addCase(getWords.fulfilled, (state, action) => {
@@ -77,7 +80,7 @@ const wordsSlicee = createSlice({
       })
       .addCase(getUserWords.rejected, handleRejected);
     builder
-      .addCase(addWordToBlockList.pending, (state) => {
+      .addCase(addWordToBlockList.pending, state => {
         state.showSpinnerWhenAddsToBlockList = true;
       })
       .addCase(addWordToBlockList.fulfilled, (state, action) => {
@@ -90,7 +93,7 @@ const wordsSlicee = createSlice({
       })
       .addCase(addWordToBlockList.rejected, handleRejected);
     builder
-      .addCase(removeUserWord.pending, (state) => {
+      .addCase(removeUserWord.pending, state => {
         state.showSpinnerWhenAddsToBlockList = true;
       })
       .addCase(removeUserWord.fulfilled, (state, action) => {
@@ -112,4 +115,5 @@ export const {
   setWordsKey,
   setWordsValue,
   setNewStateAfterDellWord,
+  removeWords,
 } = wordsSlicee.actions;

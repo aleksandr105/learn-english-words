@@ -1,20 +1,20 @@
-import { Routes, Route, useSearchParams } from "react-router-dom";
-import { SharedLayout } from "../SharedLayout/SharedLayout";
-import { lazy, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getCurrentUser } from "../../redux/auth/authOperations";
-import { useSelector } from "react-redux";
-import { isRefreshing } from "../../redux/auth/selectors";
-import { RestrictedRouter } from "../RestrictedRouter";
-import { PrivateRouter } from "../PrivateRouter";
-import { setSettings } from "../../redux/userSettings/userSettingsSlice";
+import { Routes, Route, useSearchParams } from 'react-router-dom';
+import { SharedLayout } from '../SharedLayout/SharedLayout';
+import { lazy, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCurrentUser } from '../../redux/auth/authOperations';
+import { useSelector } from 'react-redux';
+import { isRefreshing } from '../../redux/auth/selectors';
+import { RestrictedRouter } from '../RestrictedRouter';
+import { PrivateRouter } from '../PrivateRouter';
+import { setSettings } from '../../redux/userSettings/userSettingsSlice';
 
-const Home = lazy(() => import("../../pages/Home/Home"));
-const Learn = lazy(() => import("../../pages/Learn/Learn"));
-const MyStatistic = lazy(() => import("../../pages/myStatistics/MyStatistic"));
-const Login = lazy(() => import("../../pages/Login/Login"));
-const Signup = lazy(() => import("../../pages/Signup/Signup"));
-const NotFound = lazy(() => import("../../pages/NotFound/NotFound"));
+const Home = lazy(() => import('../../pages/Home/Home'));
+const Learn = lazy(() => import('../../pages/Learn/Learn'));
+const MyStatistic = lazy(() => import('../../pages/myStatistics/MyStatistic'));
+const Login = lazy(() => import('../../pages/Login/Login'));
+const Signup = lazy(() => import('../../pages/Signup/Signup'));
+const NotFound = lazy(() => import('../../pages/NotFound/NotFound'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,26 +29,26 @@ const App = () => {
     melody: true,
   };
 
-  if (!localStorage.getItem("learnOptions")) {
-    localStorage.setItem("learnOptions", JSON.stringify(options));
+  if (!localStorage.getItem('learnOptions')) {
+    localStorage.setItem('learnOptions', JSON.stringify(options));
   }
 
   const showSpinner = refreshing || !dispatchCompleted;
 
-  const accessToken = searchParams.get("accessToken");
-  const refreshToken = searchParams.get("refreshToken");
+  const accessToken = searchParams.get('accessToken');
+  const refreshToken = searchParams.get('refreshToken');
 
   useEffect(() => {
-    dispatch(setSettings(JSON.parse(localStorage.getItem("learnOptions"))));
+    dispatch(setSettings(JSON.parse(localStorage.getItem('learnOptions'))));
 
     if (accessToken && refreshToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
     }
 
     if (
-      localStorage.getItem("accessToken") === "null" ||
-      localStorage.getItem("refreshToken") === "null"
+      localStorage.getItem('accessToken') === 'null' ||
+      localStorage.getItem('refreshToken') === 'null'
     ) {
       setDispatchCompleted(true);
       return;
@@ -69,32 +69,16 @@ const App = () => {
         <Route
           path="statistic"
           element={
-            <PrivateRouter
-              component={MyStatistic}
-              redirectTo="/login"
-              showSpinner={showSpinner}
-            />
+            <PrivateRouter component={MyStatistic} redirectTo="/login" showSpinner={showSpinner} />
           }
         />
         <Route
           path="login"
-          element={
-            <RestrictedRouter
-              component={Login}
-              redirectTo="/"
-              showSpinner={showSpinner}
-            />
-          }
+          element={<RestrictedRouter component={Login} redirectTo="/" showSpinner={showSpinner} />}
         />
         <Route
           path="signup"
-          element={
-            <RestrictedRouter
-              component={Signup}
-              redirectTo="/"
-              showSpinner={showSpinner}
-            />
-          }
+          element={<RestrictedRouter component={Signup} redirectTo="/" showSpinner={showSpinner} />}
         />
         <Route path="*" element={<NotFound />} />
       </Route>

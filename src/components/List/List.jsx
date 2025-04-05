@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
-import {
-  EnButton,
-  ListButton,
-  ListButtomItem,
-  ListsButtonWrapper,
-} from "./List.styled";
-import { useSelector, useDispatch } from "react-redux";
-import { words } from "../../redux/words/selectors";
-import { isLoggedIn } from "../../redux/auth/selectors";
-import { error, victory, complited } from "../../audio";
-import { onPlay, onNatification } from "../../helpers";
-import { useSpeaker } from "../../hooks/useSpeaker";
-import { useTranslation } from "react-i18next";
-import { DeleteWordMenu } from "../DeleteWordMenu/DeleteWordMenu";
-import { allSettings } from "../../redux/userSettings/selectors";
-import { setWordsValue, setWordsKey } from "../../redux/words/wordsSlice";
-import { saveStatistic } from "../../operations";
+import React, { useState, useEffect } from 'react';
+import { EnButton, ListButton, ListButtomItem, ListsButtonWrapper } from './List.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { words } from '../../redux/words/selectors';
+import { isLoggedIn } from '../../redux/auth/selectors';
+import { error, victory, complited } from '../../audio';
+import { onPlay, onNatification } from '../../helpers';
+import { useSpeaker } from '../../hooks/useSpeaker';
+import { useTranslation } from 'react-i18next';
+import { DeleteWordMenu } from '../DeleteWordMenu/DeleteWordMenu';
+import { allSettings } from '../../redux/userSettings/selectors';
+import { setWordsValue, setWordsKey } from '../../redux/words/wordsSlice';
+import { saveStatistic } from '../../operations';
+import { WordsNotFoundMessage } from '../WordsNotFoundMessage/WordsNotFoundMessage';
 
 export const List = () => {
   const { select, melody, voice } = useSelector(allSettings);
@@ -32,21 +28,21 @@ export const List = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const clickToWindow = (e) => {
-      if (e.target.nodeName !== "BUTTON" && e.target.nodeName !== "LI") {
+    const clickToWindow = e => {
+      if (e.target.nodeName !== 'BUTTON' && e.target.nodeName !== 'LI') {
         setWordClick(null);
         setWordClick2(null);
       }
     };
 
-    window.addEventListener("click", clickToWindow);
+    window.addEventListener('click', clickToWindow);
 
     return () => {
-      window.removeEventListener("click", clickToWindow);
+      window.removeEventListener('click', clickToWindow);
     };
   }, [arrKey, arrValue]);
 
-  const clickButton = async (e) => {
+  const clickButton = async e => {
     const wordValue = e.target.textContent;
 
     const clickOnSameColumn =
@@ -54,7 +50,7 @@ export const List = () => {
       (arrValue.includes(wordValue) && arrValue.includes(wordClick2));
 
     const isAnswerCorrect = arrAllWords.some(
-      (el) => el[wordValue] === wordClick2 || el[wordClick] === wordValue
+      el => el[wordValue] === wordClick2 || el[wordClick] === wordValue
     );
 
     if (arrKey.includes(wordValue)) setWordClick(wordValue);
@@ -62,8 +58,7 @@ export const List = () => {
     if (arrValue.includes(wordValue)) setWordClick2(wordValue);
 
     if (arrKey.includes(wordValue) && !speakStatus) {
-      if (!isAnswerCorrect && !clickOnSameColumn && (wordClick || wordClick2))
-        setClickError(true);
+      if (!isAnswerCorrect && !clickOnSameColumn && (wordClick || wordClick2)) setClickError(true);
 
       setSpeakStatus(true);
 
@@ -72,8 +67,7 @@ export const List = () => {
       if (voice) await speak({ text: wordValue, rate: select });
       setSpeakStatus(false);
 
-      if (isAnswerCorrect && clickOnSameColumn && (wordClick || wordClick2))
-        setClickError(false);
+      if (isAnswerCorrect && clickOnSameColumn && (wordClick || wordClick2)) setClickError(false);
     }
 
     if (isAnswerCorrect) {
@@ -81,13 +75,9 @@ export const List = () => {
 
       if (arrKey.length >= 2 && melody) await onPlay(complited);
 
-      const wordsEnFiltered = arrKey.filter(
-        (el) => el !== wordClick && el !== wordValue
-      );
+      const wordsEnFiltered = arrKey.filter(el => el !== wordClick && el !== wordValue);
 
-      const wordsTranslationFiltered = arrValue.filter(
-        (el) => el !== wordClick2 && el !== wordValue
-      );
+      const wordsTranslationFiltered = arrValue.filter(el => el !== wordClick2 && el !== wordValue);
 
       setWordClick(null);
       setWordClick2(null);
@@ -98,12 +88,12 @@ export const List = () => {
       if (!wordsEnFiltered.length && !wordsTranslationFiltered.length) {
         if (melody) await onPlay(victory);
 
-        onNatification(t("notification.good"), {
-          type: "success",
+        onNatification(t('notification.good'), {
+          type: 'success',
           autoClose: 5000,
         });
 
-        saveStatistic("correct");
+        saveStatistic('correct');
       }
       return;
     }
@@ -112,35 +102,29 @@ export const List = () => {
       setButtonStatus(true);
       setClickError(true);
 
-      const getEnglishErrorWord = arrKey.includes(wordClick)
-        ? wordClick
-        : wordValue;
+      const getEnglishErrorWord = arrKey.includes(wordClick) ? wordClick : wordValue;
 
       onNatification(
-        t("notification.bad", {
+        t('notification.bad', {
           wordEnglish: getEnglishErrorWord,
           wordTranslation: arrAllWords.reduce((acc, el) => {
             if (el[getEnglishErrorWord]) acc = el[getEnglishErrorWord];
             return acc;
-          }, ""),
+          }, ''),
         }),
         {}
       );
 
       if (melody) await onPlay(error);
 
-      saveStatistic("incorrect");
+      saveStatistic('incorrect');
 
       setClickError(false);
       setWordClick2(null);
       setWordClick(null);
       setTimeout(() => {
-        const key = arrAllWords
-          .map((el) => Object.keys(el)[1])
-          .sort(() => Math.random() - 0.5);
-        const value = arrAllWords
-          .map((el) => Object.values(el)[1])
-          .sort(() => Math.random() - 0.5);
+        const key = arrAllWords.map(el => Object.keys(el)[1]).sort(() => Math.random() - 0.5);
+        const value = arrAllWords.map(el => Object.values(el)[1]).sort(() => Math.random() - 0.5);
 
         dispatch(setWordsKey(key));
         dispatch(setWordsValue(value));
@@ -155,7 +139,7 @@ export const List = () => {
       {arrKey && arrValue && (
         <ListsButtonWrapper>
           <ListButton>
-            {arrKey.map((el) => (
+            {arrKey.map(el => (
               <ListButtomItem key={el}>
                 {LogedIn && (
                   <DeleteWordMenu
@@ -203,6 +187,7 @@ export const List = () => {
           </ListButton>
         </ListsButtonWrapper>
       )}
+      {arrAllWords.length === 0 && <WordsNotFoundMessage />}
     </>
   );
 };
