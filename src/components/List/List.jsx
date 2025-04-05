@@ -64,7 +64,7 @@ export const List = () => {
 
       if (wordClick2) setButtonStatus(true);
 
-      if (voice) await speak({ text: wordValue, rate: select });
+      if (voice && speak) await speak({ text: wordValue, rate: select });
       setSpeakStatus(false);
 
       if (isAnswerCorrect && clickOnSameColumn && (wordClick || wordClick2)) setClickError(false);
