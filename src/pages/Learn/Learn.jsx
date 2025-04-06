@@ -43,12 +43,10 @@ const Learn = ({ showSpinner }) => {
   return (
     <section>
       <MainTitle />
+      {logedIn && <LearnButtonsOptions />}
+      <LearnOptions />
       {!isLoading && !showSpinner ? (
-        <>
-          {logedIn && <LearnButtonsOptions />}
-          <LearnOptions />
-          {arrAllWords.length !== 0 ? <List /> : <WordsNotFoundMessage />}
-        </>
+        <>{arrAllWords.length !== 0 ? <List /> : <WordsNotFoundMessage />}</>
       ) : (
         <Spinner isLoad={true} />
       )}

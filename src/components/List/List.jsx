@@ -17,7 +17,7 @@ export const List = () => {
   const { select, melody, voice } = useSelector(allSettings);
   const dispatch = useDispatch();
   const { arrKey, arrValue, arrAllWords } = useSelector(words);
-  const LogedIn = useSelector(isLoggedIn);
+  const logedIn = useSelector(isLoggedIn);
   const [wordClick, setWordClick] = useState(null);
   const [wordClick2, setWordClick2] = useState(null);
   const [buttonStatus, setButtonStatus] = useState(false);
@@ -93,7 +93,7 @@ export const List = () => {
           autoClose: 5000,
         });
 
-        saveStatistic('correct');
+        if (logedIn) saveStatistic('correct');
       }
       return;
     }
@@ -141,7 +141,7 @@ export const List = () => {
           <ListButton>
             {arrKey.map(el => (
               <ListButtomItem key={el}>
-                {LogedIn && (
+                {logedIn && (
                   <DeleteWordMenu
                     p={{ el, wordClick }}
                     disableBtnDeleteWord={disableBtnDeleteWord}

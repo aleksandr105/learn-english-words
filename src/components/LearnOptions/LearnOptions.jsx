@@ -19,6 +19,7 @@ import {
 import { useEffect } from 'react';
 import { useSpeaker } from '../../hooks/useSpeaker';
 import { onNatification } from '../../helpers';
+import { isLoggedIn } from '../../redux/auth/selectors';
 
 const selectOptions = [
   { value: 1, name: 'value fast' },
@@ -29,13 +30,14 @@ const selectOptions = [
 export const LearnOptions = () => {
   const { t } = useTranslation();
   const learnOptions = useSelector(allSettings);
+  const loggedIn = useSelector(isLoggedIn);
   const dispatch = useDispatch();
   const canUseSpeaker = useSpeaker();
   const isDisabledVoiceBtn = learnOptions.voice && canUseSpeaker;
 
   useEffect(() => {
     dispatch(setSettings(JSON.parse(localStorage.getItem('learnOptions'))));
-  }, [dispatch]);
+  }, [dispatch, loggedIn]);
 
   const changeSpeedVoice = e => {
     const changedOptions = {
