@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const URL = 'http://194.164.207.163:3001/api';
+export const URL = 'https://194.164.207.163:3001/api';
 
 axios.defaults.baseURL = URL;
 
